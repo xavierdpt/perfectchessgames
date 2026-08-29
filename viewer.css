@@ -32,7 +32,7 @@
   width: min(1460px, 100%);
   max-height: 100%;
   --sq: 54px;
-  --bar: 68px;
+  --bar: 136px;
   background: #063a4b;
   color: #ebe2d1;
   border: 1px solid #17586c;
@@ -303,6 +303,6 @@
   .vw-panel { --sq: 40px; }
   .vw-left { flex: 0 0 auto; }
   .vw-bars { max-height: 40vh; }
-  .vw-panel { --bar: 48px; }
+  .vw-panel { --bar: 96px; }
   .vw-moves { max-height: 20vh; }
 }
