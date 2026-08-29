@@ -126,7 +126,6 @@
             '<div class="vw-moves"></div>' +
           '</div>' +
           '<div class="vw-right">' +
-            '<div class="vw-bars-head">Every legal move, scored — best first</div>' +
             '<div class="vw-bars"></div>' +
           '</div>' +
         '</div>' +
@@ -285,9 +284,7 @@
       var side = ply % 2 === 0 ? 'White' : 'Black';
       var previous = lastMove();
       statusEl.innerHTML = (previous ? 'After <b>' + previous.san + '</b>. ' : '') +
-        side + ' to move, <b>' + position.moves.length + '</b> legal move' +
-        (position.moves.length === 1 ? '' : 's') +
-        (position.moves.length ? '. Click a piece to try one.' : '. The game ends here.');
+        side + ' to move'  ;
     }
 
     navButtons.start.disabled = navButtons.prev.disabled = ply === 0 && !excursion;
