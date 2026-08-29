@@ -32,6 +32,7 @@
   width: min(1460px, 100%);
   max-height: 100%;
   --sq: 54px;
+  --bar: 68px;
   background: #063a4b;
   color: #ebe2d1;
   border: 1px solid #17586c;
@@ -243,9 +244,9 @@
 .vw-row.here { background: rgba(198, 22, 141, .22); }
 
 .vw-label {
-  flex: 0 0 62px;
+  flex: 0 0 66px;
   font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
-  font-size: 11px;
+  font-size: 12px;
   color: #3a2415;
   display: flex;
   align-items: center;
@@ -259,7 +260,7 @@
 .vw-mini {
   display: flex;
   flex: 1 1 auto;
-  height: 34px;
+  height: var(--bar);
   min-width: 0;
 }
 
@@ -302,5 +303,6 @@
   .vw-panel { --sq: 40px; }
   .vw-left { flex: 0 0 auto; }
   .vw-bars { max-height: 40vh; }
+  .vw-panel { --bar: 48px; }
   .vw-moves { max-height: 20vh; }
 }
