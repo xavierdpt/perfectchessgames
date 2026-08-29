@@ -67,25 +67,26 @@
   }
 
   /* ---- the minibar cell ----
-   * One node per move: the score is painted as a gradient, so a 263-ply game is a few
-   * thousand nodes instead of tens of thousands. The geometry is the app's.
+   * Built from elements, the way the app builds it. A mate is a row of rectangles meant to
+   * be counted, and only real elements give evenly sized, pixel-snapped bands with a gap
+   * that stays the same whatever the row height is.
    */
 
-  function cellBackground(move, whiteToMove) {
+  function cellContents(move, whiteToMove) {
     var fromWhite = whiteToMove ? move.score : -move.score;
     if (move.mate) {
+      // Mate in N: N rectangles in the winner's colour, the grey behind them showing
+      // through the gaps so they stay countable.
       var count = Math.min(20, Math.max(1, Math.abs(move.score)));
-      var colour = fromWhite > 0 ? '#ffffff' : '#000000';
-      var period = 100 / count;
-      return 'repeating-linear-gradient(to top, ' + colour + ' 0 ' + (period * 0.78).toFixed(3) +
-             '%, #d3d3d3 ' + (period * 0.78).toFixed(3) + '% ' + period.toFixed(3) + '%)';
+      var side = fromWhite > 0 ? 'w' : 'b';
+      var bands = '';
+      for (var i = 0; i < count; i++) { bands += '<div class="vw-mate ' + side + '"></div>'; }
+      return '<div class="vw-mates">' + bands + '</div>';
     }
-    // Black's share of the bar: even at fifty, ten pawns either way fills or empties it.
+    // Black's share of the bar; ten pawns either way fills or empties it.
     var black = 50 + 100 * (-(fromWhite / 100)) / 20;
     black = Math.max(0, Math.min(100, black));
-    return 'linear-gradient(to top, transparent calc(50% - 1px), orange calc(50% - 1px),' +
-           ' orange calc(50% + 1px), transparent calc(50% + 1px)),' +
-           ' linear-gradient(to top, #000 0 ' + black + '%, #fff ' + black + '% 100%)';
+    return '<div class="vw-zero"></div><div class="vw-black" style="height:' + black + '%"></div>';
   }
 
   function scoreLabel(move) {
@@ -221,8 +222,8 @@
           game.positions[index - 1].moves[game.positions[index - 1].played].san;
       var cells = position.moves.map(function (move, order) {
         return '<div class="vw-cell' + (order === position.played ? ' played' : '') +
-               '" data-i="' + order + '" title="' + move.san + ': ' + scoreLabel(move) +
-               '" style="background:' + cellBackground(move, whiteToMove) + '"></div>';
+               '" data-i="' + order + '" title="' + move.san + ': ' + scoreLabel(move) + '">' +
+               cellContents(move, whiteToMove) + '</div>';
       }).join('');
       html += '<div class="vw-row" data-ply="' + index + '"><div class="vw-label">' + label +
               '</div><div class="vw-mini">' + cells + '</div></div>';
