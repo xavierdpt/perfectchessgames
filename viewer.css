@@ -1,0 +1,306 @@
+/* The board viewer: a modal over the index, opened from a game's "Open board" button.
+   The board keeps the colours it has in the app and in the videos, so a position looks the
+   same here as on screen there; the chrome around it is fixed rather than themed, because a
+   wood board on a light ground and the same board on a dark one are two different pictures. */
+
+.vw[hidden] { display: none !important; }
+
+.vw {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+}
+
+.vw-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(2, 18, 24, .72);
+}
+
+.vw-panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  /* Wide on purpose: a position with forty legal moves needs the room, or each move is a
+     few pixels of bar and the ranking cannot be read. */
+  width: min(1460px, 100%);
+  max-height: 100%;
+  --sq: 54px;
+  background: #063a4b;
+  color: #ebe2d1;
+  border: 1px solid #17586c;
+  border-radius: 10px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, .5);
+  overflow: hidden;
+}
+
+/* ---- head ---- */
+
+.vw-head {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding: 12px 16px;
+  border-bottom: 1px solid #17586c;
+  flex: 0 0 auto;
+}
+
+.vw-title {
+  font-family: Balthazar, Georgia, "Times New Roman", serif;
+  font-weight: 400;
+  font-size: 24px;
+  margin: 0;
+  line-height: 1;
+}
+
+.vw-ply {
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: 12px;
+  color: #9cb7bf;
+  font-variant-numeric: tabular-nums;
+}
+
+.vw-close {
+  margin-inline-start: auto;
+  background: transparent;
+  color: #ebe2d1;
+  border: 1px solid #2b6d81;
+  border-radius: 5px;
+  font: 500 13px/1 inherit;
+  padding: 7px 12px;
+  cursor: pointer;
+}
+.vw-close:hover { border-color: #e8a33d; color: #e8a33d; }
+
+/* ---- body ---- */
+
+.vw-body {
+  display: flex;
+  gap: 18px;
+  padding: 16px;
+  min-height: 0;
+  flex: 1 1 auto;
+}
+
+.vw-left {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 0 0 calc(8 * var(--sq) + var(--sq) / 2);
+  min-width: 0;
+}
+
+/* ---- board ---- */
+
+.vw-board {
+  flex: 0 0 auto;
+  display: grid;
+  grid-template-columns: calc(var(--sq) / 2) repeat(8, var(--sq));
+  grid-template-rows: repeat(8, var(--sq)) calc(var(--sq) / 2);
+  background: #f0d9b5;
+  border-radius: 3px;
+  overflow: hidden;
+  user-select: none;
+}
+
+.vw-sq {
+  position: relative;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.vw-sq.lt { background-color: #f0d9b5; }
+.vw-sq.dk { background-color: #b58863; }
+
+/* Coordinates sit in the half-size track, in the board's own dark brown. */
+.vw-co {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f0d9b5;
+  color: #8a5f3f;
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: 11px;
+}
+
+/* The move that led to the position on the board. */
+.vw-sq.from::after,
+.vw-sq.to::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(245, 124, 0, .38);
+  pointer-events: none;
+}
+
+/* A piece that can be moved from here, and where it may go. */
+.vw-sq.pick { cursor: pointer; }
+.vw-sq.pick:hover { box-shadow: inset 0 0 0 3px rgba(232, 163, 61, .9); }
+.vw-sq.origin { box-shadow: inset 0 0 0 3px #c6168d; }
+.vw-sq.dest { cursor: pointer; }
+.vw-sq.dest::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 30%;
+  height: 30%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: rgba(198, 22, 141, .55);
+  pointer-events: none;
+}
+/* A destination holding a piece reads as a ring, so the piece stays visible. */
+.vw-sq.dest.occupied::before {
+  width: 92%;
+  height: 92%;
+  border-radius: 50%;
+  background: transparent;
+  box-shadow: inset 0 0 0 5px rgba(198, 22, 141, .55);
+}
+
+/* ---- navigation ---- */
+
+.vw-nav { display: flex; gap: 6px; flex: 0 0 auto; }
+
+.vw-nav button {
+  flex: 1;
+  background: #0a4a5e;
+  color: #ebe2d1;
+  border: 1px solid #2b6d81;
+  border-radius: 5px;
+  font: 500 15px/1 "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  padding: 9px 0;
+  cursor: pointer;
+}
+.vw-nav button:hover:not(:disabled) { border-color: #e8a33d; color: #e8a33d; }
+.vw-nav button:disabled { opacity: .35; cursor: default; }
+
+.vw-status {
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #9cb7bf;
+  min-height: 34px;
+  flex: 0 0 auto;
+}
+.vw-status b { color: #ebe2d1; font-weight: 500; }
+.vw-status .off { color: #e8a33d; }
+.vw-status button {
+  background: transparent;
+  border: 1px solid #e8a33d;
+  color: #e8a33d;
+  border-radius: 4px;
+  font: 500 11px/1 inherit;
+  padding: 4px 8px;
+  margin-inline-start: 8px;
+  cursor: pointer;
+}
+
+/* ---- the minibar stack ---- */
+
+.vw-right {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.vw-bars-head {
+  font-size: 11px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #7fa3ad;
+  padding-bottom: 8px;
+  flex: 0 0 auto;
+}
+
+.vw-bars {
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: #b58863;
+  border-radius: 4px;
+  padding: 2px;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.vw-row {
+  display: flex;
+  align-items: stretch;
+  gap: 6px;
+  padding: 2px 4px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+.vw-row:hover { background: rgba(255, 255, 255, .14); }
+.vw-row.here { background: rgba(198, 22, 141, .22); }
+
+.vw-label {
+  flex: 0 0 62px;
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: 11px;
+  color: #3a2415;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-inline-end: 4px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.vw-mini {
+  display: flex;
+  flex: 1 1 auto;
+  height: 34px;
+  min-width: 0;
+}
+
+/* One cell per legal move. The score is painted as a gradient rather than nested elements:
+   a long game is a couple of hundred rows, and one node per move keeps that cheap. */
+.vw-cell {
+  flex: 1 1 0;
+  min-width: 0;
+  border-right: 1px solid rgba(0, 0, 0, .08);
+}
+.vw-cell.played { box-shadow: inset 0 0 0 3px #f57c00; }
+.vw-cell.chosen { box-shadow: inset 0 0 0 3px #c6168d; }
+
+/* ---- the game, as text ---- */
+
+.vw-moves {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  min-height: 0;
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: 12px;
+  line-height: 1.85;
+  color: #9cb7bf;
+  background: #052733;
+  border: 1px solid #17586c;
+  border-radius: 5px;
+  padding: 10px 12px;
+}
+.vw-moves b { color: #ebe2d1; font-weight: 500; }
+.vw-moves .at {
+  background: #c6168d;
+  color: #fff;
+  border-radius: 3px;
+  padding: 1px 3px;
+}
+.vw-moves .num { color: #5d818c; }
+
+@media (max-width: 900px) {
+  .vw-body { flex-direction: column; }
+  .vw-panel { --sq: 40px; }
+  .vw-left { flex: 0 0 auto; }
+  .vw-bars { max-height: 40vh; }
+  .vw-moves { max-height: 20vh; }
+}
