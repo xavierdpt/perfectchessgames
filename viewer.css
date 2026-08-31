@@ -213,15 +213,6 @@
   flex: 1 1 auto;
 }
 
-.vw-bars-head {
-  font-size: 11px;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  color: #7fa3ad;
-  padding-bottom: 8px;
-  flex: 0 0 auto;
-}
-
 .vw-bars {
   overflow-y: auto;
   overflow-x: hidden;

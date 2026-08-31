@@ -1,0 +1,724 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Transpositions</title>
+<meta name="description" content="Where the four hundred games stop being four hundred games: every position two of them reach from different openings.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Balthazar&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root {
+  color-scheme: light;
+  --ground:      #eaf0f1;
+  --surface:     #ffffff;
+  --surface-2:   #f3f8f8;
+  --line:        #cedcdf;
+  --line-strong: #a6c0c5;
+  --ink:         #06303d;
+  --ink-soft:    #476069;
+  --ink-faint:   #7a929a;
+  --amber:       #a55f0d;
+  --amber-tint:  #f7e9d3;
+  --wood:        #8a5f3f;
+  --focus:       #0d6b86;
+  --shadow:      0 1px 2px rgba(6, 48, 61, .06), 0 6px 18px rgba(6, 48, 61, .05);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --ground:      #052733;
+    --surface:     #073744;
+    --surface-2:   #0a4152;
+    --line:        #104c5f;
+    --line-strong: #1d6b81;
+    --ink:         #ebe2d1;
+    --ink-soft:    #9cb7bf;
+    --ink-faint:   #6b8d97;
+    --amber:       #e8a33d;
+    --amber-tint:  #123f4e;
+    --wood:        #b48862;
+    --focus:       #5cc2e0;
+    --shadow:      0 1px 2px rgba(0, 0, 0, .3), 0 6px 18px rgba(0, 0, 0, .22);
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --ground:      #052733;
+  --surface:     #073744;
+  --surface-2:   #0a4152;
+  --line:        #104c5f;
+  --line-strong: #1d6b81;
+  --ink:         #ebe2d1;
+  --ink-soft:    #9cb7bf;
+  --ink-faint:   #6b8d97;
+  --amber:       #e8a33d;
+  --amber-tint:  #123f4e;
+  --wood:        #b48862;
+  --focus:       #5cc2e0;
+  --shadow:      0 1px 2px rgba(0, 0, 0, .3), 0 6px 18px rgba(0, 0, 0, .22);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: "IBM Plex Sans", ui-sans-serif, system-ui, "Segoe UI", Roboto, sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wide  { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+.text  { max-width: 860px;  margin: 0 auto; padding: 0 24px; }
+.cards { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 3px; }
+
+/* ---- the bar that stays ---- */
+
+.bar {
+  position: sticky; top: 0; z-index: 10;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+.bar-inner {
+  display: flex; align-items: baseline; gap: 16px;
+  min-height: 52px; padding-top: 8px; padding-bottom: 8px;
+}
+.bar-name {
+  font-family: Balthazar, Georgia, "Times New Roman", serif;
+  font-size: 20px; letter-spacing: .01em;
+}
+.bar-here {
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: 13px; color: var(--amber); margin-inline-start: auto;
+}
+.bar-here:empty { display: none; }
+.bar a.bar-up {
+  font-size: 13px; color: var(--ink-soft); text-decoration: none;
+  border-bottom: 1px solid var(--line-strong); padding-bottom: 1px;
+}
+.bar a.bar-up:hover { color: var(--amber); border-color: var(--amber); }
+
+/* ---- the tree ---- */
+
+.tree-head { padding-top: 8px; }
+h2 {
+  font-family: Balthazar, Georgia, "Times New Roman", serif;
+  font-weight: 400; font-size: 30px; margin: 0 0 8px;
+}
+.note { font-size: 14px; color: var(--ink-soft); margin: 0 0 22px; max-width: 68ch; }
+
+.tree {
+  display: flex; flex-direction: column; gap: 2px;
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: 8px; padding: 10px; box-shadow: var(--shadow);
+  margin-bottom: 56px;
+}
+.tree-row {
+  display: grid; grid-template-columns: 92px 1fr; align-items: center;
+  gap: 10px; padding: 5px 6px; border-radius: 5px;
+}
+.tree-row:nth-child(odd) { background: var(--surface-2); }
+.tree-white {
+  display: flex; align-items: baseline; gap: 7px;
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: 15px; font-weight: 500; text-decoration: none;
+}
+.tree-white:hover { color: var(--amber); }
+.tree-replies { display: flex; flex-wrap: wrap; gap: 3px; }
+.tree-replies a {
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: 13px; text-decoration: none; color: var(--ink-soft);
+  padding: 2px 7px; border-radius: 4px; border: 1px solid transparent;
+  white-space: nowrap;
+}
+.tree-replies a:hover { color: var(--amber); border-color: var(--amber); }
+.tree-replies a.is-current {
+  background: var(--amber); border-color: var(--amber); color: var(--surface);
+}
+:root[data-theme="dark"] .tree-replies a.is-current,
+:root:not([data-theme="light"]) .tree-replies a.is-current { color: #052733; }
+
+/* ---- the games ---- */
+
+.games { display: flex; flex-direction: column; gap: 14px; padding-bottom: 96px; }
+
+.game {
+  scroll-margin-top: 68px;
+  background: var(--surface); border: 1px solid var(--line);
+  border-inline-start: 3px solid transparent;
+  border-radius: 8px; padding: 16px 18px;
+  display: flex; gap: 20px; align-items: flex-start;
+}
+.game-main { flex: 1 1 auto; min-width: 0; }
+
+/* ---- the position the game ended on ---- */
+
+.game-final {
+  flex: 0 0 auto;
+  display: flex; flex-direction: column; align-items: center; gap: 7px;
+}
+
+.mini-board {
+  --mini: 21px;
+  display: grid;
+  grid-template-columns: repeat(8, var(--mini));
+  grid-template-rows: repeat(8, var(--mini));
+  border: 1px solid var(--line-strong);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.mini-sq { background-size: contain; background-repeat: no-repeat; background-position: center; }
+.mini-sq.lt { background-color: #f0d9b5; }
+.mini-sq.dk { background-color: #b58863; }
+
+.outcome {
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: 11px; letter-spacing: .02em;
+  padding: 3px 8px; border-radius: 999px; white-space: nowrap;
+}
+.outcome.is-mate { background: var(--amber); color: var(--surface); }
+.outcome.is-draw { background: var(--surface-2); color: var(--ink-faint); border: 1px solid var(--line); }
+:root[data-theme="dark"] .outcome.is-mate,
+:root:not([data-theme="light"]) .outcome.is-mate { color: #052733; }
+.game.is-target { border-color: var(--amber); border-inline-start-color: var(--amber); }
+@keyframes arrive {
+  from { background: var(--amber-tint); }
+  to   { background: var(--surface); }
+}
+.game.flash { animation: arrive 1.8s ease-out; }
+
+.game-head {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 14px;
+  margin-bottom: 12px;
+}
+.rank {
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: 12px; font-variant-numeric: tabular-nums; color: var(--ink-faint);
+}
+.game-title {
+  font-family: Balthazar, Georgia, "Times New Roman", serif;
+  font-weight: 400; font-size: 25px; margin: 0; line-height: 1.1;
+}
+.meta {
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: 12px; color: var(--ink-faint); font-variant-numeric: tabular-nums;
+}
+
+.game-actions { margin-inline-start: auto; display: flex; gap: 8px; }
+
+.copy, .open-board {
+  font: 500 13px/1 "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  color: var(--ink); background: var(--surface-2);
+  border: 1px solid var(--line-strong); border-radius: 5px;
+  padding: 7px 13px; cursor: pointer; min-width: 104px;
+  transition: background .12s ease, border-color .12s ease, color .12s ease;
+}
+.copy:hover, .open-board:hover { border-color: var(--amber); color: var(--amber); }
+.open-board { border-color: var(--amber); color: var(--amber); }
+.copy.done { background: var(--amber); border-color: var(--amber); color: var(--surface); }
+:root[data-theme="dark"] .copy.done,
+:root:not([data-theme="light"]) .copy.done { color: #052733; }
+
+.pgn {
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: 13px; line-height: 1.75; margin: 0;
+  white-space: pre-wrap; overflow-wrap: anywhere;
+  background: var(--surface-2); border: 1px solid var(--line);
+  border-radius: 6px; padding: 13px 15px;
+  color: var(--ink-soft);
+}
+
+footer {
+  border-top: 1px solid var(--line); padding: 28px 0 64px;
+  font-size: 14px; color: var(--ink-faint);
+}
+
+@media (max-width: 760px) {
+  .game { flex-direction: column-reverse; }
+  .game-final { flex-direction: row; align-self: flex-start; align-items: center; gap: 12px; }
+}
+
+@media (max-width: 640px) {
+  .tree-row { grid-template-columns: 1fr; }
+  .game-actions { margin-inline-start: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .game.flash { animation: none; }
+  * { transition-duration: .01ms !important; }
+}
+
+.tp-lede { font-size: 17px; color: var(--ink-soft); margin: 0 0 26px; max-width: 66ch; }
+.tp-lede + .tp-lede { margin-top: -14px; }
+
+.tp-facts {
+  display: flex; flex-wrap: wrap; gap: 10px 36px;
+  margin: 0 0 44px; padding: 18px 0; border-block: 1px solid var(--line);
+}
+.tp-facts div { display: flex; flex-direction: column; gap: 3px; }
+.tp-k {
+  font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-faint);
+}
+.tp-v {
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: 19px; font-variant-numeric: tabular-nums;
+}
+
+.tp-group {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 8px;
+  padding: 15px 18px 10px; margin-bottom: 14px; box-shadow: var(--shadow);
+}
+.tp-head {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; margin-bottom: 6px;
+}
+.tp-count {
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: 12px; color: var(--ink-faint); font-variant-numeric: tabular-nums;
+}
+.tp-title {
+  font-family: Balthazar, Georgia, "Times New Roman", serif;
+  font-weight: 400; font-size: 21px; margin: 0; line-height: 1.15;
+}
+.tp-note {
+  font-size: 13px; color: var(--ink-soft); margin: 0 0 4px; max-width: 74ch;
+}
+.tp-chart { width: 100%; height: auto; display: block; overflow: visible; }
+
+.tp-pairs { width: 100%; border-collapse: collapse; font-size: 13px; }
+.tp-pairs th {
+  text-align: start; font-weight: 500; font-size: 11px; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--ink-faint);
+  padding: 0 10px 7px 0; border-bottom: 1px solid var(--line);
+}
+.tp-pairs td {
+  padding: 6px 10px 6px 0; border-bottom: 1px solid var(--line);
+  font-variant-numeric: tabular-nums;
+}
+.tp-pairs tr:last-child td { border-bottom: 0; }
+.tp-pairs .tp-pair {
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+.tp-pairs a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--line-strong); }
+.tp-pairs a:hover { color: var(--amber); border-color: var(--amber); }
+.tp-pairs .tp-num { text-align: end; color: var(--ink-soft); width: 1%; white-space: nowrap; }
+.tp-chart text {
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  fill: var(--ink-faint);
+}
+.tp-chart .tp-name { fill: var(--ink-soft); font-size: 11px; }
+.tp-chart a:hover .tp-name { fill: var(--amber); text-decoration: underline; }
+.tp-alone { font-size: 10px; }
+.tp-rail { stroke: var(--line); stroke-width: 1; }
+.tp-lane { stroke: var(--amber); stroke-width: 3.5; stroke-linecap: round; }
+.tp-drop { stroke: var(--amber); stroke-width: 1.25; opacity: .55; }
+.tp-dot { fill: var(--amber); }
+.tp-loop { fill: var(--amber-tint); }
+.tp-axis { stroke: var(--line-strong); stroke-width: 1; }
+.tp-tick { font-size: 10px; }
+</style>
+</head>
+<body>
+<div class="bar"><div class="wide bar-inner">
+<span class="bar-name">Transpositions</span>
+<a class="bar-up" href="index.html">The 400 games</a>
+</div></div>
+<section class="wide tree-head" style="padding-top:34px">
+<h2>Where the games meet</h2>
+<p class="tp-lede">The four hundred are four hundred <em>openings</em>. They are not four hundred games: play is greedy from the third move on, so two lines that ever reach the same position are the same game from there to the end. 67 of the 400 do that, in 25 groups. The other 333 never touch another game.</p>
+<p class="tp-lede">Only the joins are drawn. Everything between them is a single chain of positions with nothing to choose, and past the opening the corpus has no forks at all: a position has one best move, so a line can be joined but never split.</p>
+<div class="tp-facts">
+<div><span class="tp-k">Games</span><span class="tp-v">400</span></div>
+<div><span class="tp-k">Plies played</span><span class="tp-v">41,410</span></div>
+<div><span class="tp-k">Distinct positions</span><span class="tp-v">37,702</span></div>
+<div><span class="tp-k">Played twice over</span><span class="tp-v">3,708</span></div>
+<div><span class="tp-k">Positions two games reach</span><span class="tp-v">2,353</span></div>
+<div><span class="tp-k">Groups that meet</span><span class="tp-v">25</span></div>
+</div>
+<p class="note">The only forks in the corpus are the 21 of its own construction: the start, where twenty first moves part, and each of those twenty, where twenty replies do. After that the 400 lines run without a choice until they meet. In every group below, each row is one game; the thin rail stands for the plies it played on its own, which are not to scale and are given as a count, and the bar is the stretch of the shared line it is on.</p>
+<p class="note">Four of the groups end in a shaded loop, and those 4 loops hold the only 64 pairs in the corpus where two games sit on the same position with a different number of plies left to play. Everywhere else a shared position means an identical future; in a loop it does not, because a game stops on the repetition of a position <em>it</em> has seen before, and a game that arrived later has not seen it yet.</p>
+</section>
+<main class="wide">
+<section class="tp-group">
+<div class="tp-head">
+<span class="tp-count">01</span>
+<h3 class="tp-title">d4-d6, e4-d6, Nc3-d6, b4-g6, h4-Nc6, e3-d5, g3-e6</h3>
+</div>
+<p class="tp-note">7 games meet on one line and play it out together, the last of them 159 plies later. The line closes into a 4-ply loop: each game leaves it when the position comes round a second time in its own history, so they enter at different points and stop at different ones.</p>
+<svg class="tp-chart" viewBox="0 0 694 185" width="694" height="185" role="img">
+<text class="tp-tick" x="126" y="12" text-anchor="end">alone</text>
+<text class="tp-tick" x="140" y="12">the line they share</text>
+<rect class="tp-loop" x="668.0" y="22.0" width="10.0" height="137.0" rx="2"/>
+<g><title>d4-d6: 166 plies, 3 of its own before the shared line, 163 on it</title>
+<a href="index.html#d4-d6"><text class="tp-name" x="84" y="39.0" text-anchor="end">d4-d6</text></a>
+<text class="tp-alone" x="126" y="39.0" text-anchor="end">3</text>
+<line class="tp-rail" x1="132" y1="35.5" x2="138.0" y2="35.5"/>
+<line class="tp-lane" x1="138.0" y1="35.5" x2="678.0" y2="35.5"/>
+</g>
+<g><title>e4-d6: 166 plies, 3 of its own before the shared line, 163 on it</title>
+<a href="index.html#e4-d6"><text class="tp-name" x="84" y="58.0" text-anchor="end">e4-d6</text></a>
+<text class="tp-alone" x="126" y="58.0" text-anchor="end">3</text>
+<line class="tp-rail" x1="132" y1="54.5" x2="138.0" y2="54.5"/>
+<line class="tp-lane" x1="138.0" y1="54.5" x2="678.0" y2="54.5"/>
+<line class="tp-drop" x1="138.0" y1="35.5" x2="138.0" y2="54.5"/>
+<circle class="tp-dot" cx="138.0" cy="54.5" r="2.6"/>
+</g>
+<g><title>Nc3-d6: 166 plies, 6 of its own before the shared line, 160 on it</title>
+<a href="index.html#Nc3-d6"><text class="tp-name" x="84" y="77.0" text-anchor="end">Nc3-d6</text></a>
+<text class="tp-alone" x="126" y="77.0" text-anchor="end">6</text>
+<line class="tp-rail" x1="132" y1="73.5" x2="148.0" y2="73.5"/>
+<line class="tp-lane" x1="148.0" y1="73.5" x2="678.0" y2="73.5"/>
+<line class="tp-drop" x1="148.0" y1="35.5" x2="148.0" y2="73.5"/>
+<circle class="tp-dot" cx="148.0" cy="73.5" r="2.6"/>
+</g>
+<g><title>b4-g6: 142 plies, 134 of its own before the shared line, 8 on it</title>
+<a href="index.html#b4-g6"><text class="tp-name" x="84" y="96.0" text-anchor="end">b4-g6</text></a>
+<text class="tp-alone" x="126" y="96.0" text-anchor="end">134</text>
+<line class="tp-rail" x1="132" y1="92.5" x2="654.7" y2="92.5"/>
+<line class="tp-lane" x1="654.7" y1="92.5" x2="678.0" y2="92.5"/>
+<line class="tp-drop" x1="654.7" y1="35.5" x2="654.7" y2="92.5"/>
+<circle class="tp-dot" cx="654.7" cy="92.5" r="2.6"/>
+</g>
+<g><title>h4-Nc6: 116 plies, 108 of its own before the shared line, 8 on it</title>
+<a href="index.html#h4-Nc6"><text class="tp-name" x="84" y="115.0" text-anchor="end">h4-Nc6</text></a>
+<text class="tp-alone" x="126" y="115.0" text-anchor="end">108</text>
+<line class="tp-rail" x1="132" y1="111.5" x2="654.7" y2="111.5"/>
+<line class="tp-lane" x1="654.7" y1="111.5" x2="678.0" y2="111.5"/>
+<line class="tp-drop" x1="654.7" y1="35.5" x2="654.7" y2="111.5"/>
+<circle class="tp-dot" cx="654.7" cy="111.5" r="2.6"/>
+</g>
+<g><title>e3-d5: 134 plies, 128 of its own before the shared line, 6 on it</title>
+<a href="index.html#e3-d5"><text class="tp-name" x="84" y="134.0" text-anchor="end">e3-d5</text></a>
+<text class="tp-alone" x="126" y="134.0" text-anchor="end">128</text>
+<line class="tp-rail" x1="132" y1="130.5" x2="661.3" y2="130.5"/>
+<line class="tp-lane" x1="661.3" y1="130.5" x2="678.0" y2="130.5"/>
+<line class="tp-drop" x1="661.3" y1="35.5" x2="661.3" y2="130.5"/>
+<circle class="tp-dot" cx="661.3" cy="130.5" r="2.6"/>
+</g>
+<g><title>g3-e6: 130 plies, 128 of its own before the shared line, 4 on it</title>
+<a href="index.html#g3-e6"><text class="tp-name" x="84" y="153.0" text-anchor="end">g3-e6</text></a>
+<text class="tp-alone" x="126" y="153.0" text-anchor="end">128</text>
+<line class="tp-rail" x1="132" y1="149.5" x2="668.0" y2="149.5"/>
+<line class="tp-lane" x1="668.0" y1="149.5" x2="678.0" y2="149.5"/>
+<line class="tp-drop" x1="668.0" y1="35.5" x2="668.0" y2="149.5"/>
+<circle class="tp-dot" cx="668.0" cy="149.5" r="2.6"/>
+</g>
+<line class="tp-axis" x1="138" y1="166.0" x2="678.0" y2="166.0"/>
+<text class="tp-tick" x="138" y="179.0">0</text>
+<text class="tp-tick" x="678.0" y="179.0" text-anchor="end">162 plies shared</text>
+<text class="tp-tick" x="673.0" y="12" text-anchor="middle">4-ply loop</text>
+</svg>
+</section>
+<section class="tp-group">
+<div class="tp-head">
+<span class="tp-count">02</span>
+<h3 class="tp-title">Nf3-f5, c4-f5, a3-Na6, c4-d5, b4-c6, d3-d5</h3>
+</div>
+<p class="tp-note">6 games meet on one line and play it out together, the last of them 151 plies later. The line closes into a 4-ply loop: each game leaves it when the position comes round a second time in its own history, so they enter at different points and stop at different ones.</p>
+<svg class="tp-chart" viewBox="0 0 694 166" width="694" height="166" role="img">
+<text class="tp-tick" x="126" y="12" text-anchor="end">alone</text>
+<text class="tp-tick" x="140" y="12">the line they share</text>
+<rect class="tp-loop" x="667.5" y="22.0" width="10.5" height="118.0" rx="2"/>
+<g><title>Nf3-f5: 158 plies, 3 of its own before the shared line, 155 on it</title>
+<a href="index.html#Nf3-f5"><text class="tp-name" x="84" y="39.0" text-anchor="end">Nf3-f5</text></a>
+<text class="tp-alone" x="126" y="39.0" text-anchor="end">3</text>
+<line class="tp-rail" x1="132" y1="35.5" x2="138.0" y2="35.5"/>
+<line class="tp-lane" x1="138.0" y1="35.5" x2="678.0" y2="35.5"/>
+</g>
+<g><title>c4-f5: 158 plies, 3 of its own before the shared line, 155 on it</title>
+<a href="index.html#c4-f5"><text class="tp-name" x="84" y="58.0" text-anchor="end">c4-f5</text></a>
+<text class="tp-alone" x="126" y="58.0" text-anchor="end">3</text>
+<line class="tp-rail" x1="132" y1="54.5" x2="138.0" y2="54.5"/>
+<line class="tp-lane" x1="138.0" y1="54.5" x2="678.0" y2="54.5"/>
+<line class="tp-drop" x1="138.0" y1="35.5" x2="138.0" y2="54.5"/>
+<circle class="tp-dot" cx="138.0" cy="54.5" r="2.6"/>
+</g>
+<g><title>a3-Na6: 154 plies, 148 of its own before the shared line, 6 on it</title>
+<a href="index.html#a3-Na6"><text class="tp-name" x="84" y="77.0" text-anchor="end">a3-Na6</text></a>
+<text class="tp-alone" x="126" y="77.0" text-anchor="end">148</text>
+<line class="tp-rail" x1="132" y1="73.5" x2="660.5" y2="73.5"/>
+<line class="tp-lane" x1="660.5" y1="73.5" x2="678.0" y2="73.5"/>
+<line class="tp-drop" x1="660.5" y1="35.5" x2="660.5" y2="73.5"/>
+<circle class="tp-dot" cx="660.5" cy="73.5" r="2.6"/>
+</g>
+<g><title>c4-d5: 146 plies, 140 of its own before the shared line, 6 on it</title>
+<a href="index.html#c4-d5"><text class="tp-name" x="84" y="96.0" text-anchor="end">c4-d5</text></a>
+<text class="tp-alone" x="126" y="96.0" text-anchor="end">140</text>
+<line class="tp-rail" x1="132" y1="92.5" x2="660.5" y2="92.5"/>
+<line class="tp-lane" x1="660.5" y1="92.5" x2="678.0" y2="92.5"/>
+<line class="tp-drop" x1="660.5" y1="35.5" x2="660.5" y2="92.5"/>
+<circle class="tp-dot" cx="660.5" cy="92.5" r="2.6"/>
+</g>
+<g><title>b4-c6: 101 plies, 98 of its own before the shared line, 4 on it</title>
+<a href="index.html#b4-c6"><text class="tp-name" x="84" y="115.0" text-anchor="end">b4-c6</text></a>
+<text class="tp-alone" x="126" y="115.0" text-anchor="end">98</text>
+<line class="tp-rail" x1="132" y1="111.5" x2="667.5" y2="111.5"/>
+<line class="tp-lane" x1="667.5" y1="111.5" x2="678.0" y2="111.5"/>
+<line class="tp-drop" x1="667.5" y1="35.5" x2="667.5" y2="111.5"/>
+<circle class="tp-dot" cx="667.5" cy="111.5" r="2.6"/>
+</g>
+<g><title>d3-d5: 126 plies, 122 of its own before the shared line, 4 on it</title>
+<a href="index.html#d3-d5"><text class="tp-name" x="84" y="134.0" text-anchor="end">d3-d5</text></a>
+<text class="tp-alone" x="126" y="134.0" text-anchor="end">122</text>
+<line class="tp-rail" x1="132" y1="130.5" x2="667.5" y2="130.5"/>
+<line class="tp-lane" x1="667.5" y1="130.5" x2="678.0" y2="130.5"/>
+<line class="tp-drop" x1="667.5" y1="35.5" x2="667.5" y2="130.5"/>
+<circle class="tp-dot" cx="667.5" cy="130.5" r="2.6"/>
+</g>
+<line class="tp-axis" x1="138" y1="147.0" x2="678.0" y2="147.0"/>
+<text class="tp-tick" x="138" y="160.0">0</text>
+<text class="tp-tick" x="678.0" y="160.0" text-anchor="end">154 plies shared</text>
+<text class="tp-tick" x="672.7" y="12" text-anchor="middle">4-ply loop</text>
+</svg>
+</section>
+<section class="tp-group">
+<div class="tp-head">
+<span class="tp-count">03</span>
+<h3 class="tp-title">c4-Nf6, d4-Nf6, Nf3-Nf6, Nf3-c6, c4-c6</h3>
+</div>
+<p class="tp-note">5 games meet on one line and play it out together, the last of them 4 plies later.</p>
+<svg class="tp-chart" viewBox="0 0 694 147" width="694" height="147" role="img">
+<text class="tp-tick" x="126" y="12" text-anchor="end">alone</text>
+<text class="tp-tick" x="140" y="12">the line they share</text>
+<g><title>c4-Nf6: 68 plies, 3 of its own before the shared line, 65 on it</title>
+<a href="index.html#c4-Nf6"><text class="tp-name" x="84" y="39.0" text-anchor="end">c4-Nf6</text></a>
+<text class="tp-alone" x="126" y="39.0" text-anchor="end">3</text>
+<line class="tp-rail" x1="132" y1="35.5" x2="138.0" y2="35.5"/>
+<line class="tp-lane" x1="138.0" y1="35.5" x2="678.0" y2="35.5"/>
+</g>
+<g><title>d4-Nf6: 68 plies, 3 of its own before the shared line, 65 on it</title>
+<a href="index.html#d4-Nf6"><text class="tp-name" x="84" y="58.0" text-anchor="end">d4-Nf6</text></a>
+<text class="tp-alone" x="126" y="58.0" text-anchor="end">3</text>
+<line class="tp-rail" x1="132" y1="54.5" x2="138.0" y2="54.5"/>
+<line class="tp-lane" x1="138.0" y1="54.5" x2="678.0" y2="54.5"/>
+<line class="tp-drop" x1="138.0" y1="35.5" x2="138.0" y2="54.5"/>
+<circle class="tp-dot" cx="138.0" cy="54.5" r="2.6"/>
+</g>
+<g><title>Nf3-Nf6: 68 plies, 5 of its own before the shared line, 63 on it</title>
+<a href="index.html#Nf3-Nf6"><text class="tp-name" x="84" y="77.0" text-anchor="end">Nf3-Nf6</text></a>
+<text class="tp-alone" x="126" y="77.0" text-anchor="end">5</text>
+<line class="tp-rail" x1="132" y1="73.5" x2="154.9" y2="73.5"/>
+<line class="tp-lane" x1="154.9" y1="73.5" x2="678.0" y2="73.5"/>
+<line class="tp-drop" x1="154.9" y1="35.5" x2="154.9" y2="73.5"/>
+<circle class="tp-dot" cx="154.9" cy="73.5" r="2.6"/>
+</g>
+<g><title>Nf3-c6: 68 plies, 6 of its own before the shared line, 62 on it</title>
+<a href="index.html#Nf3-c6"><text class="tp-name" x="84" y="96.0" text-anchor="end">Nf3-c6</text></a>
+<text class="tp-alone" x="126" y="96.0" text-anchor="end">6</text>
+<line class="tp-rail" x1="132" y1="92.5" x2="163.3" y2="92.5"/>
+<line class="tp-lane" x1="163.3" y1="92.5" x2="678.0" y2="92.5"/>
+<line class="tp-drop" x1="163.3" y1="35.5" x2="163.3" y2="92.5"/>
+<circle class="tp-dot" cx="163.3" cy="92.5" r="2.6"/>
+</g>
+<g><title>c4-c6: 68 plies, 7 of its own before the shared line, 61 on it</title>
+<a href="index.html#c4-c6"><text class="tp-name" x="84" y="115.0" text-anchor="end">c4-c6</text></a>
+<text class="tp-alone" x="126" y="115.0" text-anchor="end">7</text>
+<line class="tp-rail" x1="132" y1="111.5" x2="171.8" y2="111.5"/>
+<line class="tp-lane" x1="171.8" y1="111.5" x2="678.0" y2="111.5"/>
+<line class="tp-drop" x1="171.8" y1="35.5" x2="171.8" y2="111.5"/>
+<circle class="tp-dot" cx="171.8" cy="111.5" r="2.6"/>
+</g>
+<line class="tp-axis" x1="138" y1="128.0" x2="678.0" y2="128.0"/>
+<text class="tp-tick" x="138" y="141.0">0</text>
+<text class="tp-tick" x="678.0" y="141.0" text-anchor="end">64 plies shared</text>
+</svg>
+</section>
+<section class="tp-group">
+<div class="tp-head">
+<span class="tp-count">04</span>
+<h3 class="tp-title">Nc3-Nc6, b4-g5, g3-d6, h4-a5</h3>
+</div>
+<p class="tp-note">4 games meet on one line and play it out together, the last of them 11 plies later. The line closes into a 4-ply loop: each game leaves it when the position comes round a second time in its own history, so they enter at different points and stop at different ones.</p>
+<svg class="tp-chart" viewBox="0 0 694 128" width="694" height="128" role="img">
+<text class="tp-tick" x="126" y="12" text-anchor="end">alone</text>
+<text class="tp-tick" x="140" y="12">the line they share</text>
+<rect class="tp-loop" x="562.3" y="22.0" width="115.7" height="80.0" rx="2"/>
+<g><title>Nc3-Nc6: 123 plies, 108 of its own before the shared line, 15 on it</title>
+<a href="index.html#Nc3-Nc6"><text class="tp-name" x="84" y="39.0" text-anchor="end">Nc3-Nc6</text></a>
+<text class="tp-alone" x="126" y="39.0" text-anchor="end">108</text>
+<line class="tp-rail" x1="132" y1="35.5" x2="138.0" y2="35.5"/>
+<line class="tp-lane" x1="138.0" y1="35.5" x2="678.0" y2="35.5"/>
+</g>
+<g><title>b4-g5: 137 plies, 122 of its own before the shared line, 15 on it</title>
+<a href="index.html#b4-g5"><text class="tp-name" x="84" y="58.0" text-anchor="end">b4-g5</text></a>
+<text class="tp-alone" x="126" y="58.0" text-anchor="end">122</text>
+<line class="tp-rail" x1="132" y1="54.5" x2="138.0" y2="54.5"/>
+<line class="tp-lane" x1="138.0" y1="54.5" x2="678.0" y2="54.5"/>
+<line class="tp-drop" x1="138.0" y1="35.5" x2="138.0" y2="54.5"/>
+<circle class="tp-dot" cx="138.0" cy="54.5" r="2.6"/>
+</g>
+<g><title>g3-d6: 147 plies, 136 of its own before the shared line, 11 on it</title>
+<a href="index.html#g3-d6"><text class="tp-name" x="84" y="77.0" text-anchor="end">g3-d6</text></a>
+<text class="tp-alone" x="126" y="77.0" text-anchor="end">136</text>
+<line class="tp-rail" x1="132" y1="73.5" x2="292.3" y2="73.5"/>
+<line class="tp-lane" x1="292.3" y1="73.5" x2="678.0" y2="73.5"/>
+<line class="tp-drop" x1="292.3" y1="35.5" x2="292.3" y2="73.5"/>
+<circle class="tp-dot" cx="292.3" cy="73.5" r="2.6"/>
+</g>
+<g><title>h4-a5: 143 plies, 141 of its own before the shared line, 4 on it</title>
+<a href="index.html#h4-a5"><text class="tp-name" x="84" y="96.0" text-anchor="end">h4-a5</text></a>
+<text class="tp-alone" x="126" y="96.0" text-anchor="end">141</text>
+<line class="tp-rail" x1="132" y1="92.5" x2="562.3" y2="92.5"/>
+<line class="tp-lane" x1="562.3" y1="92.5" x2="678.0" y2="92.5"/>
+<line class="tp-drop" x1="562.3" y1="35.5" x2="562.3" y2="92.5"/>
+<circle class="tp-dot" cx="562.3" cy="92.5" r="2.6"/>
+</g>
+<line class="tp-axis" x1="138" y1="109.0" x2="678.0" y2="109.0"/>
+<text class="tp-tick" x="138" y="122.0">0</text>
+<text class="tp-tick" x="678.0" y="122.0" text-anchor="end">14 plies shared</text>
+<text class="tp-tick" x="620.1" y="12" text-anchor="middle">4-ply loop</text>
+</svg>
+</section>
+<section class="tp-group">
+<div class="tp-head">
+<span class="tp-count">05</span>
+<h3 class="tp-title">Nc3-c6, d4-c6, e4-c6</h3>
+</div>
+<p class="tp-note">3 games meet on one line and play it out together, all at once.</p>
+<svg class="tp-chart" viewBox="0 0 694 109" width="694" height="109" role="img">
+<text class="tp-tick" x="126" y="12" text-anchor="end">alone</text>
+<text class="tp-tick" x="140" y="12">the line they share</text>
+<g><title>Nc3-c6: 128 plies, 5 of its own before the shared line, 123 on it</title>
+<a href="index.html#Nc3-c6"><text class="tp-name" x="84" y="39.0" text-anchor="end">Nc3-c6</text></a>
+<text class="tp-alone" x="126" y="39.0" text-anchor="end">5</text>
+<line class="tp-rail" x1="132" y1="35.5" x2="138.0" y2="35.5"/>
+<line class="tp-lane" x1="138.0" y1="35.5" x2="678.0" y2="35.5"/>
+</g>
+<g><title>d4-c6: 128 plies, 5 of its own before the shared line, 123 on it</title>
+<a href="index.html#d4-c6"><text class="tp-name" x="84" y="58.0" text-anchor="end">d4-c6</text></a>
+<text class="tp-alone" x="126" y="58.0" text-anchor="end">5</text>
+<line class="tp-rail" x1="132" y1="54.5" x2="138.0" y2="54.5"/>
+<line class="tp-lane" x1="138.0" y1="54.5" x2="678.0" y2="54.5"/>
+<line class="tp-drop" x1="138.0" y1="35.5" x2="138.0" y2="54.5"/>
+<circle class="tp-dot" cx="138.0" cy="54.5" r="2.6"/>
+</g>
+<g><title>e4-c6: 128 plies, 5 of its own before the shared line, 123 on it</title>
+<a href="index.html#e4-c6"><text class="tp-name" x="84" y="77.0" text-anchor="end">e4-c6</text></a>
+<text class="tp-alone" x="126" y="77.0" text-anchor="end">5</text>
+<line class="tp-rail" x1="132" y1="73.5" x2="138.0" y2="73.5"/>
+<line class="tp-lane" x1="138.0" y1="73.5" x2="678.0" y2="73.5"/>
+<line class="tp-drop" x1="138.0" y1="35.5" x2="138.0" y2="73.5"/>
+<circle class="tp-dot" cx="138.0" cy="73.5" r="2.6"/>
+</g>
+<line class="tp-axis" x1="138" y1="90.0" x2="678.0" y2="90.0"/>
+<text class="tp-tick" x="138" y="103.0">0</text>
+<text class="tp-tick" x="678.0" y="103.0" text-anchor="end">122 plies shared</text>
+</svg>
+</section>
+<section class="tp-group">
+<div class="tp-head">
+<span class="tp-count">06</span>
+<h3 class="tp-title">c3-Nf6, c3-d5, Nc3-a6</h3>
+</div>
+<p class="tp-note">3 games meet on one line and play it out together, the last of them 134 plies later. The line closes into a 4-ply loop: each game leaves it when the position comes round a second time in its own history, so they enter at different points and stop at different ones.</p>
+<svg class="tp-chart" viewBox="0 0 694 109" width="694" height="109" role="img">
+<text class="tp-tick" x="126" y="12" text-anchor="end">alone</text>
+<text class="tp-tick" x="140" y="12">the line they share</text>
+<rect class="tp-loop" x="666.2" y="22.0" width="11.8" height="61.0" rx="2"/>
+<g><title>c3-Nf6: 142 plies, 4 of its own before the shared line, 138 on it</title>
+<a href="index.html#c3-Nf6"><text class="tp-name" x="84" y="39.0" text-anchor="end">c3-Nf6</text></a>
+<text class="tp-alone" x="126" y="39.0" text-anchor="end">4</text>
+<line class="tp-rail" x1="132" y1="35.5" x2="138.0" y2="35.5"/>
+<line class="tp-lane" x1="138.0" y1="35.5" x2="678.0" y2="35.5"/>
+</g>
+<g><title>c3-d5: 142 plies, 4 of its own before the shared line, 138 on it</title>
+<a href="index.html#c3-d5"><text class="tp-name" x="84" y="58.0" text-anchor="end">c3-d5</text></a>
+<text class="tp-alone" x="126" y="58.0" text-anchor="end">4</text>
+<line class="tp-rail" x1="132" y1="54.5" x2="138.0" y2="54.5"/>
+<line class="tp-lane" x1="138.0" y1="54.5" x2="678.0" y2="54.5"/>
+<line class="tp-drop" x1="138.0" y1="35.5" x2="138.0" y2="54.5"/>
+<circle class="tp-dot" cx="138.0" cy="54.5" r="2.6"/>
+</g>
+<g><title>Nc3-a6: 127 plies, 126 of its own before the shared line, 4 on it</title>
+<a href="index.html#Nc3-a6"><text class="tp-name" x="84" y="77.0" text-anchor="end">Nc3-a6</text></a>
+<text class="tp-alone" x="126" y="77.0" text-anchor="end">126</text>
+<line class="tp-rail" x1="132" y1="73.5" x2="666.2" y2="73.5"/>
+<line class="tp-lane" x1="666.2" y1="73.5" x2="678.0" y2="73.5"/>
+<line class="tp-drop" x1="666.2" y1="35.5" x2="666.2" y2="73.5"/>
+<circle class="tp-dot" cx="666.2" cy="73.5" r="2.6"/>
+</g>
+<line class="tp-axis" x1="138" y1="90.0" x2="678.0" y2="90.0"/>
+<text class="tp-tick" x="138" y="103.0">0</text>
+<text class="tp-tick" x="678.0" y="103.0" text-anchor="end">137 plies shared</text>
+<text class="tp-tick" x="672.1" y="12" text-anchor="middle">4-ply loop</text>
+</svg>
+</section>
+<section class="tp-group">
+<div class="tp-head">
+<span class="tp-count">07</span>
+<h3 class="tp-title">d4-e6, e4-e6, Nc3-e6</h3>
+</div>
+<p class="tp-note">3 games meet on one line and play it out together, the last of them 2 plies later.</p>
+<svg class="tp-chart" viewBox="0 0 694 109" width="694" height="109" role="img">
+<text class="tp-tick" x="126" y="12" text-anchor="end">alone</text>
+<text class="tp-tick" x="140" y="12">the line they share</text>
+<g><title>d4-e6: 47 plies, 3 of its own before the shared line, 44 on it</title>
+<a href="index.html#d4-e6"><text class="tp-name" x="84" y="39.0" text-anchor="end">d4-e6</text></a>
+<text class="tp-alone" x="126" y="39.0" text-anchor="end">3</text>
+<line class="tp-rail" x1="132" y1="35.5" x2="138.0" y2="35.5"/>
+<line class="tp-lane" x1="138.0" y1="35.5" x2="678.0" y2="35.5"/>
+</g>
+<g><title>e4-e6: 47 plies, 3 of its own before the shared line, 44 on it</title>
+<a href="index.html#e4-e6"><text class="tp-name" x="84" y="58.0" text-anchor="end">e4-e6</text></a>
+<text class="tp-alone" x="126" y="58.0" text-anchor="end">3</text>
+<line class="tp-rail" x1="132" y1="54.5" x2="138.0" y2="54.5"/>
+<line class="tp-lane" x1="138.0" y1="54.5" x2="678.0" y2="54.5"/>
+<line class="tp-drop" x1="138.0" y1="35.5" x2="138.0" y2="54.5"/>
+<circle class="tp-dot" cx="138.0" cy="54.5" r="2.6"/>
+</g>
+<g><title>Nc3-e6: 47 plies, 5 of its own before the shared line, 42 on it</title>
+<a href="index.html#Nc3-e6"><text class="tp-name" x="84" y="77.0" text-anchor="end">Nc3-e6</text></a>
+<text class="tp-alone" x="126" y="77.0" text-anchor="end">5</text>
+<line class="tp-rail" x1="132" y1="73.5" x2="163.1" y2="73.5"/>
+<line class="tp-lane" x1="163.1" y1="73.5" x2="678.0" y2="73.5"/>
+<line class="tp-drop" x1="163.1" y1="35.5" x2="163.1" y2="73.5"/>
+<circle class="tp-dot" cx="163.1" cy="73.5" r="2.6"/>
+</g>
+<line class="tp-axis" x1="138" y1="90.0" x2="678.0" y2="90.0"/>
+<text class="tp-tick" x="138" y="103.0">0</text>
+<text class="tp-tick" x="678.0" y="103.0" text-anchor="end">43 plies shared</text>
+</svg>
+</section>
+<section class="tp-group">
+<div class="tp-head">
+<span class="tp-count">08</span>
+<h3 class="tp-title">The pairs</h3>
+</div>
+<p class="tp-note">18 groups are two games and nothing else. Each pair meets once, at the position below, and is one game from there on, so there is no shape to draw.</p>
+<table class="tp-pairs">
+<tr><th>Games</th><th class="tp-num">Plies alone</th><th class="tp-num">Plies shared</th></tr>
+<tr><td class="tp-pair"><a href="index.html#b4-d5">b4-d5</a> + <a href="index.html#b4-e6">b4-e6</a></td><td class="tp-num">7 + 7</td><td class="tp-num">142</td></tr>
+<tr><td class="tp-pair"><a href="index.html#g3-c6">g3-c6</a> + <a href="index.html#g3-g6">g3-g6</a></td><td class="tp-num">9 + 9</td><td class="tp-num">136</td></tr>
+<tr><td class="tp-pair"><a href="index.html#d4-h5">d4-h5</a> + <a href="index.html#e4-h5">e4-h5</a></td><td class="tp-num">3 + 3</td><td class="tp-num">130</td></tr>
+<tr><td class="tp-pair"><a href="index.html#Nf3-e6">Nf3-e6</a> + <a href="index.html#d4-d5">d4-d5</a></td><td class="tp-num">5 + 5</td><td class="tp-num">127</td></tr>
+<tr><td class="tp-pair"><a href="index.html#Na3-b5">Na3-b5</a> + <a href="index.html#Nc3-b5">Nc3-b5</a></td><td class="tp-num">3 + 3</td><td class="tp-num">124</td></tr>
+<tr><td class="tp-pair"><a href="index.html#d3-Nc6">d3-Nc6</a> + <a href="index.html#d3-e5">d3-e5</a></td><td class="tp-num">4 + 4</td><td class="tp-num">123</td></tr>
+<tr><td class="tp-pair"><a href="index.html#Nf3-f6">Nf3-f6</a> + <a href="index.html#e4-f6">e4-f6</a></td><td class="tp-num">3 + 3</td><td class="tp-num">116</td></tr>
+<tr><td class="tp-pair"><a href="index.html#d4-a5">d4-a5</a> + <a href="index.html#e4-a5">e4-a5</a></td><td class="tp-num">3 + 3</td><td class="tp-num">112</td></tr>
+<tr><td class="tp-pair"><a href="index.html#Nc3-Na6">Nc3-Na6</a> + <a href="index.html#e4-Na6">e4-Na6</a></td><td class="tp-num">3 + 3</td><td class="tp-num">106</td></tr>
+<tr><td class="tp-pair"><a href="index.html#d4-b6">d4-b6</a> + <a href="index.html#e4-b6">e4-b6</a></td><td class="tp-num">3 + 3</td><td class="tp-num">90</td></tr>
+<tr><td class="tp-pair"><a href="index.html#Nc3-Nh6">Nc3-Nh6</a> + <a href="index.html#e4-Nh6">e4-Nh6</a></td><td class="tp-num">3 + 3</td><td class="tp-num">71</td></tr>
+<tr><td class="tp-pair"><a href="index.html#Nf3-d6">Nf3-d6</a> + <a href="index.html#c4-d6">c4-d6</a></td><td class="tp-num">3 + 3</td><td class="tp-num">70</td></tr>
+<tr><td class="tp-pair"><a href="index.html#d4-a6">d4-a6</a> + <a href="index.html#e4-a6">e4-a6</a></td><td class="tp-num">3 + 3</td><td class="tp-num">69</td></tr>
+<tr><td class="tp-pair"><a href="index.html#Nf3-g5">Nf3-g5</a> + <a href="index.html#Nh3-g5">Nh3-g5</a></td><td class="tp-num">3 + 3</td><td class="tp-num">54</td></tr>
+<tr><td class="tp-pair"><a href="index.html#d4-h6">d4-h6</a> + <a href="index.html#e4-h6">e4-h6</a></td><td class="tp-num">3 + 3</td><td class="tp-num">51</td></tr>
+<tr><td class="tp-pair"><a href="index.html#c4-e5">c4-e5</a> + <a href="index.html#g3-e5">g3-e5</a></td><td class="tp-num">3 + 3</td><td class="tp-num">46</td></tr>
+<tr><td class="tp-pair"><a href="index.html#Nf3-c5">Nf3-c5</a> + <a href="index.html#e4-c5">e4-c5</a></td><td class="tp-num">3 + 3</td><td class="tp-num">43</td></tr>
+<tr><td class="tp-pair"><a href="index.html#d4-g6">d4-g6</a> + <a href="index.html#e4-g6">e4-g6</a></td><td class="tp-num">3 + 3</td><td class="tp-num">40</td></tr>
+</table>
+</section>
+</main>
+<footer class="wide">Generated by <code>make-pgn-index.py</code> from <code>facts/</code>.</footer>
+</body>
+</html>
