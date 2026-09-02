@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Who is Winning</title>
+<meta name="description" content="Positions the engine has scored, one side ahead by a margin that narrows as you go: say which side it is.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Balthazar&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root {
+  color-scheme: light;
+  --ground:      #eaf0f1;
+  --surface:     #ffffff;
+  --surface-2:   #f3f8f8;
+  --line:        #cedcdf;
+  --line-strong: #a6c0c5;
+  --ink:         #06303d;
+  --ink-soft:    #476069;
+  --ink-faint:   #7a929a;
+  --amber:       #a55f0d;
+  --amber-tint:  #f7e9d3;
+  --wood:        #8a5f3f;
+  --focus:       #0d6b86;
+  --shadow:      0 1px 2px rgba(6, 48, 61, .06), 0 6px 18px rgba(6, 48, 61, .05);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --ground:      #052733;
+    --surface:     #073744;
+    --surface-2:   #0a4152;
+    --line:        #104c5f;
+    --line-strong: #1d6b81;
+    --ink:         #ebe2d1;
+    --ink-soft:    #9cb7bf;
+    --ink-faint:   #6b8d97;
+    --amber:       #e8a33d;
+    --amber-tint:  #123f4e;
+    --wood:        #b48862;
+    --focus:       #5cc2e0;
+    --shadow:      0 1px 2px rgba(0, 0, 0, .3), 0 6px 18px rgba(0, 0, 0, .22);
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --ground:      #052733;
+  --surface:     #073744;
+  --surface-2:   #0a4152;
+  --line:        #104c5f;
+  --line-strong: #1d6b81;
+  --ink:         #ebe2d1;
+  --ink-soft:    #9cb7bf;
+  --ink-faint:   #6b8d97;
+  --amber:       #e8a33d;
+  --amber-tint:  #123f4e;
+  --wood:        #b48862;
+  --focus:       #5cc2e0;
+  --shadow:      0 1px 2px rgba(0, 0, 0, .3), 0 6px 18px rgba(0, 0, 0, .22);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: "IBM Plex Sans", ui-sans-serif, system-ui, "Segoe UI", Roboto, sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wide  { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+.text  { max-width: 860px;  margin: 0 auto; padding: 0 24px; }
+.cards { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 3px; }
+
+/* ---- the bar that stays ---- */
+
+.bar {
+  position: sticky; top: 0; z-index: 10;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+.bar-inner {
+  display: flex; align-items: baseline; gap: 16px;
+  min-height: 52px; padding-top: 8px; padding-bottom: 8px;
+}
+.bar-name {
+  font-family: Balthazar, Georgia, "Times New Roman", serif;
+  font-size: 20px; letter-spacing: .01em;
+}
+.bar-here {
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: 13px; color: var(--amber); margin-inline-start: auto;
+}
+.bar-here:empty { display: none; }
+.bar a.bar-up {
+  font-size: 13px; color: var(--ink-soft); text-decoration: none;
+  border-bottom: 1px solid var(--line-strong); padding-bottom: 1px;
+}
+.bar a.bar-up:hover { color: var(--amber); border-color: var(--amber); }
+
+/* ---- the tree ---- */
+
+.tree-head { padding-top: 8px; }
+h2 {
+  font-family: Balthazar, Georgia, "Times New Roman", serif;
+  font-weight: 400; font-size: 30px; margin: 0 0 8px;
+}
+.note { font-size: 14px; color: var(--ink-soft); margin: 0 0 22px; max-width: 68ch; }
+
+.tree {
+  display: flex; flex-direction: column; gap: 2px;
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: 8px; padding: 10px; box-shadow: var(--shadow);
+  margin-bottom: 56px;
+}
+.tree-row {
+  display: grid; grid-template-columns: 92px 1fr; align-items: center;
+  gap: 10px; padding: 5px 6px; border-radius: 5px;
+}
+.tree-row:nth-child(odd) { background: var(--surface-2); }
+.tree-white {
+  display: flex; align-items: baseline; gap: 7px;
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: 15px; font-weight: 500; text-decoration: none;
+}
+.tree-white:hover { color: var(--amber); }
+.tree-replies { display: flex; flex-wrap: wrap; gap: 3px; }
+.tree-replies a {
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: 13px; text-decoration: none; color: var(--ink-soft);
+  padding: 2px 7px; border-radius: 4px; border: 1px solid transparent;
+  white-space: nowrap;
+}
+.tree-replies a:hover { color: var(--amber); border-color: var(--amber); }
+.tree-replies a.is-current {
+  background: var(--amber); border-color: var(--amber); color: var(--surface);
+}
+:root[data-theme="dark"] .tree-replies a.is-current,
+:root:not([data-theme="light"]) .tree-replies a.is-current { color: #052733; }
+
+/* ---- the games ---- */
+
+.games { display: flex; flex-direction: column; gap: 14px; padding-bottom: 96px; }
+
+.game {
+  scroll-margin-top: 68px;
+  background: var(--surface); border: 1px solid var(--line);
+  border-inline-start: 3px solid transparent;
+  border-radius: 8px; padding: 16px 18px;
+  display: flex; gap: 20px; align-items: flex-start;
+}
+.game-main { flex: 1 1 auto; min-width: 0; }
+
+/* ---- the position the game ended on ---- */
+
+.game-final {
+  flex: 0 0 auto;
+  display: flex; flex-direction: column; align-items: center; gap: 7px;
+}
+
+.mini-board {
+  --mini: 21px;
+  display: grid;
+  grid-template-columns: repeat(8, var(--mini));
+  grid-template-rows: repeat(8, var(--mini));
+  border: 1px solid var(--line-strong);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.mini-sq { background-size: contain; background-repeat: no-repeat; background-position: center; }
+.mini-sq.lt { background-color: #f0d9b5; }
+.mini-sq.dk { background-color: #b58863; }
+
+.outcome {
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: 11px; letter-spacing: .02em;
+  padding: 3px 8px; border-radius: 999px; white-space: nowrap;
+}
+.outcome.is-mate { background: var(--amber); color: var(--surface); }
+.outcome.is-draw { background: var(--surface-2); color: var(--ink-faint); border: 1px solid var(--line); }
+:root[data-theme="dark"] .outcome.is-mate,
+:root:not([data-theme="light"]) .outcome.is-mate { color: #052733; }
+.game.is-target { border-color: var(--amber); border-inline-start-color: var(--amber); }
+@keyframes arrive {
+  from { background: var(--amber-tint); }
+  to   { background: var(--surface); }
+}
+.game.flash { animation: arrive 1.8s ease-out; }
+
+.game-head {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 14px;
+  margin-bottom: 12px;
+}
+.rank {
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: 12px; font-variant-numeric: tabular-nums; color: var(--ink-faint);
+}
+.game-title {
+  font-family: Balthazar, Georgia, "Times New Roman", serif;
+  font-weight: 400; font-size: 25px; margin: 0; line-height: 1.1;
+}
+.meta {
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: 12px; color: var(--ink-faint); font-variant-numeric: tabular-nums;
+}
+
+.game-actions { margin-inline-start: auto; display: flex; gap: 8px; }
+
+.copy, .open-board {
+  font: 500 13px/1 "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  color: var(--ink); background: var(--surface-2);
+  border: 1px solid var(--line-strong); border-radius: 5px;
+  padding: 7px 13px; cursor: pointer; min-width: 104px;
+  transition: background .12s ease, border-color .12s ease, color .12s ease;
+}
+.copy:hover, .open-board:hover { border-color: var(--amber); color: var(--amber); }
+.open-board { border-color: var(--amber); color: var(--amber); }
+.copy.done { background: var(--amber); border-color: var(--amber); color: var(--surface); }
+:root[data-theme="dark"] .copy.done,
+:root:not([data-theme="light"]) .copy.done { color: #052733; }
+
+.pgn {
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: 13px; line-height: 1.75; margin: 0;
+  white-space: pre-wrap; overflow-wrap: anywhere;
+  background: var(--surface-2); border: 1px solid var(--line);
+  border-radius: 6px; padding: 13px 15px;
+  color: var(--ink-soft);
+}
+
+footer {
+  border-top: 1px solid var(--line); padding: 28px 0 64px;
+  font-size: 14px; color: var(--ink-faint);
+}
+
+@media (max-width: 760px) {
+  .game { flex-direction: column-reverse; }
+  .game-final { flex-direction: row; align-self: flex-start; align-items: center; gap: 12px; }
+}
+
+@media (max-width: 640px) {
+  .tree-row { grid-template-columns: 1fr; }
+  .game-actions { margin-inline-start: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .game.flash { animation: none; }
+  * { transition-duration: .01ms !important; }
+}
+
+.ac-lede { font-size: 17px; color: var(--ink-soft); margin: 0 0 22px; max-width: 66ch; }
+
+/* Right and wrong need two colours of their own: the palette has amber for attention and
+   nothing for these, and they have to hold on both grounds. */
+:root { --good: #2f8f5b; --bad: #b3453a; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --good: #63c893; --bad: #e08074; }
+}
+:root[data-theme="dark"] { --good: #63c893; --bad: #e08074; }
+
+/* The activity keeps the board's own colours, the way the viewer does, so a position looks
+   the same here as it does over the index and in the app. */
+.ac {
+  --sq: 58px;
+  --bar: 150px;
+  display: grid;
+  grid-template-columns: calc(8 * var(--sq) + var(--sq) / 2) minmax(0, 1fr);
+  gap: 22px;
+  align-items: start;
+  margin: 0 auto 40px;
+}
+
+.ac-left { display: flex; flex-direction: column; gap: 12px; }
+
+.ac-ask {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+  min-height: 40px;
+}
+.ac-level {
+  font-family: Balthazar, Georgia, "Times New Roman", serif;
+  font-size: 28px;
+  line-height: 1;
+}
+/* The distance is a number to read, and Balthazar's 1 is a roman numeral. */
+.ac-level .ac-n {
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: 24px;
+  color: var(--amber);
+  font-variant-numeric: tabular-nums;
+}
+.ac-turn {
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: 13px;
+  color: var(--ink-soft);
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  padding: 3px 10px;
+}
+.ac-turn.black { background: #16202a; color: #e7edf2; border-color: #16202a; }
+.ac-turn.white { background: #f6f1e6; color: #33261a; border-color: #cdbfa6; }
+.ac-score { margin-inline-start: auto; font-family: "IBM Plex Mono", ui-monospace, monospace;
+            font-size: 13px; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+.ac-score b { color: var(--amber); font-weight: 500; }
+
+/* The verdict is one line that never moves: it holds its height while the position waits. */
+.ac-verdict {
+  min-height: 62px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface);
+  padding: 10px 12px;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--ink-soft);
+}
+.ac-verdict b { color: var(--ink); font-weight: 600; }
+.ac-verdict .san { font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace; }
+.ac-verdict.right { border-color: var(--good); background: var(--amber-tint); }
+.ac-verdict.wrong { border-color: var(--bad); }
+.ac-verdict .good { color: var(--good); }
+.ac-verdict .bad { color: var(--bad); }
+
+.ac-actions { display: flex; gap: 8px; align-items: center; }
+.ac-actions button {
+  font: 500 14px/1 "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  padding: 10px 16px;
+  border-radius: 6px;
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+}
+.ac-actions button:hover:not(:disabled) { border-color: var(--amber); color: var(--amber); }
+.ac-actions button:disabled { opacity: .4; cursor: default; }
+.ac-actions .primary { border-color: var(--amber); color: var(--amber); }
+.ac-actions .ac-from { margin-inline-start: auto; font-size: 12px; color: var(--ink-faint); }
+.ac-actions .ac-from a { color: var(--ink-soft); }
+
+/* The bars, once the answer is in. They are the viewer's own cells on the viewer's own
+   wood, so a bar means here exactly what it means there. */
+.ac-right { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.ac-bars {
+  background: var(--wood);
+  border-radius: 4px;
+  padding: 4px;
+  min-height: calc(var(--bar) + 8px);
+  display: flex;
+}
+/* Before the answer there is nothing to draw, and a block of bare wood that size reads as a
+   missing picture, so the empty box is plain. */
+.ac-bars.empty {
+  background: var(--surface);
+  border: 1px dashed var(--line-strong);
+}
+.ac-bars .vw-mini { width: 100%; }
+/* A mate is painted over the whole cell, so the mark on the move you played has to sit above
+   it: the cell's own inset shadow would be underneath the bands. */
+.ac-bars .vw-cell.chosen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 0 0 3px #c6168d;
+  pointer-events: none;
+  z-index: 2;
+}
+.ac-hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  color: var(--ink-faint);
+  font-size: 13px;
+  text-align: center;
+  padding: 0 16px;
+}
+.ac-legend { font-size: 12.5px; color: var(--ink-soft); line-height: 1.5; }
+.ac-legend code { font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace; }
+
+@media (max-width: 1000px) {
+  .ac { grid-template-columns: minmax(0, 1fr); --sq: min(44px, 10vw); --bar: 110px; }
+}
+/* The answer: two buttons that look like the side they stand for. */
+.wn-answer { display: flex; gap: 10px; }
+.wn-answer button {
+  flex: 1 1 0;
+  font: 500 16px/1 "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  padding: 16px 0;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.wn-answer button.w { background: #f6f1e6; color: #33261a; border: 1px solid #cdbfa6; }
+.wn-answer button.b { background: #16202a; color: #e7edf2; border: 1px solid #0b1116; }
+.wn-answer button:hover:not(:disabled) { outline: 2px solid var(--amber); }
+.wn-answer button:disabled { opacity: .45; cursor: default; }
+.wn-answer .key { opacity: .55; font-size: 13px; }
+
+/* The move whose score is the score of the position, marked in the bars. */
+.ac-bars .vw-cell.best::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 0 0 3px #c6168d;
+  pointer-events: none;
+  z-index: 2;
+}
+</style>
+<link rel="stylesheet" href="pieces.css">
+<link rel="stylesheet" href="viewer.css">
+</head>
+<body>
+<div class="bar"><div class="wide bar-inner">
+<span class="bar-name">Who is Winning</span>
+<a class="bar-up" href="index.html">The 400 games</a>
+<a class="bar-up" href="transpositions.html">Transpositions</a>
+<a class="bar-up" href="openings.html">Openings</a>
+<a class="bar-up" href="mate.html">Find the mate</a>
+<span class="bar-here" id="bar-here"></span>
+</div></div>
+<section class="wide tree-head" style="padding-top:34px">
+<h2>Who is Winning</h2>
+<p class="ac-lede">One side of every position below is ahead — by nine pawns to start with, and by less at each level you clear, down to two. Say which side it is. Get it right and the margin narrows; get it wrong and it opens back up to nine.</p>
+<p class="ac-lede">The margin is the score of the best move in the position, which is the engine’s own verdict on it: no mate is available to either side, so it is a judgement about material, space and safety rather than a count of moves to a finish.</p>
+</section>
+<main class="wide"><div class="ac">
+<div class="ac-left">
+<div class="ac-ask">
+<span class="ac-level" id="ac-level">Loading…</span>
+<span class="ac-turn" id="ac-turn" hidden></span>
+<span class="ac-score" id="ac-score"></span>
+</div>
+<div class="vw-board" id="ac-board" style="position:relative"></div>
+<div class="wn-answer"><button type="button" class="w" id="wn-white">White <span class="key">W</span></button><button type="button" class="b" id="wn-black">Black <span class="key">B</span></button></div>
+<div class="ac-actions">
+<button type="button" class="primary" id="ac-next" disabled>Next position</button>
+<button type="button" id="ac-give">Give up</button>
+<span class="ac-from" id="ac-from"></span>
+</div>
+</div>
+<div class="ac-right">
+<div class="ac-verdict" id="ac-verdict">Who is ahead in this position?</div>
+<div class="ac-bars empty" id="ac-bars"><div class="ac-hint">Every legal move, scored, once you have answered.</div></div>
+<p class="ac-legend">One bar per legal move, best first — the same bars the game viewer draws. A bar split black over white is the balance in centipawns, so a bar mostly black is a position mostly Black’s. The move that carries the score of the position, the best one, is outlined in pink.</p>
+</div>
+</div></main>
+<footer class="wide">Generated by <code>make-pgn-index.py</code> from <code>fenkbsan.db</code>.</footer>
+<script src="activity.js"></script>
+<script src="winning.js"></script>
+</body>
+</html>

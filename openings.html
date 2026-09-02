@@ -1,0 +1,609 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Openings</title>
+<meta name="description" content="Every opening lichess names, walked one move at a time from the initial position, with the game played out from each line.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Balthazar&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root {
+  color-scheme: light;
+  --ground:      #eaf0f1;
+  --surface:     #ffffff;
+  --surface-2:   #f3f8f8;
+  --line:        #cedcdf;
+  --line-strong: #a6c0c5;
+  --ink:         #06303d;
+  --ink-soft:    #476069;
+  --ink-faint:   #7a929a;
+  --amber:       #a55f0d;
+  --amber-tint:  #f7e9d3;
+  --wood:        #8a5f3f;
+  --focus:       #0d6b86;
+  --shadow:      0 1px 2px rgba(6, 48, 61, .06), 0 6px 18px rgba(6, 48, 61, .05);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --ground:      #052733;
+    --surface:     #073744;
+    --surface-2:   #0a4152;
+    --line:        #104c5f;
+    --line-strong: #1d6b81;
+    --ink:         #ebe2d1;
+    --ink-soft:    #9cb7bf;
+    --ink-faint:   #6b8d97;
+    --amber:       #e8a33d;
+    --amber-tint:  #123f4e;
+    --wood:        #b48862;
+    --focus:       #5cc2e0;
+    --shadow:      0 1px 2px rgba(0, 0, 0, .3), 0 6px 18px rgba(0, 0, 0, .22);
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --ground:      #052733;
+  --surface:     #073744;
+  --surface-2:   #0a4152;
+  --line:        #104c5f;
+  --line-strong: #1d6b81;
+  --ink:         #ebe2d1;
+  --ink-soft:    #9cb7bf;
+  --ink-faint:   #6b8d97;
+  --amber:       #e8a33d;
+  --amber-tint:  #123f4e;
+  --wood:        #b48862;
+  --focus:       #5cc2e0;
+  --shadow:      0 1px 2px rgba(0, 0, 0, .3), 0 6px 18px rgba(0, 0, 0, .22);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: "IBM Plex Sans", ui-sans-serif, system-ui, "Segoe UI", Roboto, sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wide  { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+.text  { max-width: 860px;  margin: 0 auto; padding: 0 24px; }
+.cards { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 3px; }
+
+/* ---- the bar that stays ---- */
+
+.bar {
+  position: sticky; top: 0; z-index: 10;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+.bar-inner {
+  display: flex; align-items: baseline; gap: 16px;
+  min-height: 52px; padding-top: 8px; padding-bottom: 8px;
+}
+.bar-name {
+  font-family: Balthazar, Georgia, "Times New Roman", serif;
+  font-size: 20px; letter-spacing: .01em;
+}
+.bar-here {
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: 13px; color: var(--amber); margin-inline-start: auto;
+}
+.bar-here:empty { display: none; }
+.bar a.bar-up {
+  font-size: 13px; color: var(--ink-soft); text-decoration: none;
+  border-bottom: 1px solid var(--line-strong); padding-bottom: 1px;
+}
+.bar a.bar-up:hover { color: var(--amber); border-color: var(--amber); }
+
+/* ---- the tree ---- */
+
+.tree-head { padding-top: 8px; }
+h2 {
+  font-family: Balthazar, Georgia, "Times New Roman", serif;
+  font-weight: 400; font-size: 30px; margin: 0 0 8px;
+}
+.note { font-size: 14px; color: var(--ink-soft); margin: 0 0 22px; max-width: 68ch; }
+
+.tree {
+  display: flex; flex-direction: column; gap: 2px;
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: 8px; padding: 10px; box-shadow: var(--shadow);
+  margin-bottom: 56px;
+}
+.tree-row {
+  display: grid; grid-template-columns: 92px 1fr; align-items: center;
+  gap: 10px; padding: 5px 6px; border-radius: 5px;
+}
+.tree-row:nth-child(odd) { background: var(--surface-2); }
+.tree-white {
+  display: flex; align-items: baseline; gap: 7px;
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: 15px; font-weight: 500; text-decoration: none;
+}
+.tree-white:hover { color: var(--amber); }
+.tree-replies { display: flex; flex-wrap: wrap; gap: 3px; }
+.tree-replies a {
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: 13px; text-decoration: none; color: var(--ink-soft);
+  padding: 2px 7px; border-radius: 4px; border: 1px solid transparent;
+  white-space: nowrap;
+}
+.tree-replies a:hover { color: var(--amber); border-color: var(--amber); }
+.tree-replies a.is-current {
+  background: var(--amber); border-color: var(--amber); color: var(--surface);
+}
+:root[data-theme="dark"] .tree-replies a.is-current,
+:root:not([data-theme="light"]) .tree-replies a.is-current { color: #052733; }
+
+/* ---- the games ---- */
+
+.games { display: flex; flex-direction: column; gap: 14px; padding-bottom: 96px; }
+
+.game {
+  scroll-margin-top: 68px;
+  background: var(--surface); border: 1px solid var(--line);
+  border-inline-start: 3px solid transparent;
+  border-radius: 8px; padding: 16px 18px;
+  display: flex; gap: 20px; align-items: flex-start;
+}
+.game-main { flex: 1 1 auto; min-width: 0; }
+
+/* ---- the position the game ended on ---- */
+
+.game-final {
+  flex: 0 0 auto;
+  display: flex; flex-direction: column; align-items: center; gap: 7px;
+}
+
+.mini-board {
+  --mini: 21px;
+  display: grid;
+  grid-template-columns: repeat(8, var(--mini));
+  grid-template-rows: repeat(8, var(--mini));
+  border: 1px solid var(--line-strong);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.mini-sq { background-size: contain; background-repeat: no-repeat; background-position: center; }
+.mini-sq.lt { background-color: #f0d9b5; }
+.mini-sq.dk { background-color: #b58863; }
+
+.outcome {
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: 11px; letter-spacing: .02em;
+  padding: 3px 8px; border-radius: 999px; white-space: nowrap;
+}
+.outcome.is-mate { background: var(--amber); color: var(--surface); }
+.outcome.is-draw { background: var(--surface-2); color: var(--ink-faint); border: 1px solid var(--line); }
+:root[data-theme="dark"] .outcome.is-mate,
+:root:not([data-theme="light"]) .outcome.is-mate { color: #052733; }
+.game.is-target { border-color: var(--amber); border-inline-start-color: var(--amber); }
+@keyframes arrive {
+  from { background: var(--amber-tint); }
+  to   { background: var(--surface); }
+}
+.game.flash { animation: arrive 1.8s ease-out; }
+
+.game-head {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 14px;
+  margin-bottom: 12px;
+}
+.rank {
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: 12px; font-variant-numeric: tabular-nums; color: var(--ink-faint);
+}
+.game-title {
+  font-family: Balthazar, Georgia, "Times New Roman", serif;
+  font-weight: 400; font-size: 25px; margin: 0; line-height: 1.1;
+}
+.meta {
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: 12px; color: var(--ink-faint); font-variant-numeric: tabular-nums;
+}
+
+.game-actions { margin-inline-start: auto; display: flex; gap: 8px; }
+
+.copy, .open-board {
+  font: 500 13px/1 "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  color: var(--ink); background: var(--surface-2);
+  border: 1px solid var(--line-strong); border-radius: 5px;
+  padding: 7px 13px; cursor: pointer; min-width: 104px;
+  transition: background .12s ease, border-color .12s ease, color .12s ease;
+}
+.copy:hover, .open-board:hover { border-color: var(--amber); color: var(--amber); }
+.open-board { border-color: var(--amber); color: var(--amber); }
+.copy.done { background: var(--amber); border-color: var(--amber); color: var(--surface); }
+:root[data-theme="dark"] .copy.done,
+:root:not([data-theme="light"]) .copy.done { color: #052733; }
+
+.pgn {
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: 13px; line-height: 1.75; margin: 0;
+  white-space: pre-wrap; overflow-wrap: anywhere;
+  background: var(--surface-2); border: 1px solid var(--line);
+  border-radius: 6px; padding: 13px 15px;
+  color: var(--ink-soft);
+}
+
+footer {
+  border-top: 1px solid var(--line); padding: 28px 0 64px;
+  font-size: 14px; color: var(--ink-faint);
+}
+
+@media (max-width: 760px) {
+  .game { flex-direction: column-reverse; }
+  .game-final { flex-direction: row; align-self: flex-start; align-items: center; gap: 12px; }
+}
+
+@media (max-width: 640px) {
+  .tree-row { grid-template-columns: 1fr; }
+  .game-actions { margin-inline-start: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .game.flash { animation: none; }
+  * { transition-duration: .01ms !important; }
+}
+
+.ac-lede { font-size: 17px; color: var(--ink-soft); margin: 0 0 22px; max-width: 66ch; }
+
+/* Right and wrong need two colours of their own: the palette has amber for attention and
+   nothing for these, and they have to hold on both grounds. */
+:root { --good: #2f8f5b; --bad: #b3453a; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --good: #63c893; --bad: #e08074; }
+}
+:root[data-theme="dark"] { --good: #63c893; --bad: #e08074; }
+
+/* The activity keeps the board's own colours, the way the viewer does, so a position looks
+   the same here as it does over the index and in the app. */
+.ac {
+  --sq: 58px;
+  --bar: 150px;
+  display: grid;
+  grid-template-columns: calc(8 * var(--sq) + var(--sq) / 2) minmax(0, 1fr);
+  gap: 22px;
+  align-items: start;
+  margin: 0 auto 40px;
+}
+
+.ac-left { display: flex; flex-direction: column; gap: 12px; }
+
+.ac-ask {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+  min-height: 40px;
+}
+.ac-level {
+  font-family: Balthazar, Georgia, "Times New Roman", serif;
+  font-size: 28px;
+  line-height: 1;
+}
+/* The distance is a number to read, and Balthazar's 1 is a roman numeral. */
+.ac-level .ac-n {
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: 24px;
+  color: var(--amber);
+  font-variant-numeric: tabular-nums;
+}
+.ac-turn {
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: 13px;
+  color: var(--ink-soft);
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  padding: 3px 10px;
+}
+.ac-turn.black { background: #16202a; color: #e7edf2; border-color: #16202a; }
+.ac-turn.white { background: #f6f1e6; color: #33261a; border-color: #cdbfa6; }
+.ac-score { margin-inline-start: auto; font-family: "IBM Plex Mono", ui-monospace, monospace;
+            font-size: 13px; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+.ac-score b { color: var(--amber); font-weight: 500; }
+
+/* The verdict is one line that never moves: it holds its height while the position waits. */
+.ac-verdict {
+  min-height: 62px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface);
+  padding: 10px 12px;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--ink-soft);
+}
+.ac-verdict b { color: var(--ink); font-weight: 600; }
+.ac-verdict .san { font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace; }
+.ac-verdict.right { border-color: var(--good); background: var(--amber-tint); }
+.ac-verdict.wrong { border-color: var(--bad); }
+.ac-verdict .good { color: var(--good); }
+.ac-verdict .bad { color: var(--bad); }
+
+.ac-actions { display: flex; gap: 8px; align-items: center; }
+.ac-actions button {
+  font: 500 14px/1 "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  padding: 10px 16px;
+  border-radius: 6px;
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+}
+.ac-actions button:hover:not(:disabled) { border-color: var(--amber); color: var(--amber); }
+.ac-actions button:disabled { opacity: .4; cursor: default; }
+.ac-actions .primary { border-color: var(--amber); color: var(--amber); }
+.ac-actions .ac-from { margin-inline-start: auto; font-size: 12px; color: var(--ink-faint); }
+.ac-actions .ac-from a { color: var(--ink-soft); }
+
+/* The bars, once the answer is in. They are the viewer's own cells on the viewer's own
+   wood, so a bar means here exactly what it means there. */
+.ac-right { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.ac-bars {
+  background: var(--wood);
+  border-radius: 4px;
+  padding: 4px;
+  min-height: calc(var(--bar) + 8px);
+  display: flex;
+}
+/* Before the answer there is nothing to draw, and a block of bare wood that size reads as a
+   missing picture, so the empty box is plain. */
+.ac-bars.empty {
+  background: var(--surface);
+  border: 1px dashed var(--line-strong);
+}
+.ac-bars .vw-mini { width: 100%; }
+/* A mate is painted over the whole cell, so the mark on the move you played has to sit above
+   it: the cell's own inset shadow would be underneath the bands. */
+.ac-bars .vw-cell.chosen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 0 0 3px #c6168d;
+  pointer-events: none;
+  z-index: 2;
+}
+.ac-hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  color: var(--ink-faint);
+  font-size: 13px;
+  text-align: center;
+  padding: 0 16px;
+}
+.ac-legend { font-size: 12.5px; color: var(--ink-soft); line-height: 1.5; }
+.ac-legend code { font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace; }
+
+@media (max-width: 1000px) {
+  .ac { grid-template-columns: minmax(0, 1fr); --sq: min(44px, 10vw); --bar: 110px; }
+}
+.op-lede { font-size: 17px; color: var(--ink-soft); margin: 0 0 20px; max-width: 66ch; }
+
+/* ---- where we are ---- */
+
+.op-trail {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px;
+  font-size: 14px; margin-bottom: 18px;
+}
+.op-crumbs {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 6px;
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+.op-trail a, .op-trail span.op-num {
+  text-decoration: none; padding: 2px 6px; border-radius: 4px;
+  border: 1px solid transparent; color: var(--ink-soft);
+}
+.op-trail span.op-num { color: var(--ink-faint); padding-inline: 2px; }
+.op-trail a:hover { color: var(--amber); border-color: var(--amber); }
+.op-trail a.here { background: var(--amber); border-color: var(--amber); color: var(--surface); }
+:root[data-theme="dark"] .op-trail a.here,
+:root:not([data-theme="light"]) .op-trail a.here { color: #052733; }
+
+.op-find {
+  position: relative; margin-inline-start: auto; flex: 0 0 auto;
+  font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+}
+.op-find input {
+  font: 400 13px/1.4 "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  color: var(--ink); background: var(--surface);
+  border: 1px solid var(--line-strong); border-radius: 5px;
+  padding: 6px 10px; width: 240px;
+}
+.op-hits {
+  position: absolute; inset-inline-end: 0; top: calc(100% + 4px); z-index: 20;
+  width: 380px; max-height: 320px; overflow-y: auto;
+  background: var(--surface); border: 1px solid var(--line-strong);
+  border-radius: 6px; box-shadow: var(--shadow);
+}
+.op-hits:empty { display: none; }
+.op-hits button {
+  display: block; width: 100%; text-align: start; cursor: pointer;
+  font: 400 13px/1.4 "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  color: var(--ink); background: none; border: 0;
+  border-bottom: 1px solid var(--line); padding: 7px 11px;
+}
+.op-hits button:last-child { border-bottom: 0; }
+.op-hits button:hover { background: var(--surface-2); color: var(--amber); }
+.op-hits button em {
+  display: block; font-style: normal; color: var(--ink-faint);
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace; font-size: 11px;
+}
+
+/* ---- the position we are at ---- */
+
+.op {
+  --sq: 42px;
+  display: grid;
+  grid-template-columns: calc(8 * var(--sq) + var(--sq) / 2) minmax(0, 1fr);
+  gap: 26px; align-items: start; margin-bottom: 40px;
+}
+.op-here { display: flex; flex-direction: column; gap: 12px; }
+.op-name {
+  font-family: Balthazar, Georgia, "Times New Roman", serif;
+  font-size: 26px; line-height: 1.15; margin: 0;
+}
+.op-name .op-also {
+  display: block; font: 400 13px/1.5 "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  color: var(--ink-faint);
+}
+.op-turn {
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: 12px; color: var(--ink-soft);
+}
+.op-turn b { color: var(--amber); font-weight: 500; }
+
+/* The game this very line was played out into, when there is one. */
+.op-game {
+  display: flex; gap: 14px; align-items: center;
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: 8px; padding: 12px 14px; box-shadow: var(--shadow);
+}
+.op-game .op-game-text { min-width: 0; }
+.op-game h3 {
+  font-family: Balthazar, Georgia, "Times New Roman", serif;
+  font-weight: 400; font-size: 19px; margin: 0 0 4px; line-height: 1.15;
+}
+.op-game p { margin: 0 0 8px; font-size: 13px; color: var(--ink-soft); }
+
+/* ---- the moves out of it ---- */
+
+.op-moves h2 { font-size: 24px; margin: 0 0 4px; }
+.op-cards {
+  display: grid; gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(216px, 1fr));
+}
+
+.op-card {
+  display: flex; flex-direction: column; gap: 9px;
+  background: var(--surface); border: 1px solid var(--line);
+  border-inline-start: 3px solid var(--line-strong);
+  border-radius: 8px; padding: 12px 13px; box-shadow: var(--shadow);
+  text-align: start;
+}
+.op-card.has-game { border-inline-start-color: var(--amber); }
+.op-card.is-open { cursor: pointer; }
+.op-card.is-open:hover { border-color: var(--amber); }
+.op-card.is-open:hover .op-move { color: var(--amber); }
+
+.op-head { display: flex; align-items: center; gap: 9px; }
+.op-move {
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: 17px; font-weight: 500;
+}
+.op-move .op-n { color: var(--ink-faint); font-size: 13px; margin-inline-end: 3px; }
+.op-eval {
+  margin-inline-start: auto; display: flex; align-items: center; gap: 7px;
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: 12px; color: var(--ink-soft); font-variant-numeric: tabular-nums;
+}
+/* The bar is the viewer's cell, so a score reads the same here as it does over a game. */
+.op-eval .vw-cell {
+  width: 14px; height: 34px; flex: 0 0 auto;
+  border: 1px solid var(--line-strong); border-radius: 2px;
+}
+.op-eval.none { color: var(--ink-faint); }
+
+.op-titles { display: flex; flex-direction: column; gap: 3px; font-size: 13px; }
+.op-titles b { font-weight: 600; }
+.op-titles i { font-style: normal; color: var(--ink-soft); }
+.op-titles .op-below { color: var(--ink-faint); }
+.op-titles a {
+  color: var(--ink-soft); text-decoration: none;
+  border-bottom: 1px solid var(--line-strong);
+}
+.op-titles a:hover { color: var(--amber); border-color: var(--amber); }
+.op-titles .op-more { color: var(--ink-faint); font-size: 12px; }
+
+/* The card's board is the position the game ended on, small enough to leave the card room
+   for what it is about, which is the move. */
+/* The board sits on its own line rather than beside the facts: "Checkmate · White" is as
+   wide as a card, and a row that only sometimes fits would give every card a different shape. */
+.op-body { display: flex; flex-direction: column; gap: 8px; margin-top: auto; }
+.op-body .mini-board { --mini: 16px; align-self: flex-start; }
+.op-facts { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 9px; }
+.op-facts .meta { font-size: 11px; }
+.op-facts .outcome { font-size: 10px; padding: 2px 7px; }
+.op-facts .open-board { min-width: 0; padding: 5px 11px; font-size: 12px; }
+
+/* A move nothing has been played from: the work in progress, drawn as the gap it is. */
+.op-soon {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 3px; min-height: 62px; margin-top: auto;
+  border: 1px dashed var(--line-strong); border-radius: 6px;
+  background: var(--surface-2); color: var(--amber);
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace; font-size: 13px;
+}
+.op-soon span { color: var(--ink-faint); font-size: 11px; }
+
+.op-end {
+  font-size: 14px; color: var(--ink-soft);
+  border: 1px dashed var(--line-strong); border-radius: 8px; padding: 16px 18px;
+}
+
+@media (max-width: 900px) {
+  .op { grid-template-columns: minmax(0, 1fr); }
+  .op-find { margin-inline-start: 0; width: 100%; }
+  .op-find input, .op-hits { width: 100%; }
+}
+</style>
+<link rel="stylesheet" href="pieces.css">
+<link rel="stylesheet" href="viewer.css">
+</head>
+<body>
+<div class="bar"><div class="wide bar-inner">
+<span class="bar-name">Openings</span>
+<a class="bar-up" href="index.html">The 400 games</a>
+<a class="bar-up" href="transpositions.html">Transpositions</a>
+<a class="bar-up" href="mate.html">Find the mate</a>
+<a class="bar-up" href="winning.html">Who is winning</a>
+<span class="bar-here" id="bar-here"></span>
+</div></div>
+<section class="wide tree-head" style="padding-top:30px">
+<h2>Walk the openings</h2>
+<p class="op-lede">Start on the initial position and take one move at a time. Every move that continues an opening lichess names is here, and so is every move a game was played from — the four hundred, and the deeper lines being played out now. A card with a board behind it is a game you can open; the rest are moves nothing has been played from yet.</p>
+<div class="op-trail">
+<span class="op-crumbs" id="op-trail"></span>
+<span class="op-find">
+<input id="op-search" type="search" autocomplete="off" placeholder="Go to an opening…" aria-label="Find an opening by name">
+<div class="op-hits" id="op-hits"></div>
+</span>
+</div>
+</section>
+<main class="wide">
+<div class="op">
+<div class="op-here">
+<h1 class="op-name" id="op-name"></h1>
+<div class="vw-board" id="op-board"></div>
+<div class="op-turn" id="op-turn"></div>
+<div id="op-played"></div>
+</div>
+<div class="op-moves">
+<h2 id="op-count">Loading…</h2>
+<p class="note" id="op-note"></p>
+<div class="op-cards" id="op-cards"></div>
+</div>
+</div>
+</main>
+<footer class="wide">Generated by <code>make-pgn-index.py</code> from <code>openings.txt</code>, <code>games/</code> and the server.</footer>
+<script src="activity.js"></script>
+<script src="openings.js"></script>
+<script src="viewer.js"></script>
+</body>
+</html>

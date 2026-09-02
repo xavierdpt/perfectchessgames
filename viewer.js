@@ -391,10 +391,13 @@
     if (lastFocus) lastFocus.focus();
   }
 
+  /* The index names the game by the card's id, because a card is the game; the openings
+     page names it in data-game, because there a card is a move that a game was played from. */
   document.addEventListener('click', function (event) {
     var button = event.target.closest('.open-board');
     if (!button) return;
-    var article = button.closest('.game');
-    open(article.id, article.dataset.title);
+    var card = button.closest('[data-game], .game');
+    if (!card) return;
+    open(card.dataset.game || card.id, card.dataset.title);
   });
 })();
