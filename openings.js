@@ -78,6 +78,27 @@
     return found;
   }
 
+  // Every opening at or below a node, nearest first — the list the "more below" count opens.
+  // A name is one opening however many move orders reach it, so the first arrival wins and
+  // the rest are dropped: that is what makes the list as long as the count promised.
+  function under(node) {
+    var rows = [], seen = {}, queue = [{ node: node, path: [] }];
+    while (queue.length) {
+      var at = queue.shift();
+      [['o', false], ['a', true]].forEach(function (kind) {
+        (at.node[kind[0]] || []).forEach(function (index) {
+          if (seen[index]) { return; }
+          seen[index] = true;
+          rows.push({ name: names[index], path: at.path, other: kind[1] });
+        });
+      });
+      (at.node.c || []).forEach(function (child) {
+        queue.push({ node: child, path: at.path.concat([child.m]) });
+      });
+    }
+    return rows;
+  }
+
   // Every opening by the line lichess gives it, walked once, for the search box.
   function catalogueOf(node, path) {
     (node.o || []).forEach(function (index) {
@@ -95,14 +116,21 @@
            '</span>' + esc(san);
   }
 
-  function title(path) {
+  // A run of moves, numbered from the ply it starts on: from the start that is 1. e4 Nf6,
+  // and from three plies in it is 2… Nd5 3. d4, so a line read out of a card is numbered the
+  // way it would be in the game rather than starting again at one.
+  function continuation(base, moves) {
     var written = [];
-    for (var i = 0; i < path.length; i++) {
-      if (i % 2 === 0) { written.push((i / 2 + 1) + '.'); }
-      written.push(path[i]);
+    for (var i = 0; i < moves.length; i++) {
+      var ply = base + i;
+      if (ply % 2 === 0) { written.push((ply / 2 + 1) + '.'); }
+      else if (i === 0) { written.push(((ply - 1) / 2 + 1) + '…'); }
+      written.push(moves[i]);
     }
     return written.join(' ');
   }
+
+  function title(path) { return continuation(0, path); }
 
   // Scores are the server's, from the point of view of whoever is to move; the bar and the
   // number beside it are both White's, so that a card reads the same way as a game does.
@@ -148,16 +176,23 @@
     return path.map(function (san) { return san.replace(/-/g, ''); }).join('-');
   }
 
-  function asked() {
-    var text = decodeURIComponent(location.hash.slice(1));
+  function parse(text) {
     if (!text) { return []; }
     return text.split('-').map(function (token) {
       return token === 'OO' ? 'O-O' : token === 'OOO' ? 'O-O-O' : token;
     });
   }
 
+  function asked() { return parse(decodeURIComponent(location.hash.slice(1))); }
+
   function link(path, text, extra) {
     return '<a href="#' + address(path) + '"' + (extra || '') + '>' + text + '</a>';
+  }
+
+  // A count of openings is a way in to them: it opens the list of what it counted.
+  function counter(path, text) {
+    return '<button type="button" class="op-more" data-under="' + esc(address(path)) +
+           '">' + esc(text) + '</button>';
   }
 
   function drawTrail(path) {
@@ -185,7 +220,8 @@
     var white = path.length % 2 === 0;
     parts.turn.innerHTML = '<b>' + (white ? 'White' : 'Black') + '</b> to move' +
       (path.length ? ' · after ' + esc(title(path)) : '') +
-      (node.n ? ' · ' + node.n + ' opening' + (node.n === 1 ? '' : 's') + ' from here' : '');
+      (node.n ? ' · ' + counter(path, node.n + ' opening' + (node.n === 1 ? '' : 's') +
+                                      ' from here') : '');
 
     var game = node.g === undefined ? null : games[node.g];
     if (!game) { parts.played.innerHTML = ''; return; }
@@ -216,12 +252,10 @@
                     link(line.concat(found.path), esc(found.name)) + '</span>');
       });
       if (child.n > titles.length) {
-        titles.push('<span class="op-more">and ' + (child.n - titles.length) +
-                    ' more below</span>');
+        titles.push(counter(line, 'and ' + (child.n - titles.length) + ' more below'));
       }
     } else if (child.n > (child.o || []).length) {
-      titles.push('<span class="op-more">' + (child.n - (child.o || []).length) +
-                  ' more below</span>');
+      titles.push(counter(line, (child.n - (child.o || []).length) + ' more below'));
     }
 
     var body = game
@@ -286,6 +320,85 @@
     document.title = (path.length ? title(path) : 'Openings') + ' · Openings';
   }
 
+  /* ---- the list a count opens ----
+   * A count on a card promises a number of openings; this is where they are. The list is
+   * built where it is asked for rather than kept, because the subtree under 1. e4 is 1,767
+   * of them and the page has no reason to hold that until someone asks.
+   */
+
+  var list = null, listRows = [], listWhere = '', listFocus = null;
+
+  function buildList() {
+    list = document.createElement('div');
+    list.className = 'op-modal';
+    list.hidden = true;
+    list.innerHTML =
+      '<div class="op-modal-back" data-close="1"></div>' +
+      '<div class="op-modal-panel" role="dialog" aria-modal="true" ' +
+           'aria-labelledby="op-list-title">' +
+        '<div class="op-modal-head">' +
+          '<h2 id="op-list-title"></h2>' +
+          '<input type="search" class="op-modal-filter" autocomplete="off" ' +
+                 'placeholder="Filter these…" aria-label="Filter this list by name">' +
+          '<button type="button" class="op-modal-close" data-close="1">Close</button>' +
+        '</div>' +
+        '<div class="op-modal-body"></div>' +
+      '</div>';
+    document.body.appendChild(list);
+
+    list.addEventListener('click', function (event) {
+      if (event.target.closest('[data-close]')) { closeList(); return; }
+      if (event.target.closest('.op-row')) { closeList(); }   // the href does the rest
+    });
+    list.querySelector('.op-modal-filter').addEventListener('input', fillList);
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && list && !list.hidden) { closeList(); }
+    });
+  }
+
+  function fillList() {
+    var query = list.querySelector('.op-modal-filter').value.trim().toLowerCase();
+    var shown = query ? listRows.filter(function (row) {
+      return row.name.toLowerCase().indexOf(query) >= 0;
+    }) : listRows;
+    list.querySelector('#op-list-title').textContent =
+      (query ? shown.length + ' of ' + listRows.length : String(listRows.length)) +
+      ' opening' + (listRows.length === 1 ? '' : 's') + listWhere;
+    list.querySelector('.op-modal-body').innerHTML = shown.length
+      ? shown.map(function (row) {
+          return '<a class="op-row" href="#' + address(row.at) + '">' +
+                 '<span class="op-row-name">' + esc(row.name) +
+                 (row.other ? '<em>by another move order</em>' : '') + '</span>' +
+                 '<span class="op-row-line">' +
+                 esc(row.line || 'this very position') + '</span></a>';
+        }).join('')
+      : '<p class="op-row-none">No opening here is named for that.</p>';
+  }
+
+  function openList(line) {
+    if (!list) { buildList(); }
+    var path = parse(line);
+    var nodes = chain(path);
+    listRows = under(nodes[nodes.length - 1]).map(function (row) {
+      return { name: row.name, other: row.other, at: path.concat(row.path),
+               line: continuation(path.length, row.path) };
+    });
+    listWhere = path.length ? ' from ' + title(path) : ' in all';
+    list.querySelector('.op-modal-filter').value = '';
+    fillList();
+    listFocus = document.activeElement;
+    list.hidden = false;
+    document.body.style.overflow = 'hidden';
+    list.querySelector('.op-modal-filter').focus();
+  }
+
+  function closeList() {
+    if (!list || list.hidden) { return; }
+    list.hidden = true;
+    document.body.style.overflow = '';
+    if (listFocus && document.contains(listFocus)) { listFocus.focus(); }
+  }
+
   /* ---- moving about ---- */
 
   function go(line) {
@@ -331,18 +444,25 @@
 
   function wire() {
     parts.cards.addEventListener('click', function (event) {
+      var count = event.target.closest('.op-more');
+      if (count) { openList(count.dataset.under); return; }
       if (event.target.closest('.open-board') || event.target.closest('a')) { return; }
       var card_ = event.target.closest('.op-card.is-open');
       if (card_) { go(card_.dataset.line); }
     });
+    parts.turn.addEventListener('click', function (event) {
+      var count = event.target.closest('.op-more');
+      if (count) { openList(count.dataset.under); }
+    });
     parts.cards.addEventListener('keydown', function (event) {
       if (event.key !== 'Enter' && event.key !== ' ') { return; }
+      if (event.target.closest('button, a')) { return; }   // they answer for themselves
       var card_ = event.target.closest('.op-card.is-open');
       if (!card_) { return; }
       event.preventDefault();
       go(card_.dataset.line);
     });
-    window.addEventListener('hashchange', draw);
+    window.addEventListener('hashchange', function () { closeList(); draw(); });
     wireSearch();
   }
 

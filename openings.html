@@ -529,7 +529,20 @@ footer {
   border-bottom: 1px solid var(--line-strong);
 }
 .op-titles a:hover { color: var(--amber); border-color: var(--amber); }
-.op-titles .op-more { color: var(--ink-faint); font-size: 12px; }
+/* The count is the way in to what it counted, so it is a button and looks like one. */
+.op-titles .op-more, .op-turn .op-more {
+  font: 400 12px/1.4 "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  color: var(--ink-faint); background: none; cursor: pointer;
+  border: 0; border-bottom: 1px dashed var(--line-strong);
+  padding: 0; align-self: flex-start; text-align: start;
+}
+.op-titles .op-more:hover, .op-turn .op-more:hover {
+  color: var(--amber); border-color: var(--amber);
+}
+.op-turn .op-more {
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: inherit; color: var(--ink-soft);
+}
 
 /* The card's board is the position the game ended on, small enough to leave the card room
    for what it is about, which is the move. */
@@ -557,10 +570,72 @@ footer {
   border: 1px dashed var(--line-strong); border-radius: 8px; padding: 16px 18px;
 }
 
+/* ---- the list a count opens ---- */
+
+.op-modal[hidden] { display: none !important; }
+.op-modal {
+  position: fixed; inset: 0; z-index: 40;
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+}
+.op-modal-back { position: absolute; inset: 0; background: rgba(6, 48, 61, .55); }
+.op-modal-panel {
+  position: relative; display: flex; flex-direction: column;
+  width: min(760px, 100%); max-height: min(76vh, 720px);
+  background: var(--surface); border: 1px solid var(--line-strong);
+  border-radius: 10px; box-shadow: 0 12px 40px rgba(6, 48, 61, .28);
+  overflow: hidden;
+}
+.op-modal-head {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px;
+  padding: 14px 18px; border-bottom: 1px solid var(--line);
+  background: var(--surface-2);
+}
+.op-modal-head h2 {
+  font-family: Balthazar, Georgia, "Times New Roman", serif;
+  font-weight: 400; font-size: 22px; margin: 0; line-height: 1.15;
+}
+.op-modal-filter {
+  font: 400 13px/1.4 "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  color: var(--ink); background: var(--surface);
+  border: 1px solid var(--line-strong); border-radius: 5px;
+  padding: 6px 10px; width: 180px; margin-inline-start: auto;
+}
+.op-modal-close {
+  font: 500 13px/1 "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  color: var(--ink); background: var(--surface);
+  border: 1px solid var(--line-strong); border-radius: 5px;
+  padding: 7px 13px; cursor: pointer;
+}
+.op-modal-close:hover { border-color: var(--amber); color: var(--amber); }
+
+.op-modal-body { overflow-y: auto; padding: 6px 0; }
+
+/* One opening a row: its name, and the line that reaches it from where the count was. */
+.op-row {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px;
+  padding: 7px 18px; text-decoration: none; border-bottom: 1px solid var(--line);
+}
+.op-row:last-child { border-bottom: 0; }
+.op-row:hover { background: var(--surface-2); }
+.op-row:hover .op-row-name { color: var(--amber); }
+.op-row-name { font-size: 14px; }
+.op-row-name em {
+  font-style: normal; color: var(--ink-faint); font-size: 11px; margin-inline-start: 7px;
+}
+.op-row-line {
+  margin-inline-start: auto; text-align: end;
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: 11px; color: var(--ink-faint);
+}
+.op-row-none { padding: 18px; margin: 0; color: var(--ink-soft); font-size: 14px; }
+
 @media (max-width: 900px) {
   .op { grid-template-columns: minmax(0, 1fr); }
   .op-find { margin-inline-start: 0; width: 100%; }
   .op-find input, .op-hits { width: 100%; }
+  .op-modal { padding: 10px; }
+  .op-modal-filter { margin-inline-start: 0; width: 100%; order: 3; }
 }
 </style>
 <link rel="stylesheet" href="pieces.css">
