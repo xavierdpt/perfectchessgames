@@ -217,14 +217,16 @@ h2 {
 
 .game-actions { margin-inline-start: auto; display: flex; gap: 8px; }
 
-.copy, .open-board {
+.copy, .open-board, .open-shape {
   font: 500 13px/1 "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
   color: var(--ink); background: var(--surface-2);
   border: 1px solid var(--line-strong); border-radius: 5px;
   padding: 7px 13px; cursor: pointer; min-width: 104px;
   transition: background .12s ease, border-color .12s ease, color .12s ease;
 }
-.copy:hover, .open-board:hover { border-color: var(--amber); color: var(--amber); }
+.copy:hover, .open-board:hover, .open-shape:hover {
+  border-color: var(--amber); color: var(--amber);
+}
 .open-board { border-color: var(--amber); color: var(--amber); }
 .copy.done { background: var(--amber); border-color: var(--amber); color: var(--surface); }
 :root[data-theme="dark"] .copy.done,
@@ -553,7 +555,9 @@ footer {
 .op-facts { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 9px; }
 .op-facts .meta { font-size: 11px; }
 .op-facts .outcome { font-size: 10px; padding: 2px 7px; }
-.op-facts .open-board { min-width: 0; padding: 5px 11px; font-size: 12px; }
+.op-facts .open-board, .op-facts .open-shape {
+  min-width: 0; padding: 5px 11px; font-size: 12px;
+}
 
 /* A move nothing has been played from: the work in progress, drawn as the gap it is. */
 .op-soon {
@@ -680,5 +684,6 @@ footer {
 <script src="activity.js"></script>
 <script src="openings.js"></script>
 <script src="viewer.js"></script>
+<script src="shape.js"></script>
 </body>
 </html>

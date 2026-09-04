@@ -327,3 +327,135 @@
   .vw-panel { --bar: 96px; }
   .vw-moves { max-height: 20vh; }
 }
+
+/* ---- the shape panel ----
+   A game's whole span at once: the mobility curves, and both sides' bars played forward.
+   The chrome is the viewer's, fixed dark for the same reason — a board and its bars are one
+   picture whatever the page around them is doing. */
+
+.sh-panel {
+  /* Narrower than the board viewer: there is one strip of cells here, not forty rows. */
+  width: min(1100px, 100%);
+  --bar: 112px;
+}
+
+.sh-body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 16px;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+/* ---- the curves ---- */
+
+/* The plot keeps a light ground of its own: a white curve and a black one on the panel's
+   dark blue would be one bright line and one invisible one. */
+.sh-graph svg { display: block; width: 100%; height: auto; touch-action: none; cursor: ew-resize; }
+.sh-plot { fill: #b58863; stroke: #8a5f3f; stroke-width: 1; }
+.sh-grid { stroke: rgba(58, 36, 21, .26); stroke-width: 1; }
+.sh-grid.soft { stroke: rgba(58, 36, 21, .13); }
+/* Every label sits outside the plot, on the panel's own ground. */
+.sh-axis {
+  fill: #9cb7bf;
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: 13px;
+}
+.sh-axis.unit { font-size: 12px; }
+
+.sh-curve { fill: none; stroke-linejoin: round; stroke-linecap: round; }
+.sh-curve.black { stroke: #16202a; stroke-width: 2.6; }
+.sh-curve.casing { stroke: #3a2415; stroke-width: 5; }
+.sh-curve.white { stroke: #fff; stroke-width: 2.8; }
+
+.sh-cursor { stroke: #c6168d; stroke-width: 1.6; stroke-dasharray: 4 3; }
+.sh-dot.white { fill: #fff; stroke: #3a2415; stroke-width: 1.5; }
+.sh-dot.black { fill: #16202a; stroke: #b58863; stroke-width: 1; }
+
+.sh-keys { display: flex; align-items: center; gap: 10px; font-size: 12px; }
+.sh-key {
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  border-radius: 999px;
+  padding: 3px 10px;
+}
+.sh-key.white { background: #f6f1e6; color: #33261a; border: 1px solid #cdbfa6; }
+.sh-key.black { background: #16202a; color: #e7edf2; border: 1px solid #34434f; }
+.sh-keys-note { color: #9cb7bf; }
+
+/* ---- the two strips ---- */
+
+.sh-strips { display: flex; flex-direction: column; gap: 10px; --cw: 4%; }
+.sh-strip { display: flex; flex-direction: column; gap: 5px; }
+
+.sh-side {
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: 12px;
+  color: #9cb7bf;
+  min-height: 16px;
+}
+.sh-side b { color: #ebe2d1; font-weight: 500; }
+
+.sh-strip .vw-mini {
+  height: var(--bar);
+  background: #b58863;
+  border-radius: 4px;
+  padding: 2px;
+  display: flex;
+  align-items: stretch;
+}
+/* A cell holds its width across the game, so the length of the strip is the count the curve
+   above it draws, and a bar that stays put is a bar whose height can slide. */
+.sh-strip .vw-cell { box-sizing: border-box; flex: 0 0 var(--cw); }
+.sh-strip .vw-black { transition: height .28s ease; }
+/* A mate covers the whole cell, so the mark on the move that was played has to sit over it. */
+.sh-strip .vw-cell.played::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 0 0 3px #f57c00;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ---- the transport ---- */
+
+.sh-transport { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.sh-transport button {
+  background: transparent;
+  color: #ebe2d1;
+  border: 1px solid #2b6d81;
+  border-radius: 5px;
+  font: 500 13px/1 inherit;
+  padding: 7px 11px;
+  cursor: pointer;
+}
+.sh-transport button:hover { border-color: #e8a33d; color: #e8a33d; }
+.sh-play { min-width: 96px; }
+.sh-range { flex: 1 1 160px; min-width: 120px; accent-color: #e8a33d; cursor: pointer; }
+.sh-at, .sh-speed {
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: 12px;
+  color: #9cb7bf;
+  font-variant-numeric: tabular-nums;
+}
+.sh-speed select {
+  background: #052733;
+  color: #ebe2d1;
+  border: 1px solid #2b6d81;
+  border-radius: 4px;
+  font: inherit;
+  padding: 4px 6px;
+  margin-inline-start: 4px;
+}
+.sh-note { font-size: 13px; color: #9cb7bf; min-height: 0; }
+.sh-note:empty { display: none; }
+
+@media (max-width: 900px) {
+  .sh-panel { --bar: 84px; }
+  .sh-keys-note { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sh-strip .vw-black { transition: none; }
+}

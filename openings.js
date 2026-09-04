@@ -231,7 +231,8 @@
       '<div class="op-game-text"><h3>The game from here</h3>' +
       '<p>' + esc(game.t) + ' · ' + Math.floor(game.p / 2) + ' moves</p>' +
       outcomeChip(game) +
-      ' <button type="button" class="open-board">Open board</button></div></div>';
+      ' <button type="button" class="open-board">Open board</button>' +
+      ' <button type="button" class="open-shape">Shape</button></div></div>';
   }
 
   function card(child, path, ply) {
@@ -262,7 +263,8 @@
       ? '<div class="op-body">' + (game.b ? miniBoard(game.b) : '') +
         '<div class="op-facts"><span class="meta">' + Math.floor(game.p / 2) + ' moves</span>' +
         outcomeChip(game) +
-        '<button type="button" class="open-board">Open board</button></div></div>'
+        '<button type="button" class="open-board">Open board</button>' +
+        '<button type="button" class="open-shape">Shape</button></div></div>'
       : '<div class="op-soon">coming soon<span>no game played from here yet</span></div>';
 
     return '<div class="op-card' + (game ? ' has-game' : '') + (open ? ' is-open' : '') + '"' +
@@ -446,7 +448,8 @@
     parts.cards.addEventListener('click', function (event) {
       var count = event.target.closest('.op-more');
       if (count) { openList(count.dataset.under); return; }
-      if (event.target.closest('.open-board') || event.target.closest('a')) { return; }
+      if (event.target.closest('.open-board') || event.target.closest('.open-shape') ||
+          event.target.closest('a')) { return; }
       var card_ = event.target.closest('.op-card.is-open');
       if (card_) { go(card_.dataset.line); }
     });

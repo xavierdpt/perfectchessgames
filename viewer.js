@@ -72,21 +72,25 @@
    * that stays the same whatever the row height is.
    */
 
-  function cellContents(move, whiteToMove) {
+  // Black's share of the bar; ten pawns either way fills or empties it.
+  function blackShare(move, whiteToMove) {
     var fromWhite = whiteToMove ? move.score : -move.score;
+    return Math.max(0, Math.min(100, 50 + 100 * (-(fromWhite / 100)) / 20));
+  }
+
+  function cellContents(move, whiteToMove) {
     if (move.mate) {
       // Mate in N: N rectangles in the winner's colour, the grey behind them showing
       // through the gaps so they stay countable.
+      var fromWhite = whiteToMove ? move.score : -move.score;
       var count = Math.min(20, Math.max(1, Math.abs(move.score)));
       var side = fromWhite > 0 ? 'w' : 'b';
       var bands = '';
       for (var i = 0; i < count; i++) { bands += '<div class="vw-mate ' + side + '"></div>'; }
       return '<div class="vw-mates">' + bands + '</div>';
     }
-    // Black's share of the bar; ten pawns either way fills or empties it.
-    var black = 50 + 100 * (-(fromWhite / 100)) / 20;
-    black = Math.max(0, Math.min(100, black));
-    return '<div class="vw-zero"></div><div class="vw-black" style="height:' + black + '%"></div>';
+    return '<div class="vw-zero"></div><div class="vw-black" style="height:' +
+           blackShare(move, whiteToMove) + '%"></div>';
   }
 
   function scoreLabel(move) {
@@ -400,4 +404,12 @@
     if (!card) return;
     open(card.dataset.game || card.id, card.dataset.title);
   });
+
+  /* What a second reading of a game file needs, the way activity.js publishes window.PCG:
+     the file itself, already cached here, and a move turned into a bar cell, so that a bar
+     means the same thing on every page. shape.js is the one reader today. */
+  window.PCGGame = {
+    load: load, decode: decode,
+    cellContents: cellContents, blackShare: blackShare, scoreLabel: scoreLabel
+  };
 })();

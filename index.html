@@ -217,14 +217,16 @@ h2 {
 
 .game-actions { margin-inline-start: auto; display: flex; gap: 8px; }
 
-.copy, .open-board {
+.copy, .open-board, .open-shape {
   font: 500 13px/1 "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
   color: var(--ink); background: var(--surface-2);
   border: 1px solid var(--line-strong); border-radius: 5px;
   padding: 7px 13px; cursor: pointer; min-width: 104px;
   transition: background .12s ease, border-color .12s ease, color .12s ease;
 }
-.copy:hover, .open-board:hover { border-color: var(--amber); color: var(--amber); }
+.copy:hover, .open-board:hover, .open-shape:hover {
+  border-color: var(--amber); color: var(--amber);
+}
 .open-board { border-color: var(--amber); color: var(--amber); }
 .copy.done { background: var(--amber); border-color: var(--amber); color: var(--surface); }
 :root[data-theme="dark"] .copy.done,
@@ -768,6 +770,7 @@ footer {
 <span class="meta">23 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nf3 c5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nf3 c5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nf3-c5" aria-label="Copy the PGN of 1. Nf3 c5">Copy PGN</button>
 </span>
 </div>
@@ -787,6 +790,7 @@ footer {
 <span class="meta">66 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nf3 e6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nf3 e6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nf3-e6" aria-label="Copy the PGN of 1. Nf3 e6">Copy PGN</button>
 </span>
 </div>
@@ -806,6 +810,7 @@ footer {
 <span class="meta">34 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nf3 Nf6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nf3 Nf6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nf3-Nf6" aria-label="Copy the PGN of 1. Nf3 Nf6">Copy PGN</button>
 </span>
 </div>
@@ -825,6 +830,7 @@ footer {
 <span class="meta">27 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nf3 d5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nf3 d5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nf3-d5" aria-label="Copy the PGN of 1. Nf3 d5">Copy PGN</button>
 </span>
 </div>
@@ -844,6 +850,7 @@ footer {
 <span class="meta">34 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nf3 c6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nf3 c6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nf3-c6" aria-label="Copy the PGN of 1. Nf3 c6">Copy PGN</button>
 </span>
 </div>
@@ -863,6 +870,7 @@ footer {
 <span class="meta">97 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nf3 g6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nf3 g6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nf3-g6" aria-label="Copy the PGN of 1. Nf3 g6">Copy PGN</button>
 </span>
 </div>
@@ -882,6 +890,7 @@ footer {
 <span class="meta">77 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nf3 a6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nf3 a6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nf3-a6" aria-label="Copy the PGN of 1. Nf3 a6">Copy PGN</button>
 </span>
 </div>
@@ -901,6 +910,7 @@ footer {
 <span class="meta">36 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nf3 d6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nf3 d6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nf3-d6" aria-label="Copy the PGN of 1. Nf3 d6">Copy PGN</button>
 </span>
 </div>
@@ -920,6 +930,7 @@ footer {
 <span class="meta">22 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nf3 Nc6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nf3 Nc6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nf3-Nc6" aria-label="Copy the PGN of 1. Nf3 Nc6">Copy PGN</button>
 </span>
 </div>
@@ -939,6 +950,7 @@ footer {
 <span class="meta">79 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nf3 f5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nf3 f5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nf3-f5" aria-label="Copy the PGN of 1. Nf3 f5">Copy PGN</button>
 </span>
 </div>
@@ -958,6 +970,7 @@ footer {
 <span class="meta">42 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nf3 b6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nf3 b6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nf3-b6" aria-label="Copy the PGN of 1. Nf3 b6">Copy PGN</button>
 </span>
 </div>
@@ -977,6 +990,7 @@ footer {
 <span class="meta">102 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nf3 h6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nf3 h6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nf3-h6" aria-label="Copy the PGN of 1. Nf3 h6">Copy PGN</button>
 </span>
 </div>
@@ -996,6 +1010,7 @@ footer {
 <span class="meta">48 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nf3 a5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nf3 a5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nf3-a5" aria-label="Copy the PGN of 1. Nf3 a5">Copy PGN</button>
 </span>
 </div>
@@ -1015,6 +1030,7 @@ footer {
 <span class="meta">52 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nf3 b5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nf3 b5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nf3-b5" aria-label="Copy the PGN of 1. Nf3 b5">Copy PGN</button>
 </span>
 </div>
@@ -1034,6 +1050,7 @@ footer {
 <span class="meta">60 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nf3 Na6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nf3 Na6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nf3-Na6" aria-label="Copy the PGN of 1. Nf3 Na6">Copy PGN</button>
 </span>
 </div>
@@ -1053,6 +1070,7 @@ footer {
 <span class="meta">54 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nf3 h5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nf3 h5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nf3-h5" aria-label="Copy the PGN of 1. Nf3 h5">Copy PGN</button>
 </span>
 </div>
@@ -1072,6 +1090,7 @@ footer {
 <span class="meta">48 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nf3 Nh6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nf3 Nh6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nf3-Nh6" aria-label="Copy the PGN of 1. Nf3 Nh6">Copy PGN</button>
 </span>
 </div>
@@ -1091,6 +1110,7 @@ footer {
 <span class="meta">67 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nf3 e5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nf3 e5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nf3-e5" aria-label="Copy the PGN of 1. Nf3 e5">Copy PGN</button>
 </span>
 </div>
@@ -1110,6 +1130,7 @@ footer {
 <span class="meta">59 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nf3 f6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nf3 f6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nf3-f6" aria-label="Copy the PGN of 1. Nf3 f6">Copy PGN</button>
 </span>
 </div>
@@ -1129,6 +1150,7 @@ footer {
 <span class="meta">28 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nf3 g5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nf3 g5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nf3-g5" aria-label="Copy the PGN of 1. Nf3 g5">Copy PGN</button>
 </span>
 </div>
@@ -1148,6 +1170,7 @@ footer {
 <span class="meta">64 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. d4 c6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. d4 c6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-d4-c6" aria-label="Copy the PGN of 1. d4 c6">Copy PGN</button>
 </span>
 </div>
@@ -1167,6 +1190,7 @@ footer {
 <span class="meta">34 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. d4 Nf6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. d4 Nf6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-d4-Nf6" aria-label="Copy the PGN of 1. d4 Nf6">Copy PGN</button>
 </span>
 </div>
@@ -1186,6 +1210,7 @@ footer {
 <span class="meta">66 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. d4 d5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. d4 d5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-d4-d5" aria-label="Copy the PGN of 1. d4 d5">Copy PGN</button>
 </span>
 </div>
@@ -1205,6 +1230,7 @@ footer {
 <span class="meta">23 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. d4 e6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. d4 e6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-d4-e6" aria-label="Copy the PGN of 1. d4 e6">Copy PGN</button>
 </span>
 </div>
@@ -1224,6 +1250,7 @@ footer {
 <span class="meta">36 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. d4 a6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. d4 a6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-d4-a6" aria-label="Copy the PGN of 1. d4 a6">Copy PGN</button>
 </span>
 </div>
@@ -1243,6 +1270,7 @@ footer {
 <span class="meta">83 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. d4 d6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. d4 d6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-d4-d6" aria-label="Copy the PGN of 1. d4 d6">Copy PGN</button>
 </span>
 </div>
@@ -1262,6 +1290,7 @@ footer {
 <span class="meta">63 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. d4 f5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. d4 f5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-d4-f5" aria-label="Copy the PGN of 1. d4 f5">Copy PGN</button>
 </span>
 </div>
@@ -1281,6 +1310,7 @@ footer {
 <span class="meta">21 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. d4 g6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. d4 g6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-d4-g6" aria-label="Copy the PGN of 1. d4 g6">Copy PGN</button>
 </span>
 </div>
@@ -1300,6 +1330,7 @@ footer {
 <span class="meta">52 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. d4 Nc6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. d4 Nc6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-d4-Nc6" aria-label="Copy the PGN of 1. d4 Nc6">Copy PGN</button>
 </span>
 </div>
@@ -1319,6 +1350,7 @@ footer {
 <span class="meta">41 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. d4 c5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. d4 c5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-d4-c5" aria-label="Copy the PGN of 1. d4 c5">Copy PGN</button>
 </span>
 </div>
@@ -1338,6 +1370,7 @@ footer {
 <span class="meta">27 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. d4 h6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. d4 h6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-d4-h6" aria-label="Copy the PGN of 1. d4 h6">Copy PGN</button>
 </span>
 </div>
@@ -1357,6 +1390,7 @@ footer {
 <span class="meta">46 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. d4 b6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. d4 b6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-d4-b6" aria-label="Copy the PGN of 1. d4 b6">Copy PGN</button>
 </span>
 </div>
@@ -1376,6 +1410,7 @@ footer {
 <span class="meta">78 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. d4 Na6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. d4 Na6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-d4-Na6" aria-label="Copy the PGN of 1. d4 Na6">Copy PGN</button>
 </span>
 </div>
@@ -1395,6 +1430,7 @@ footer {
 <span class="meta">57 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. d4 a5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. d4 a5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-d4-a5" aria-label="Copy the PGN of 1. d4 a5">Copy PGN</button>
 </span>
 </div>
@@ -1414,6 +1450,7 @@ footer {
 <span class="meta">72 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. d4 b5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. d4 b5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-d4-b5" aria-label="Copy the PGN of 1. d4 b5">Copy PGN</button>
 </span>
 </div>
@@ -1433,6 +1470,7 @@ footer {
 <span class="meta">56 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. d4 Nh6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. d4 Nh6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-d4-Nh6" aria-label="Copy the PGN of 1. d4 Nh6">Copy PGN</button>
 </span>
 </div>
@@ -1452,6 +1490,7 @@ footer {
 <span class="meta">66 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. d4 h5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. d4 h5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-d4-h5" aria-label="Copy the PGN of 1. d4 h5">Copy PGN</button>
 </span>
 </div>
@@ -1471,6 +1510,7 @@ footer {
 <span class="meta">55 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. d4 f6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. d4 f6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-d4-f6" aria-label="Copy the PGN of 1. d4 f6">Copy PGN</button>
 </span>
 </div>
@@ -1490,6 +1530,7 @@ footer {
 <span class="meta">90 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. d4 e5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. d4 e5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-d4-e5" aria-label="Copy the PGN of 1. d4 e5">Copy PGN</button>
 </span>
 </div>
@@ -1509,6 +1550,7 @@ footer {
 <span class="meta">54 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. d4 g5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. d4 g5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-d4-g5" aria-label="Copy the PGN of 1. d4 g5">Copy PGN</button>
 </span>
 </div>
@@ -1528,6 +1570,7 @@ footer {
 <span class="meta">28 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. e4 e5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. e4 e5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-e4-e5" aria-label="Copy the PGN of 1. e4 e5">Copy PGN</button>
 </span>
 </div>
@@ -1547,6 +1590,7 @@ footer {
 <span class="meta">23 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. e4 c5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. e4 c5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-e4-c5" aria-label="Copy the PGN of 1. e4 c5">Copy PGN</button>
 </span>
 </div>
@@ -1566,6 +1610,7 @@ footer {
 <span class="meta">23 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. e4 e6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. e4 e6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-e4-e6" aria-label="Copy the PGN of 1. e4 e6">Copy PGN</button>
 </span>
 </div>
@@ -1585,6 +1630,7 @@ footer {
 <span class="meta">64 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. e4 c6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. e4 c6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-e4-c6" aria-label="Copy the PGN of 1. e4 c6">Copy PGN</button>
 </span>
 </div>
@@ -1604,6 +1650,7 @@ footer {
 <span class="meta">35 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. e4 Nc6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. e4 Nc6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-e4-Nc6" aria-label="Copy the PGN of 1. e4 Nc6">Copy PGN</button>
 </span>
 </div>
@@ -1623,6 +1670,7 @@ footer {
 <span class="meta">83 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. e4 d6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. e4 d6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-e4-d6" aria-label="Copy the PGN of 1. e4 d6">Copy PGN</button>
 </span>
 </div>
@@ -1642,6 +1690,7 @@ footer {
 <span class="meta">21 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. e4 g6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. e4 g6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-e4-g6" aria-label="Copy the PGN of 1. e4 g6">Copy PGN</button>
 </span>
 </div>
@@ -1661,6 +1710,7 @@ footer {
 <span class="meta">36 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. e4 a6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. e4 a6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-e4-a6" aria-label="Copy the PGN of 1. e4 a6">Copy PGN</button>
 </span>
 </div>
@@ -1680,6 +1730,7 @@ footer {
 <span class="meta">36 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. e4 d5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. e4 d5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-e4-d5" aria-label="Copy the PGN of 1. e4 d5">Copy PGN</button>
 </span>
 </div>
@@ -1699,6 +1750,7 @@ footer {
 <span class="meta">27 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. e4 h6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. e4 h6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-e4-h6" aria-label="Copy the PGN of 1. e4 h6">Copy PGN</button>
 </span>
 </div>
@@ -1718,6 +1770,7 @@ footer {
 <span class="meta">100 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. e4 Nf6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. e4 Nf6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-e4-Nf6" aria-label="Copy the PGN of 1. e4 Nf6">Copy PGN</button>
 </span>
 </div>
@@ -1737,6 +1790,7 @@ footer {
 <span class="meta">57 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. e4 a5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. e4 a5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-e4-a5" aria-label="Copy the PGN of 1. e4 a5">Copy PGN</button>
 </span>
 </div>
@@ -1756,6 +1810,7 @@ footer {
 <span class="meta">46 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. e4 b6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. e4 b6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-e4-b6" aria-label="Copy the PGN of 1. e4 b6">Copy PGN</button>
 </span>
 </div>
@@ -1775,6 +1830,7 @@ footer {
 <span class="meta">37 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. e4 Nh6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. e4 Nh6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-e4-Nh6" aria-label="Copy the PGN of 1. e4 Nh6">Copy PGN</button>
 </span>
 </div>
@@ -1794,6 +1850,7 @@ footer {
 <span class="meta">54 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. e4 Na6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. e4 Na6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-e4-Na6" aria-label="Copy the PGN of 1. e4 Na6">Copy PGN</button>
 </span>
 </div>
@@ -1813,6 +1870,7 @@ footer {
 <span class="meta">66 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. e4 h5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. e4 h5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-e4-h5" aria-label="Copy the PGN of 1. e4 h5">Copy PGN</button>
 </span>
 </div>
@@ -1832,6 +1890,7 @@ footer {
 <span class="meta">59 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. e4 f6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. e4 f6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-e4-f6" aria-label="Copy the PGN of 1. e4 f6">Copy PGN</button>
 </span>
 </div>
@@ -1851,6 +1910,7 @@ footer {
 <span class="meta">12 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. e4 f5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. e4 f5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-e4-f5" aria-label="Copy the PGN of 1. e4 f5">Copy PGN</button>
 </span>
 </div>
@@ -1870,6 +1930,7 @@ footer {
 <span class="meta">28 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. e4 b5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. e4 b5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-e4-b5" aria-label="Copy the PGN of 1. e4 b5">Copy PGN</button>
 </span>
 </div>
@@ -1889,6 +1950,7 @@ footer {
 <span class="meta">47 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. e4 g5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. e4 g5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-e4-g5" aria-label="Copy the PGN of 1. e4 g5">Copy PGN</button>
 </span>
 </div>
@@ -1908,6 +1970,7 @@ footer {
 <span class="meta">24 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. g3 e5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. g3 e5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-g3-e5" aria-label="Copy the PGN of 1. g3 e5">Copy PGN</button>
 </span>
 </div>
@@ -1927,6 +1990,7 @@ footer {
 <span class="meta">65 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. g3 d5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. g3 d5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-g3-d5" aria-label="Copy the PGN of 1. g3 d5">Copy PGN</button>
 </span>
 </div>
@@ -1946,6 +2010,7 @@ footer {
 <span class="meta">72 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. g3 c6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. g3 c6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-g3-c6" aria-label="Copy the PGN of 1. g3 c6">Copy PGN</button>
 </span>
 </div>
@@ -1965,6 +2030,7 @@ footer {
 <span class="meta">72 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. g3 g6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. g3 g6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-g3-g6" aria-label="Copy the PGN of 1. g3 g6">Copy PGN</button>
 </span>
 </div>
@@ -1984,6 +2050,7 @@ footer {
 <span class="meta">66 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. g3 c5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. g3 c5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-g3-c5" aria-label="Copy the PGN of 1. g3 c5">Copy PGN</button>
 </span>
 </div>
@@ -2003,6 +2070,7 @@ footer {
 <span class="meta">66 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. g3 Nf6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. g3 Nf6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-g3-Nf6" aria-label="Copy the PGN of 1. g3 Nf6">Copy PGN</button>
 </span>
 </div>
@@ -2022,6 +2090,7 @@ footer {
 <span class="meta">65 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. g3 e6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. g3 e6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-g3-e6" aria-label="Copy the PGN of 1. g3 e6">Copy PGN</button>
 </span>
 </div>
@@ -2041,6 +2110,7 @@ footer {
 <span class="meta">54 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. g3 Nc6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. g3 Nc6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-g3-Nc6" aria-label="Copy the PGN of 1. g3 Nc6">Copy PGN</button>
 </span>
 </div>
@@ -2060,6 +2130,7 @@ footer {
 <span class="meta">63 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. g3 a5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. g3 a5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-g3-a5" aria-label="Copy the PGN of 1. g3 a5">Copy PGN</button>
 </span>
 </div>
@@ -2079,6 +2150,7 @@ footer {
 <span class="meta">73 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. g3 d6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. g3 d6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-g3-d6" aria-label="Copy the PGN of 1. g3 d6">Copy PGN</button>
 </span>
 </div>
@@ -2098,6 +2170,7 @@ footer {
 <span class="meta">39 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. g3 h6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. g3 h6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-g3-h6" aria-label="Copy the PGN of 1. g3 h6">Copy PGN</button>
 </span>
 </div>
@@ -2117,6 +2190,7 @@ footer {
 <span class="meta">49 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. g3 h5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. g3 h5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-g3-h5" aria-label="Copy the PGN of 1. g3 h5">Copy PGN</button>
 </span>
 </div>
@@ -2136,6 +2210,7 @@ footer {
 <span class="meta">35 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. g3 a6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. g3 a6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-g3-a6" aria-label="Copy the PGN of 1. g3 a6">Copy PGN</button>
 </span>
 </div>
@@ -2155,6 +2230,7 @@ footer {
 <span class="meta">13 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. g3 b6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. g3 b6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-g3-b6" aria-label="Copy the PGN of 1. g3 b6">Copy PGN</button>
 </span>
 </div>
@@ -2174,6 +2250,7 @@ footer {
 <span class="meta">40 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. g3 f5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. g3 f5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-g3-f5" aria-label="Copy the PGN of 1. g3 f5">Copy PGN</button>
 </span>
 </div>
@@ -2193,6 +2270,7 @@ footer {
 <span class="meta">44 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. g3 b5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. g3 b5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-g3-b5" aria-label="Copy the PGN of 1. g3 b5">Copy PGN</button>
 </span>
 </div>
@@ -2212,6 +2290,7 @@ footer {
 <span class="meta">22 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. g3 f6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. g3 f6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-g3-f6" aria-label="Copy the PGN of 1. g3 f6">Copy PGN</button>
 </span>
 </div>
@@ -2231,6 +2310,7 @@ footer {
 <span class="meta">50 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. g3 Na6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. g3 Na6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-g3-Na6" aria-label="Copy the PGN of 1. g3 Na6">Copy PGN</button>
 </span>
 </div>
@@ -2250,6 +2330,7 @@ footer {
 <span class="meta">60 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. g3 Nh6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. g3 Nh6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-g3-Nh6" aria-label="Copy the PGN of 1. g3 Nh6">Copy PGN</button>
 </span>
 </div>
@@ -2269,6 +2350,7 @@ footer {
 <span class="meta">49 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. g3 g5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. g3 g5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-g3-g5" aria-label="Copy the PGN of 1. g3 g5">Copy PGN</button>
 </span>
 </div>
@@ -2288,6 +2370,7 @@ footer {
 <span class="meta">131 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. c4 c5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. c4 c5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-c4-c5" aria-label="Copy the PGN of 1. c4 c5">Copy PGN</button>
 </span>
 </div>
@@ -2307,6 +2390,7 @@ footer {
 <span class="meta">24 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. c4 e5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. c4 e5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-c4-e5" aria-label="Copy the PGN of 1. c4 e5">Copy PGN</button>
 </span>
 </div>
@@ -2326,6 +2410,7 @@ footer {
 <span class="meta">69 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. c4 e6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. c4 e6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-c4-e6" aria-label="Copy the PGN of 1. c4 e6">Copy PGN</button>
 </span>
 </div>
@@ -2345,6 +2430,7 @@ footer {
 <span class="meta">34 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. c4 Nf6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. c4 Nf6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-c4-Nf6" aria-label="Copy the PGN of 1. c4 Nf6">Copy PGN</button>
 </span>
 </div>
@@ -2364,6 +2450,7 @@ footer {
 <span class="meta">34 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. c4 c6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. c4 c6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-c4-c6" aria-label="Copy the PGN of 1. c4 c6">Copy PGN</button>
 </span>
 </div>
@@ -2383,6 +2470,7 @@ footer {
 <span class="meta">61 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. c4 h6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. c4 h6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-c4-h6" aria-label="Copy the PGN of 1. c4 h6">Copy PGN</button>
 </span>
 </div>
@@ -2402,6 +2490,7 @@ footer {
 <span class="meta">61 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. c4 b6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. c4 b6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-c4-b6" aria-label="Copy the PGN of 1. c4 b6">Copy PGN</button>
 </span>
 </div>
@@ -2421,6 +2510,7 @@ footer {
 <span class="meta">73 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. c4 g6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. c4 g6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-c4-g6" aria-label="Copy the PGN of 1. c4 g6">Copy PGN</button>
 </span>
 </div>
@@ -2440,6 +2530,7 @@ footer {
 <span class="meta">36 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. c4 d6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. c4 d6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-c4-d6" aria-label="Copy the PGN of 1. c4 d6">Copy PGN</button>
 </span>
 </div>
@@ -2459,6 +2550,7 @@ footer {
 <span class="meta">47 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. c4 a6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. c4 a6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-c4-a6" aria-label="Copy the PGN of 1. c4 a6">Copy PGN</button>
 </span>
 </div>
@@ -2478,6 +2570,7 @@ footer {
 <span class="meta">64 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. c4 a5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. c4 a5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-c4-a5" aria-label="Copy the PGN of 1. c4 a5">Copy PGN</button>
 </span>
 </div>
@@ -2497,6 +2590,7 @@ footer {
 <span class="meta">79 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. c4 f5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. c4 f5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-c4-f5" aria-label="Copy the PGN of 1. c4 f5">Copy PGN</button>
 </span>
 </div>
@@ -2516,6 +2610,7 @@ footer {
 <span class="meta">35 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. c4 Nc6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. c4 Nc6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-c4-Nc6" aria-label="Copy the PGN of 1. c4 Nc6">Copy PGN</button>
 </span>
 </div>
@@ -2535,6 +2630,7 @@ footer {
 <span class="meta">35 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. c4 Na6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. c4 Na6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-c4-Na6" aria-label="Copy the PGN of 1. c4 Na6">Copy PGN</button>
 </span>
 </div>
@@ -2554,6 +2650,7 @@ footer {
 <span class="meta">35 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. c4 f6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. c4 f6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-c4-f6" aria-label="Copy the PGN of 1. c4 f6">Copy PGN</button>
 </span>
 </div>
@@ -2573,6 +2670,7 @@ footer {
 <span class="meta">73 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. c4 d5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. c4 d5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-c4-d5" aria-label="Copy the PGN of 1. c4 d5">Copy PGN</button>
 </span>
 </div>
@@ -2592,6 +2690,7 @@ footer {
 <span class="meta">49 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. c4 b5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. c4 b5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-c4-b5" aria-label="Copy the PGN of 1. c4 b5">Copy PGN</button>
 </span>
 </div>
@@ -2611,6 +2710,7 @@ footer {
 <span class="meta">51 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. c4 h5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. c4 h5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-c4-h5" aria-label="Copy the PGN of 1. c4 h5">Copy PGN</button>
 </span>
 </div>
@@ -2630,6 +2730,7 @@ footer {
 <span class="meta">54 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. c4 Nh6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. c4 Nh6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-c4-Nh6" aria-label="Copy the PGN of 1. c4 Nh6">Copy PGN</button>
 </span>
 </div>
@@ -2649,6 +2750,7 @@ footer {
 <span class="meta">95 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. c4 g5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. c4 g5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-c4-g5" aria-label="Copy the PGN of 1. c4 g5">Copy PGN</button>
 </span>
 </div>
@@ -2668,6 +2770,7 @@ footer {
 <span class="meta">64 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. e3 b6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. e3 b6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-e3-b6" aria-label="Copy the PGN of 1. e3 b6">Copy PGN</button>
 </span>
 </div>
@@ -2687,6 +2790,7 @@ footer {
 <span class="meta">64 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. e3 Nf6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. e3 Nf6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-e3-Nf6" aria-label="Copy the PGN of 1. e3 Nf6">Copy PGN</button>
 </span>
 </div>
@@ -2706,6 +2810,7 @@ footer {
 <span class="meta">67 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. e3 d5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. e3 d5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-e3-d5" aria-label="Copy the PGN of 1. e3 d5">Copy PGN</button>
 </span>
 </div>
@@ -2725,6 +2830,7 @@ footer {
 <span class="meta">51 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. e3 e6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. e3 e6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-e3-e6" aria-label="Copy the PGN of 1. e3 e6">Copy PGN</button>
 </span>
 </div>
@@ -2744,6 +2850,7 @@ footer {
 <span class="meta">34 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. e3 e5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. e3 e5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-e3-e5" aria-label="Copy the PGN of 1. e3 e5">Copy PGN</button>
 </span>
 </div>
@@ -2763,6 +2870,7 @@ footer {
 <span class="meta">34 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. e3 c5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. e3 c5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-e3-c5" aria-label="Copy the PGN of 1. e3 c5">Copy PGN</button>
 </span>
 </div>
@@ -2782,6 +2890,7 @@ footer {
 <span class="meta">34 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. e3 a6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. e3 a6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-e3-a6" aria-label="Copy the PGN of 1. e3 a6">Copy PGN</button>
 </span>
 </div>
@@ -2801,6 +2910,7 @@ footer {
 <span class="meta">60 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. e3 g6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. e3 g6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-e3-g6" aria-label="Copy the PGN of 1. e3 g6">Copy PGN</button>
 </span>
 </div>
@@ -2820,6 +2930,7 @@ footer {
 <span class="meta">75 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. e3 d6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. e3 d6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-e3-d6" aria-label="Copy the PGN of 1. e3 d6">Copy PGN</button>
 </span>
 </div>
@@ -2839,6 +2950,7 @@ footer {
 <span class="meta">53 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. e3 h6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. e3 h6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-e3-h6" aria-label="Copy the PGN of 1. e3 h6">Copy PGN</button>
 </span>
 </div>
@@ -2858,6 +2970,7 @@ footer {
 <span class="meta">49 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. e3 c6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. e3 c6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-e3-c6" aria-label="Copy the PGN of 1. e3 c6">Copy PGN</button>
 </span>
 </div>
@@ -2877,6 +2990,7 @@ footer {
 <span class="meta">38 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. e3 a5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. e3 a5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-e3-a5" aria-label="Copy the PGN of 1. e3 a5">Copy PGN</button>
 </span>
 </div>
@@ -2896,6 +3010,7 @@ footer {
 <span class="meta">55 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. e3 f5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. e3 f5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-e3-f5" aria-label="Copy the PGN of 1. e3 f5">Copy PGN</button>
 </span>
 </div>
@@ -2915,6 +3030,7 @@ footer {
 <span class="meta">61 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. e3 Nc6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. e3 Nc6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-e3-Nc6" aria-label="Copy the PGN of 1. e3 Nc6">Copy PGN</button>
 </span>
 </div>
@@ -2934,6 +3050,7 @@ footer {
 <span class="meta">91 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. e3 h5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. e3 h5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-e3-h5" aria-label="Copy the PGN of 1. e3 h5">Copy PGN</button>
 </span>
 </div>
@@ -2953,6 +3070,7 @@ footer {
 <span class="meta">45 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. e3 Nh6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. e3 Nh6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-e3-Nh6" aria-label="Copy the PGN of 1. e3 Nh6">Copy PGN</button>
 </span>
 </div>
@@ -2972,6 +3090,7 @@ footer {
 <span class="meta">30 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. e3 Na6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. e3 Na6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-e3-Na6" aria-label="Copy the PGN of 1. e3 Na6">Copy PGN</button>
 </span>
 </div>
@@ -2991,6 +3110,7 @@ footer {
 <span class="meta">34 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. e3 f6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. e3 f6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-e3-f6" aria-label="Copy the PGN of 1. e3 f6">Copy PGN</button>
 </span>
 </div>
@@ -3010,6 +3130,7 @@ footer {
 <span class="meta">45 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. e3 g5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. e3 g5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-e3-g5" aria-label="Copy the PGN of 1. e3 g5">Copy PGN</button>
 </span>
 </div>
@@ -3029,6 +3150,7 @@ footer {
 <span class="meta">83 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. e3 b5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. e3 b5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-e3-b5" aria-label="Copy the PGN of 1. e3 b5">Copy PGN</button>
 </span>
 </div>
@@ -3048,6 +3170,7 @@ footer {
 <span class="meta">71 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. c3 d5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. c3 d5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-c3-d5" aria-label="Copy the PGN of 1. c3 d5">Copy PGN</button>
 </span>
 </div>
@@ -3067,6 +3190,7 @@ footer {
 <span class="meta">71 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. c3 Nf6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. c3 Nf6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-c3-Nf6" aria-label="Copy the PGN of 1. c3 Nf6">Copy PGN</button>
 </span>
 </div>
@@ -3086,6 +3210,7 @@ footer {
 <span class="meta">43 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. c3 Nc6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. c3 Nc6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-c3-Nc6" aria-label="Copy the PGN of 1. c3 Nc6">Copy PGN</button>
 </span>
 </div>
@@ -3105,6 +3230,7 @@ footer {
 <span class="meta">60 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. c3 c5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. c3 c5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-c3-c5" aria-label="Copy the PGN of 1. c3 c5">Copy PGN</button>
 </span>
 </div>
@@ -3124,6 +3250,7 @@ footer {
 <span class="meta">68 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. c3 e5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. c3 e5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-c3-e5" aria-label="Copy the PGN of 1. c3 e5">Copy PGN</button>
 </span>
 </div>
@@ -3143,6 +3270,7 @@ footer {
 <span class="meta">55 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. c3 e6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. c3 e6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-c3-e6" aria-label="Copy the PGN of 1. c3 e6">Copy PGN</button>
 </span>
 </div>
@@ -3162,6 +3290,7 @@ footer {
 <span class="meta">50 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. c3 b6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. c3 b6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-c3-b6" aria-label="Copy the PGN of 1. c3 b6">Copy PGN</button>
 </span>
 </div>
@@ -3181,6 +3310,7 @@ footer {
 <span class="meta">49 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. c3 h6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. c3 h6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-c3-h6" aria-label="Copy the PGN of 1. c3 h6">Copy PGN</button>
 </span>
 </div>
@@ -3200,6 +3330,7 @@ footer {
 <span class="meta">41 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. c3 c6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. c3 c6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-c3-c6" aria-label="Copy the PGN of 1. c3 c6">Copy PGN</button>
 </span>
 </div>
@@ -3219,6 +3350,7 @@ footer {
 <span class="meta">69 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. c3 f5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. c3 f5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-c3-f5" aria-label="Copy the PGN of 1. c3 f5">Copy PGN</button>
 </span>
 </div>
@@ -3238,6 +3370,7 @@ footer {
 <span class="meta">57 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. c3 a6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. c3 a6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-c3-a6" aria-label="Copy the PGN of 1. c3 a6">Copy PGN</button>
 </span>
 </div>
@@ -3257,6 +3390,7 @@ footer {
 <span class="meta">37 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. c3 g6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. c3 g6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-c3-g6" aria-label="Copy the PGN of 1. c3 g6">Copy PGN</button>
 </span>
 </div>
@@ -3276,6 +3410,7 @@ footer {
 <span class="meta">42 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. c3 d6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. c3 d6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-c3-d6" aria-label="Copy the PGN of 1. c3 d6">Copy PGN</button>
 </span>
 </div>
@@ -3295,6 +3430,7 @@ footer {
 <span class="meta">44 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. c3 b5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. c3 b5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-c3-b5" aria-label="Copy the PGN of 1. c3 b5">Copy PGN</button>
 </span>
 </div>
@@ -3314,6 +3450,7 @@ footer {
 <span class="meta">41 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. c3 a5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. c3 a5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-c3-a5" aria-label="Copy the PGN of 1. c3 a5">Copy PGN</button>
 </span>
 </div>
@@ -3333,6 +3470,7 @@ footer {
 <span class="meta">30 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. c3 h5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. c3 h5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-c3-h5" aria-label="Copy the PGN of 1. c3 h5">Copy PGN</button>
 </span>
 </div>
@@ -3352,6 +3490,7 @@ footer {
 <span class="meta">58 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. c3 Nh6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. c3 Nh6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-c3-Nh6" aria-label="Copy the PGN of 1. c3 Nh6">Copy PGN</button>
 </span>
 </div>
@@ -3371,6 +3510,7 @@ footer {
 <span class="meta">60 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. c3 Na6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. c3 Na6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-c3-Na6" aria-label="Copy the PGN of 1. c3 Na6">Copy PGN</button>
 </span>
 </div>
@@ -3390,6 +3530,7 @@ footer {
 <span class="meta">35 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. c3 f6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. c3 f6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-c3-f6" aria-label="Copy the PGN of 1. c3 f6">Copy PGN</button>
 </span>
 </div>
@@ -3409,6 +3550,7 @@ footer {
 <span class="meta">33 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. c3 g5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. c3 g5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-c3-g5" aria-label="Copy the PGN of 1. c3 g5">Copy PGN</button>
 </span>
 </div>
@@ -3428,6 +3570,7 @@ footer {
 <span class="meta">48 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nc3 d5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nc3 d5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nc3-d5" aria-label="Copy the PGN of 1. Nc3 d5">Copy PGN</button>
 </span>
 </div>
@@ -3447,6 +3590,7 @@ footer {
 <span class="meta">60 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nc3 Nf6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nc3 Nf6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nc3-Nf6" aria-label="Copy the PGN of 1. Nc3 Nf6">Copy PGN</button>
 </span>
 </div>
@@ -3466,6 +3610,7 @@ footer {
 <span class="meta">61 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nc3 Nc6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nc3 Nc6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nc3-Nc6" aria-label="Copy the PGN of 1. Nc3 Nc6">Copy PGN</button>
 </span>
 </div>
@@ -3485,6 +3630,7 @@ footer {
 <span class="meta">64 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nc3 c6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nc3 c6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nc3-c6" aria-label="Copy the PGN of 1. Nc3 c6">Copy PGN</button>
 </span>
 </div>
@@ -3504,6 +3650,7 @@ footer {
 <span class="meta">28 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nc3 c5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nc3 c5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nc3-c5" aria-label="Copy the PGN of 1. Nc3 c5">Copy PGN</button>
 </span>
 </div>
@@ -3523,6 +3670,7 @@ footer {
 <span class="meta">64 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nc3 e5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nc3 e5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nc3-e5" aria-label="Copy the PGN of 1. Nc3 e5">Copy PGN</button>
 </span>
 </div>
@@ -3542,6 +3690,7 @@ footer {
 <span class="meta">63 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nc3 a6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nc3 a6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nc3-a6" aria-label="Copy the PGN of 1. Nc3 a6">Copy PGN</button>
 </span>
 </div>
@@ -3561,6 +3710,7 @@ footer {
 <span class="meta">23 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nc3 e6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nc3 e6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nc3-e6" aria-label="Copy the PGN of 1. Nc3 e6">Copy PGN</button>
 </span>
 </div>
@@ -3580,6 +3730,7 @@ footer {
 <span class="meta">57 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nc3 g6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nc3 g6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nc3-g6" aria-label="Copy the PGN of 1. Nc3 g6">Copy PGN</button>
 </span>
 </div>
@@ -3599,6 +3750,7 @@ footer {
 <span class="meta">8 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nc3 f5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nc3 f5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nc3-f5" aria-label="Copy the PGN of 1. Nc3 f5">Copy PGN</button>
 </span>
 </div>
@@ -3618,6 +3770,7 @@ footer {
 <span class="meta">83 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nc3 d6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nc3 d6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nc3-d6" aria-label="Copy the PGN of 1. Nc3 d6">Copy PGN</button>
 </span>
 </div>
@@ -3637,6 +3790,7 @@ footer {
 <span class="meta">39 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nc3 h5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nc3 h5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nc3-h5" aria-label="Copy the PGN of 1. Nc3 h5">Copy PGN</button>
 </span>
 </div>
@@ -3656,6 +3810,7 @@ footer {
 <span class="meta">64 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nc3 b6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nc3 b6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nc3-b6" aria-label="Copy the PGN of 1. Nc3 b6">Copy PGN</button>
 </span>
 </div>
@@ -3675,6 +3830,7 @@ footer {
 <span class="meta">53 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nc3 h6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nc3 h6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nc3-h6" aria-label="Copy the PGN of 1. Nc3 h6">Copy PGN</button>
 </span>
 </div>
@@ -3694,6 +3850,7 @@ footer {
 <span class="meta">63 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nc3 b5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nc3 b5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nc3-b5" aria-label="Copy the PGN of 1. Nc3 b5">Copy PGN</button>
 </span>
 </div>
@@ -3713,6 +3870,7 @@ footer {
 <span class="meta">54 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nc3 Na6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nc3 Na6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nc3-Na6" aria-label="Copy the PGN of 1. Nc3 Na6">Copy PGN</button>
 </span>
 </div>
@@ -3732,6 +3890,7 @@ footer {
 <span class="meta">64 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nc3 a5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nc3 a5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nc3-a5" aria-label="Copy the PGN of 1. Nc3 a5">Copy PGN</button>
 </span>
 </div>
@@ -3751,6 +3910,7 @@ footer {
 <span class="meta">37 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nc3 Nh6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nc3 Nh6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nc3-Nh6" aria-label="Copy the PGN of 1. Nc3 Nh6">Copy PGN</button>
 </span>
 </div>
@@ -3770,6 +3930,7 @@ footer {
 <span class="meta">57 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nc3 f6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nc3 f6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nc3-f6" aria-label="Copy the PGN of 1. Nc3 f6">Copy PGN</button>
 </span>
 </div>
@@ -3789,6 +3950,7 @@ footer {
 <span class="meta">70 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nc3 g5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nc3 g5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nc3-g5" aria-label="Copy the PGN of 1. Nc3 g5">Copy PGN</button>
 </span>
 </div>
@@ -3808,6 +3970,7 @@ footer {
 <span class="meta">32 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. d3 c5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. d3 c5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-d3-c5" aria-label="Copy the PGN of 1. d3 c5">Copy PGN</button>
 </span>
 </div>
@@ -3827,6 +3990,7 @@ footer {
 <span class="meta">63 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. d3 d5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. d3 d5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-d3-d5" aria-label="Copy the PGN of 1. d3 d5">Copy PGN</button>
 </span>
 </div>
@@ -3846,6 +4010,7 @@ footer {
 <span class="meta">56 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. d3 g6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. d3 g6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-d3-g6" aria-label="Copy the PGN of 1. d3 g6">Copy PGN</button>
 </span>
 </div>
@@ -3865,6 +4030,7 @@ footer {
 <span class="meta">22 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. d3 e6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. d3 e6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-d3-e6" aria-label="Copy the PGN of 1. d3 e6">Copy PGN</button>
 </span>
 </div>
@@ -3884,6 +4050,7 @@ footer {
 <span class="meta">63 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. d3 Nc6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. d3 Nc6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-d3-Nc6" aria-label="Copy the PGN of 1. d3 Nc6">Copy PGN</button>
 </span>
 </div>
@@ -3903,6 +4070,7 @@ footer {
 <span class="meta">62 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. d3 Nf6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. d3 Nf6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-d3-Nf6" aria-label="Copy the PGN of 1. d3 Nf6">Copy PGN</button>
 </span>
 </div>
@@ -3922,6 +4090,7 @@ footer {
 <span class="meta">48 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. d3 h6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. d3 h6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-d3-h6" aria-label="Copy the PGN of 1. d3 h6">Copy PGN</button>
 </span>
 </div>
@@ -3941,6 +4110,7 @@ footer {
 <span class="meta">34 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. d3 d6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. d3 d6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-d3-d6" aria-label="Copy the PGN of 1. d3 d6">Copy PGN</button>
 </span>
 </div>
@@ -3960,6 +4130,7 @@ footer {
 <span class="meta">63 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. d3 e5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. d3 e5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-d3-e5" aria-label="Copy the PGN of 1. d3 e5">Copy PGN</button>
 </span>
 </div>
@@ -3979,6 +4150,7 @@ footer {
 <span class="meta">44 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. d3 b5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. d3 b5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-d3-b5" aria-label="Copy the PGN of 1. d3 b5">Copy PGN</button>
 </span>
 </div>
@@ -3998,6 +4170,7 @@ footer {
 <span class="meta">32 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. d3 a6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. d3 a6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-d3-a6" aria-label="Copy the PGN of 1. d3 a6">Copy PGN</button>
 </span>
 </div>
@@ -4017,6 +4190,7 @@ footer {
 <span class="meta">45 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. d3 a5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. d3 a5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-d3-a5" aria-label="Copy the PGN of 1. d3 a5">Copy PGN</button>
 </span>
 </div>
@@ -4036,6 +4210,7 @@ footer {
 <span class="meta">55 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. d3 c6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. d3 c6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-d3-c6" aria-label="Copy the PGN of 1. d3 c6">Copy PGN</button>
 </span>
 </div>
@@ -4055,6 +4230,7 @@ footer {
 <span class="meta">17 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. d3 b6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. d3 b6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-d3-b6" aria-label="Copy the PGN of 1. d3 b6">Copy PGN</button>
 </span>
 </div>
@@ -4074,6 +4250,7 @@ footer {
 <span class="meta">89 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. d3 f5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. d3 f5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-d3-f5" aria-label="Copy the PGN of 1. d3 f5">Copy PGN</button>
 </span>
 </div>
@@ -4093,6 +4270,7 @@ footer {
 <span class="meta">75 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. d3 f6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. d3 f6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-d3-f6" aria-label="Copy the PGN of 1. d3 f6">Copy PGN</button>
 </span>
 </div>
@@ -4112,6 +4290,7 @@ footer {
 <span class="meta">61 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. d3 Nh6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. d3 Nh6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-d3-Nh6" aria-label="Copy the PGN of 1. d3 Nh6">Copy PGN</button>
 </span>
 </div>
@@ -4131,6 +4310,7 @@ footer {
 <span class="meta">59 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. d3 h5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. d3 h5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-d3-h5" aria-label="Copy the PGN of 1. d3 h5">Copy PGN</button>
 </span>
 </div>
@@ -4150,6 +4330,7 @@ footer {
 <span class="meta">89 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. d3 Na6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. d3 Na6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-d3-Na6" aria-label="Copy the PGN of 1. d3 Na6">Copy PGN</button>
 </span>
 </div>
@@ -4169,6 +4350,7 @@ footer {
 <span class="meta">71 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. d3 g5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. d3 g5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-d3-g5" aria-label="Copy the PGN of 1. d3 g5">Copy PGN</button>
 </span>
 </div>
@@ -4188,6 +4370,7 @@ footer {
 <span class="meta">51 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. b3 e5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. b3 e5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-b3-e5" aria-label="Copy the PGN of 1. b3 e5">Copy PGN</button>
 </span>
 </div>
@@ -4207,6 +4390,7 @@ footer {
 <span class="meta">51 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. b3 Nf6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. b3 Nf6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-b3-Nf6" aria-label="Copy the PGN of 1. b3 Nf6">Copy PGN</button>
 </span>
 </div>
@@ -4226,6 +4410,7 @@ footer {
 <span class="meta">78 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. b3 d5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. b3 d5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-b3-d5" aria-label="Copy the PGN of 1. b3 d5">Copy PGN</button>
 </span>
 </div>
@@ -4245,6 +4430,7 @@ footer {
 <span class="meta">59 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. b3 c6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. b3 c6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-b3-c6" aria-label="Copy the PGN of 1. b3 c6">Copy PGN</button>
 </span>
 </div>
@@ -4264,6 +4450,7 @@ footer {
 <span class="meta">101 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. b3 c5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. b3 c5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-b3-c5" aria-label="Copy the PGN of 1. b3 c5">Copy PGN</button>
 </span>
 </div>
@@ -4283,6 +4470,7 @@ footer {
 <span class="meta">67 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. b3 e6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. b3 e6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-b3-e6" aria-label="Copy the PGN of 1. b3 e6">Copy PGN</button>
 </span>
 </div>
@@ -4302,6 +4490,7 @@ footer {
 <span class="meta">45 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. b3 a6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. b3 a6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-b3-a6" aria-label="Copy the PGN of 1. b3 a6">Copy PGN</button>
 </span>
 </div>
@@ -4321,6 +4510,7 @@ footer {
 <span class="meta">30 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. b3 g6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. b3 g6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-b3-g6" aria-label="Copy the PGN of 1. b3 g6">Copy PGN</button>
 </span>
 </div>
@@ -4340,6 +4530,7 @@ footer {
 <span class="meta">68 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. b3 d6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. b3 d6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-b3-d6" aria-label="Copy the PGN of 1. b3 d6">Copy PGN</button>
 </span>
 </div>
@@ -4359,6 +4550,7 @@ footer {
 <span class="meta">45 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. b3 Nc6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. b3 Nc6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-b3-Nc6" aria-label="Copy the PGN of 1. b3 Nc6">Copy PGN</button>
 </span>
 </div>
@@ -4378,6 +4570,7 @@ footer {
 <span class="meta">33 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. b3 b6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. b3 b6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-b3-b6" aria-label="Copy the PGN of 1. b3 b6">Copy PGN</button>
 </span>
 </div>
@@ -4397,6 +4590,7 @@ footer {
 <span class="meta">66 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. b3 a5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. b3 a5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-b3-a5" aria-label="Copy the PGN of 1. b3 a5">Copy PGN</button>
 </span>
 </div>
@@ -4416,6 +4610,7 @@ footer {
 <span class="meta">22 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. b3 h5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. b3 h5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-b3-h5" aria-label="Copy the PGN of 1. b3 h5">Copy PGN</button>
 </span>
 </div>
@@ -4435,6 +4630,7 @@ footer {
 <span class="meta">63 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. b3 h6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. b3 h6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-b3-h6" aria-label="Copy the PGN of 1. b3 h6">Copy PGN</button>
 </span>
 </div>
@@ -4454,6 +4650,7 @@ footer {
 <span class="meta">35 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. b3 b5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. b3 b5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-b3-b5" aria-label="Copy the PGN of 1. b3 b5">Copy PGN</button>
 </span>
 </div>
@@ -4473,6 +4670,7 @@ footer {
 <span class="meta">12 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. b3 Nh6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. b3 Nh6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-b3-Nh6" aria-label="Copy the PGN of 1. b3 Nh6">Copy PGN</button>
 </span>
 </div>
@@ -4492,6 +4690,7 @@ footer {
 <span class="meta">59 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. b3 f5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. b3 f5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-b3-f5" aria-label="Copy the PGN of 1. b3 f5">Copy PGN</button>
 </span>
 </div>
@@ -4511,6 +4710,7 @@ footer {
 <span class="meta">61 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. b3 f6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. b3 f6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-b3-f6" aria-label="Copy the PGN of 1. b3 f6">Copy PGN</button>
 </span>
 </div>
@@ -4530,6 +4730,7 @@ footer {
 <span class="meta">46 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. b3 g5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. b3 g5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-b3-g5" aria-label="Copy the PGN of 1. b3 g5">Copy PGN</button>
 </span>
 </div>
@@ -4549,6 +4750,7 @@ footer {
 <span class="meta">43 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. b3 Na6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. b3 Na6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-b3-Na6" aria-label="Copy the PGN of 1. b3 Na6">Copy PGN</button>
 </span>
 </div>
@@ -4568,6 +4770,7 @@ footer {
 <span class="meta">35 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. a3 Nf6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. a3 Nf6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-a3-Nf6" aria-label="Copy the PGN of 1. a3 Nf6">Copy PGN</button>
 </span>
 </div>
@@ -4587,6 +4790,7 @@ footer {
 <span class="meta">59 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. a3 c5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. a3 c5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-a3-c5" aria-label="Copy the PGN of 1. a3 c5">Copy PGN</button>
 </span>
 </div>
@@ -4606,6 +4810,7 @@ footer {
 <span class="meta">45 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. a3 e5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. a3 e5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-a3-e5" aria-label="Copy the PGN of 1. a3 e5">Copy PGN</button>
 </span>
 </div>
@@ -4625,6 +4830,7 @@ footer {
 <span class="meta">35 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. a3 g6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. a3 g6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-a3-g6" aria-label="Copy the PGN of 1. a3 g6">Copy PGN</button>
 </span>
 </div>
@@ -4644,6 +4850,7 @@ footer {
 <span class="meta">52 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. a3 d5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. a3 d5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-a3-d5" aria-label="Copy the PGN of 1. a3 d5">Copy PGN</button>
 </span>
 </div>
@@ -4663,6 +4870,7 @@ footer {
 <span class="meta">37 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. a3 e6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. a3 e6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-a3-e6" aria-label="Copy the PGN of 1. a3 e6">Copy PGN</button>
 </span>
 </div>
@@ -4682,6 +4890,7 @@ footer {
 <span class="meta">55 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. a3 a6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. a3 a6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-a3-a6" aria-label="Copy the PGN of 1. a3 a6">Copy PGN</button>
 </span>
 </div>
@@ -4701,6 +4910,7 @@ footer {
 <span class="meta">36 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. a3 c6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. a3 c6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-a3-c6" aria-label="Copy the PGN of 1. a3 c6">Copy PGN</button>
 </span>
 </div>
@@ -4720,6 +4930,7 @@ footer {
 <span class="meta">39 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. a3 h6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. a3 h6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-a3-h6" aria-label="Copy the PGN of 1. a3 h6">Copy PGN</button>
 </span>
 </div>
@@ -4739,6 +4950,7 @@ footer {
 <span class="meta">31 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. a3 d6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. a3 d6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-a3-d6" aria-label="Copy the PGN of 1. a3 d6">Copy PGN</button>
 </span>
 </div>
@@ -4758,6 +4970,7 @@ footer {
 <span class="meta">69 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. a3 Nc6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. a3 Nc6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-a3-Nc6" aria-label="Copy the PGN of 1. a3 Nc6">Copy PGN</button>
 </span>
 </div>
@@ -4777,6 +4990,7 @@ footer {
 <span class="meta">63 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. a3 f5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. a3 f5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-a3-f5" aria-label="Copy the PGN of 1. a3 f5">Copy PGN</button>
 </span>
 </div>
@@ -4796,6 +5010,7 @@ footer {
 <span class="meta">39 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. a3 b5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. a3 b5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-a3-b5" aria-label="Copy the PGN of 1. a3 b5">Copy PGN</button>
 </span>
 </div>
@@ -4815,6 +5030,7 @@ footer {
 <span class="meta">22 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. a3 b6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. a3 b6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-a3-b6" aria-label="Copy the PGN of 1. a3 b6">Copy PGN</button>
 </span>
 </div>
@@ -4834,6 +5050,7 @@ footer {
 <span class="meta">62 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. a3 a5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. a3 a5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-a3-a5" aria-label="Copy the PGN of 1. a3 a5">Copy PGN</button>
 </span>
 </div>
@@ -4853,6 +5070,7 @@ footer {
 <span class="meta">54 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. a3 h5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. a3 h5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-a3-h5" aria-label="Copy the PGN of 1. a3 h5">Copy PGN</button>
 </span>
 </div>
@@ -4872,6 +5090,7 @@ footer {
 <span class="meta">77 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. a3 Na6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. a3 Na6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-a3-Na6" aria-label="Copy the PGN of 1. a3 Na6">Copy PGN</button>
 </span>
 </div>
@@ -4891,6 +5110,7 @@ footer {
 <span class="meta">28 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. a3 Nh6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. a3 Nh6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-a3-Nh6" aria-label="Copy the PGN of 1. a3 Nh6">Copy PGN</button>
 </span>
 </div>
@@ -4910,6 +5130,7 @@ footer {
 <span class="meta">59 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. a3 f6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. a3 f6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-a3-f6" aria-label="Copy the PGN of 1. a3 f6">Copy PGN</button>
 </span>
 </div>
@@ -4929,6 +5150,7 @@ footer {
 <span class="meta">75 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. a3 g5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. a3 g5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-a3-g5" aria-label="Copy the PGN of 1. a3 g5">Copy PGN</button>
 </span>
 </div>
@@ -4948,6 +5170,7 @@ footer {
 <span class="meta">36 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. h3 e5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. h3 e5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-h3-e5" aria-label="Copy the PGN of 1. h3 e5">Copy PGN</button>
 </span>
 </div>
@@ -4967,6 +5190,7 @@ footer {
 <span class="meta">30 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. h3 Nf6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. h3 Nf6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-h3-Nf6" aria-label="Copy the PGN of 1. h3 Nf6">Copy PGN</button>
 </span>
 </div>
@@ -4986,6 +5210,7 @@ footer {
 <span class="meta">58 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. h3 d5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. h3 d5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-h3-d5" aria-label="Copy the PGN of 1. h3 d5">Copy PGN</button>
 </span>
 </div>
@@ -5005,6 +5230,7 @@ footer {
 <span class="meta">63 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. h3 c5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. h3 c5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-h3-c5" aria-label="Copy the PGN of 1. h3 c5">Copy PGN</button>
 </span>
 </div>
@@ -5024,6 +5250,7 @@ footer {
 <span class="meta">51 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. h3 c6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. h3 c6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-h3-c6" aria-label="Copy the PGN of 1. h3 c6">Copy PGN</button>
 </span>
 </div>
@@ -5043,6 +5270,7 @@ footer {
 <span class="meta">9 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. h3 g6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. h3 g6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-h3-g6" aria-label="Copy the PGN of 1. h3 g6">Copy PGN</button>
 </span>
 </div>
@@ -5062,6 +5290,7 @@ footer {
 <span class="meta">11 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. h3 e6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. h3 e6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-h3-e6" aria-label="Copy the PGN of 1. h3 e6">Copy PGN</button>
 </span>
 </div>
@@ -5081,6 +5310,7 @@ footer {
 <span class="meta">57 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. h3 h6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. h3 h6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-h3-h6" aria-label="Copy the PGN of 1. h3 h6">Copy PGN</button>
 </span>
 </div>
@@ -5100,6 +5330,7 @@ footer {
 <span class="meta">42 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. h3 Nc6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. h3 Nc6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-h3-Nc6" aria-label="Copy the PGN of 1. h3 Nc6">Copy PGN</button>
 </span>
 </div>
@@ -5119,6 +5350,7 @@ footer {
 <span class="meta">38 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. h3 a6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. h3 a6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-h3-a6" aria-label="Copy the PGN of 1. h3 a6">Copy PGN</button>
 </span>
 </div>
@@ -5138,6 +5370,7 @@ footer {
 <span class="meta">46 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. h3 d6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. h3 d6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-h3-d6" aria-label="Copy the PGN of 1. h3 d6">Copy PGN</button>
 </span>
 </div>
@@ -5157,6 +5390,7 @@ footer {
 <span class="meta">34 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. h3 f5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. h3 f5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-h3-f5" aria-label="Copy the PGN of 1. h3 f5">Copy PGN</button>
 </span>
 </div>
@@ -5176,6 +5410,7 @@ footer {
 <span class="meta">60 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. h3 b6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. h3 b6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-h3-b6" aria-label="Copy the PGN of 1. h3 b6">Copy PGN</button>
 </span>
 </div>
@@ -5195,6 +5430,7 @@ footer {
 <span class="meta">62 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. h3 b5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. h3 b5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-h3-b5" aria-label="Copy the PGN of 1. h3 b5">Copy PGN</button>
 </span>
 </div>
@@ -5214,6 +5450,7 @@ footer {
 <span class="meta">56 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. h3 a5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. h3 a5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-h3-a5" aria-label="Copy the PGN of 1. h3 a5">Copy PGN</button>
 </span>
 </div>
@@ -5233,6 +5470,7 @@ footer {
 <span class="meta">79 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. h3 Na6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. h3 Na6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-h3-Na6" aria-label="Copy the PGN of 1. h3 Na6">Copy PGN</button>
 </span>
 </div>
@@ -5252,6 +5490,7 @@ footer {
 <span class="meta">42 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. h3 h5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. h3 h5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-h3-h5" aria-label="Copy the PGN of 1. h3 h5">Copy PGN</button>
 </span>
 </div>
@@ -5271,6 +5510,7 @@ footer {
 <span class="meta">39 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. h3 f6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. h3 f6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-h3-f6" aria-label="Copy the PGN of 1. h3 f6">Copy PGN</button>
 </span>
 </div>
@@ -5290,6 +5530,7 @@ footer {
 <span class="meta">45 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. h3 Nh6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. h3 Nh6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-h3-Nh6" aria-label="Copy the PGN of 1. h3 Nh6">Copy PGN</button>
 </span>
 </div>
@@ -5309,6 +5550,7 @@ footer {
 <span class="meta">80 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. h3 g5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. h3 g5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-h3-g5" aria-label="Copy the PGN of 1. h3 g5">Copy PGN</button>
 </span>
 </div>
@@ -5328,6 +5570,7 @@ footer {
 <span class="meta">54 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. b4 Nf6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. b4 Nf6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-b4-Nf6" aria-label="Copy the PGN of 1. b4 Nf6">Copy PGN</button>
 </span>
 </div>
@@ -5347,6 +5590,7 @@ footer {
 <span class="meta">74 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. b4 d5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. b4 d5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-b4-d5" aria-label="Copy the PGN of 1. b4 d5">Copy PGN</button>
 </span>
 </div>
@@ -5366,6 +5610,7 @@ footer {
 <span class="meta">37 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. b4 e5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. b4 e5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-b4-e5" aria-label="Copy the PGN of 1. b4 e5">Copy PGN</button>
 </span>
 </div>
@@ -5385,6 +5630,7 @@ footer {
 <span class="meta">74 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. b4 e6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. b4 e6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-b4-e6" aria-label="Copy the PGN of 1. b4 e6">Copy PGN</button>
 </span>
 </div>
@@ -5404,6 +5650,7 @@ footer {
 <span class="meta">50 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. b4 c6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. b4 c6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-b4-c6" aria-label="Copy the PGN of 1. b4 c6">Copy PGN</button>
 </span>
 </div>
@@ -5423,6 +5670,7 @@ footer {
 <span class="meta">112 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. b4 d6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. b4 d6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-b4-d6" aria-label="Copy the PGN of 1. b4 d6">Copy PGN</button>
 </span>
 </div>
@@ -5442,6 +5690,7 @@ footer {
 <span class="meta">69 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. b4 b6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. b4 b6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-b4-b6" aria-label="Copy the PGN of 1. b4 b6">Copy PGN</button>
 </span>
 </div>
@@ -5461,6 +5710,7 @@ footer {
 <span class="meta">71 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. b4 g6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. b4 g6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-b4-g6" aria-label="Copy the PGN of 1. b4 g6">Copy PGN</button>
 </span>
 </div>
@@ -5480,6 +5730,7 @@ footer {
 <span class="meta">72 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. b4 h6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. b4 h6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-b4-h6" aria-label="Copy the PGN of 1. b4 h6">Copy PGN</button>
 </span>
 </div>
@@ -5499,6 +5750,7 @@ footer {
 <span class="meta">29 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. b4 a6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. b4 a6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-b4-a6" aria-label="Copy the PGN of 1. b4 a6">Copy PGN</button>
 </span>
 </div>
@@ -5518,6 +5770,7 @@ footer {
 <span class="meta">53 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. b4 h5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. b4 h5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-b4-h5" aria-label="Copy the PGN of 1. b4 h5">Copy PGN</button>
 </span>
 </div>
@@ -5537,6 +5790,7 @@ footer {
 <span class="meta">64 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. b4 a5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. b4 a5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-b4-a5" aria-label="Copy the PGN of 1. b4 a5">Copy PGN</button>
 </span>
 </div>
@@ -5556,6 +5810,7 @@ footer {
 <span class="meta">26 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. b4 b5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. b4 b5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-b4-b5" aria-label="Copy the PGN of 1. b4 b5">Copy PGN</button>
 </span>
 </div>
@@ -5575,6 +5830,7 @@ footer {
 <span class="meta">86 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. b4 Nc6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. b4 Nc6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-b4-Nc6" aria-label="Copy the PGN of 1. b4 Nc6">Copy PGN</button>
 </span>
 </div>
@@ -5594,6 +5850,7 @@ footer {
 <span class="meta">14 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. b4 c5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. b4 c5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-b4-c5" aria-label="Copy the PGN of 1. b4 c5">Copy PGN</button>
 </span>
 </div>
@@ -5613,6 +5870,7 @@ footer {
 <span class="meta">63 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. b4 Nh6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. b4 Nh6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-b4-Nh6" aria-label="Copy the PGN of 1. b4 Nh6">Copy PGN</button>
 </span>
 </div>
@@ -5632,6 +5890,7 @@ footer {
 <span class="meta">71 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. b4 Na6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. b4 Na6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-b4-Na6" aria-label="Copy the PGN of 1. b4 Na6">Copy PGN</button>
 </span>
 </div>
@@ -5651,6 +5910,7 @@ footer {
 <span class="meta">41 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. b4 f5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. b4 f5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-b4-f5" aria-label="Copy the PGN of 1. b4 f5">Copy PGN</button>
 </span>
 </div>
@@ -5670,6 +5930,7 @@ footer {
 <span class="meta">70 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. b4 f6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. b4 f6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-b4-f6" aria-label="Copy the PGN of 1. b4 f6">Copy PGN</button>
 </span>
 </div>
@@ -5689,6 +5950,7 @@ footer {
 <span class="meta">68 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. b4 g5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. b4 g5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-b4-g5" aria-label="Copy the PGN of 1. b4 g5">Copy PGN</button>
 </span>
 </div>
@@ -5708,6 +5970,7 @@ footer {
 <span class="meta">56 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. a4 Nf6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. a4 Nf6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-a4-Nf6" aria-label="Copy the PGN of 1. a4 Nf6">Copy PGN</button>
 </span>
 </div>
@@ -5727,6 +5990,7 @@ footer {
 <span class="meta">27 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. a4 d5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. a4 d5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-a4-d5" aria-label="Copy the PGN of 1. a4 d5">Copy PGN</button>
 </span>
 </div>
@@ -5746,6 +6010,7 @@ footer {
 <span class="meta">45 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. a4 e5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. a4 e5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-a4-e5" aria-label="Copy the PGN of 1. a4 e5">Copy PGN</button>
 </span>
 </div>
@@ -5765,6 +6030,7 @@ footer {
 <span class="meta">36 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. a4 e6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. a4 e6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-a4-e6" aria-label="Copy the PGN of 1. a4 e6">Copy PGN</button>
 </span>
 </div>
@@ -5784,6 +6050,7 @@ footer {
 <span class="meta">35 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. a4 c5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. a4 c5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-a4-c5" aria-label="Copy the PGN of 1. a4 c5">Copy PGN</button>
 </span>
 </div>
@@ -5803,6 +6070,7 @@ footer {
 <span class="meta">56 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. a4 c6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. a4 c6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-a4-c6" aria-label="Copy the PGN of 1. a4 c6">Copy PGN</button>
 </span>
 </div>
@@ -5822,6 +6090,7 @@ footer {
 <span class="meta">36 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. a4 Nc6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. a4 Nc6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-a4-Nc6" aria-label="Copy the PGN of 1. a4 Nc6">Copy PGN</button>
 </span>
 </div>
@@ -5841,6 +6110,7 @@ footer {
 <span class="meta">64 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. a4 g6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. a4 g6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-a4-g6" aria-label="Copy the PGN of 1. a4 g6">Copy PGN</button>
 </span>
 </div>
@@ -5860,6 +6130,7 @@ footer {
 <span class="meta">60 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. a4 a6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. a4 a6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-a4-a6" aria-label="Copy the PGN of 1. a4 a6">Copy PGN</button>
 </span>
 </div>
@@ -5879,6 +6150,7 @@ footer {
 <span class="meta">73 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. a4 b6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. a4 b6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-a4-b6" aria-label="Copy the PGN of 1. a4 b6">Copy PGN</button>
 </span>
 </div>
@@ -5898,6 +6170,7 @@ footer {
 <span class="meta">39 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. a4 h6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. a4 h6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-a4-h6" aria-label="Copy the PGN of 1. a4 h6">Copy PGN</button>
 </span>
 </div>
@@ -5917,6 +6190,7 @@ footer {
 <span class="meta">33 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. a4 d6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. a4 d6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-a4-d6" aria-label="Copy the PGN of 1. a4 d6">Copy PGN</button>
 </span>
 </div>
@@ -5936,6 +6210,7 @@ footer {
 <span class="meta">50 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. a4 f5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. a4 f5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-a4-f5" aria-label="Copy the PGN of 1. a4 f5">Copy PGN</button>
 </span>
 </div>
@@ -5955,6 +6230,7 @@ footer {
 <span class="meta">36 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. a4 a5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. a4 a5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-a4-a5" aria-label="Copy the PGN of 1. a4 a5">Copy PGN</button>
 </span>
 </div>
@@ -5974,6 +6250,7 @@ footer {
 <span class="meta">55 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. a4 Na6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. a4 Na6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-a4-Na6" aria-label="Copy the PGN of 1. a4 Na6">Copy PGN</button>
 </span>
 </div>
@@ -5993,6 +6270,7 @@ footer {
 <span class="meta">71 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. a4 h5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. a4 h5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-a4-h5" aria-label="Copy the PGN of 1. a4 h5">Copy PGN</button>
 </span>
 </div>
@@ -6012,6 +6290,7 @@ footer {
 <span class="meta">41 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. a4 Nh6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. a4 Nh6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-a4-Nh6" aria-label="Copy the PGN of 1. a4 Nh6">Copy PGN</button>
 </span>
 </div>
@@ -6031,6 +6310,7 @@ footer {
 <span class="meta">48 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. a4 f6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. a4 f6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-a4-f6" aria-label="Copy the PGN of 1. a4 f6">Copy PGN</button>
 </span>
 </div>
@@ -6050,6 +6330,7 @@ footer {
 <span class="meta">61 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. a4 b5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. a4 b5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-a4-b5" aria-label="Copy the PGN of 1. a4 b5">Copy PGN</button>
 </span>
 </div>
@@ -6069,6 +6350,7 @@ footer {
 <span class="meta">59 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. a4 g5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. a4 g5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-a4-g5" aria-label="Copy the PGN of 1. a4 g5">Copy PGN</button>
 </span>
 </div>
@@ -6088,6 +6370,7 @@ footer {
 <span class="meta">61 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. f4 Nf6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. f4 Nf6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-f4-Nf6" aria-label="Copy the PGN of 1. f4 Nf6">Copy PGN</button>
 </span>
 </div>
@@ -6107,6 +6390,7 @@ footer {
 <span class="meta">10 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. f4 d5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. f4 d5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-f4-d5" aria-label="Copy the PGN of 1. f4 d5">Copy PGN</button>
 </span>
 </div>
@@ -6126,6 +6410,7 @@ footer {
 <span class="meta">76 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. f4 c5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. f4 c5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-f4-c5" aria-label="Copy the PGN of 1. f4 c5">Copy PGN</button>
 </span>
 </div>
@@ -6145,6 +6430,7 @@ footer {
 <span class="meta">54 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. f4 g6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. f4 g6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-f4-g6" aria-label="Copy the PGN of 1. f4 g6">Copy PGN</button>
 </span>
 </div>
@@ -6164,6 +6450,7 @@ footer {
 <span class="meta">52 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. f4 e6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. f4 e6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-f4-e6" aria-label="Copy the PGN of 1. f4 e6">Copy PGN</button>
 </span>
 </div>
@@ -6183,6 +6470,7 @@ footer {
 <span class="meta">94 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. f4 b5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. f4 b5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-f4-b5" aria-label="Copy the PGN of 1. f4 b5">Copy PGN</button>
 </span>
 </div>
@@ -6202,6 +6490,7 @@ footer {
 <span class="meta">35 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. f4 c6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. f4 c6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-f4-c6" aria-label="Copy the PGN of 1. f4 c6">Copy PGN</button>
 </span>
 </div>
@@ -6221,6 +6510,7 @@ footer {
 <span class="meta">45 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. f4 Nh6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. f4 Nh6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-f4-Nh6" aria-label="Copy the PGN of 1. f4 Nh6">Copy PGN</button>
 </span>
 </div>
@@ -6240,6 +6530,7 @@ footer {
 <span class="meta">58 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. f4 b6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. f4 b6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-f4-b6" aria-label="Copy the PGN of 1. f4 b6">Copy PGN</button>
 </span>
 </div>
@@ -6259,6 +6550,7 @@ footer {
 <span class="meta">62 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. f4 Nc6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. f4 Nc6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-f4-Nc6" aria-label="Copy the PGN of 1. f4 Nc6">Copy PGN</button>
 </span>
 </div>
@@ -6278,6 +6570,7 @@ footer {
 <span class="meta">40 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. f4 a6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. f4 a6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-f4-a6" aria-label="Copy the PGN of 1. f4 a6">Copy PGN</button>
 </span>
 </div>
@@ -6297,6 +6590,7 @@ footer {
 <span class="meta">31 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. f4 d6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. f4 d6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-f4-d6" aria-label="Copy the PGN of 1. f4 d6">Copy PGN</button>
 </span>
 </div>
@@ -6316,6 +6610,7 @@ footer {
 <span class="meta">55 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. f4 f5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. f4 f5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-f4-f5" aria-label="Copy the PGN of 1. f4 f5">Copy PGN</button>
 </span>
 </div>
@@ -6335,6 +6630,7 @@ footer {
 <span class="meta">59 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. f4 a5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. f4 a5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-f4-a5" aria-label="Copy the PGN of 1. f4 a5">Copy PGN</button>
 </span>
 </div>
@@ -6354,6 +6650,7 @@ footer {
 <span class="meta">30 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. f4 h6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. f4 h6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-f4-h6" aria-label="Copy the PGN of 1. f4 h6">Copy PGN</button>
 </span>
 </div>
@@ -6373,6 +6670,7 @@ footer {
 <span class="meta">47 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. f4 e5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. f4 e5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-f4-e5" aria-label="Copy the PGN of 1. f4 e5">Copy PGN</button>
 </span>
 </div>
@@ -6392,6 +6690,7 @@ footer {
 <span class="meta">64 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. f4 h5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. f4 h5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-f4-h5" aria-label="Copy the PGN of 1. f4 h5">Copy PGN</button>
 </span>
 </div>
@@ -6411,6 +6710,7 @@ footer {
 <span class="meta">38 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. f4 Na6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. f4 Na6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-f4-Na6" aria-label="Copy the PGN of 1. f4 Na6">Copy PGN</button>
 </span>
 </div>
@@ -6430,6 +6730,7 @@ footer {
 <span class="meta">41 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. f4 g5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. f4 g5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-f4-g5" aria-label="Copy the PGN of 1. f4 g5">Copy PGN</button>
 </span>
 </div>
@@ -6449,6 +6750,7 @@ footer {
 <span class="meta">61 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. f4 f6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. f4 f6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-f4-f6" aria-label="Copy the PGN of 1. f4 f6">Copy PGN</button>
 </span>
 </div>
@@ -6468,6 +6770,7 @@ footer {
 <span class="meta">40 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. h4 e5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. h4 e5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-h4-e5" aria-label="Copy the PGN of 1. h4 e5">Copy PGN</button>
 </span>
 </div>
@@ -6487,6 +6790,7 @@ footer {
 <span class="meta">31 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. h4 d5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. h4 d5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-h4-d5" aria-label="Copy the PGN of 1. h4 d5">Copy PGN</button>
 </span>
 </div>
@@ -6506,6 +6810,7 @@ footer {
 <span class="meta">61 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. h4 e6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. h4 e6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-h4-e6" aria-label="Copy the PGN of 1. h4 e6">Copy PGN</button>
 </span>
 </div>
@@ -6525,6 +6830,7 @@ footer {
 <span class="meta">32 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. h4 c5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. h4 c5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-h4-c5" aria-label="Copy the PGN of 1. h4 c5">Copy PGN</button>
 </span>
 </div>
@@ -6544,6 +6850,7 @@ footer {
 <span class="meta">98 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. h4 Nf6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. h4 Nf6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-h4-Nf6" aria-label="Copy the PGN of 1. h4 Nf6">Copy PGN</button>
 </span>
 </div>
@@ -6563,6 +6870,7 @@ footer {
 <span class="meta">31 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. h4 a6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. h4 a6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-h4-a6" aria-label="Copy the PGN of 1. h4 a6">Copy PGN</button>
 </span>
 </div>
@@ -6582,6 +6890,7 @@ footer {
 <span class="meta">58 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. h4 Nc6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. h4 Nc6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-h4-Nc6" aria-label="Copy the PGN of 1. h4 Nc6">Copy PGN</button>
 </span>
 </div>
@@ -6601,6 +6910,7 @@ footer {
 <span class="meta">88 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. h4 c6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. h4 c6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-h4-c6" aria-label="Copy the PGN of 1. h4 c6">Copy PGN</button>
 </span>
 </div>
@@ -6620,6 +6930,7 @@ footer {
 <span class="meta">47 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. h4 d6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. h4 d6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-h4-d6" aria-label="Copy the PGN of 1. h4 d6">Copy PGN</button>
 </span>
 </div>
@@ -6639,6 +6950,7 @@ footer {
 <span class="meta">63 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. h4 h6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. h4 h6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-h4-h6" aria-label="Copy the PGN of 1. h4 h6">Copy PGN</button>
 </span>
 </div>
@@ -6658,6 +6970,7 @@ footer {
 <span class="meta">41 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. h4 g6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. h4 g6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-h4-g6" aria-label="Copy the PGN of 1. h4 g6">Copy PGN</button>
 </span>
 </div>
@@ -6677,6 +6990,7 @@ footer {
 <span class="meta">71 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. h4 a5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. h4 a5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-h4-a5" aria-label="Copy the PGN of 1. h4 a5">Copy PGN</button>
 </span>
 </div>
@@ -6696,6 +7010,7 @@ footer {
 <span class="meta">59 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. h4 b5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. h4 b5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-h4-b5" aria-label="Copy the PGN of 1. h4 b5">Copy PGN</button>
 </span>
 </div>
@@ -6715,6 +7030,7 @@ footer {
 <span class="meta">44 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. h4 f5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. h4 f5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-h4-f5" aria-label="Copy the PGN of 1. h4 f5">Copy PGN</button>
 </span>
 </div>
@@ -6734,6 +7050,7 @@ footer {
 <span class="meta">50 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. h4 b6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. h4 b6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-h4-b6" aria-label="Copy the PGN of 1. h4 b6">Copy PGN</button>
 </span>
 </div>
@@ -6753,6 +7070,7 @@ footer {
 <span class="meta">54 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. h4 h5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. h4 h5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-h4-h5" aria-label="Copy the PGN of 1. h4 h5">Copy PGN</button>
 </span>
 </div>
@@ -6772,6 +7090,7 @@ footer {
 <span class="meta">54 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. h4 Nh6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. h4 Nh6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-h4-Nh6" aria-label="Copy the PGN of 1. h4 Nh6">Copy PGN</button>
 </span>
 </div>
@@ -6791,6 +7110,7 @@ footer {
 <span class="meta">59 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. h4 Na6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. h4 Na6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-h4-Na6" aria-label="Copy the PGN of 1. h4 Na6">Copy PGN</button>
 </span>
 </div>
@@ -6810,6 +7130,7 @@ footer {
 <span class="meta">41 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. h4 f6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. h4 f6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-h4-f6" aria-label="Copy the PGN of 1. h4 f6">Copy PGN</button>
 </span>
 </div>
@@ -6829,6 +7150,7 @@ footer {
 <span class="meta">67 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. h4 g5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. h4 g5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-h4-g5" aria-label="Copy the PGN of 1. h4 g5">Copy PGN</button>
 </span>
 </div>
@@ -6848,6 +7170,7 @@ footer {
 <span class="meta">59 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nh3 d5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nh3 d5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nh3-d5" aria-label="Copy the PGN of 1. Nh3 d5">Copy PGN</button>
 </span>
 </div>
@@ -6867,6 +7190,7 @@ footer {
 <span class="meta">48 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nh3 Nf6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nh3 Nf6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nh3-Nf6" aria-label="Copy the PGN of 1. Nh3 Nf6">Copy PGN</button>
 </span>
 </div>
@@ -6886,6 +7210,7 @@ footer {
 <span class="meta">49 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nh3 e5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nh3 e5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nh3-e5" aria-label="Copy the PGN of 1. Nh3 e5">Copy PGN</button>
 </span>
 </div>
@@ -6905,6 +7230,7 @@ footer {
 <span class="meta">55 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nh3 c5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nh3 c5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nh3-c5" aria-label="Copy the PGN of 1. Nh3 c5">Copy PGN</button>
 </span>
 </div>
@@ -6924,6 +7250,7 @@ footer {
 <span class="meta">32 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nh3 Nc6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nh3 Nc6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nh3-Nc6" aria-label="Copy the PGN of 1. Nh3 Nc6">Copy PGN</button>
 </span>
 </div>
@@ -6943,6 +7270,7 @@ footer {
 <span class="meta">39 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nh3 c6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nh3 c6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nh3-c6" aria-label="Copy the PGN of 1. Nh3 c6">Copy PGN</button>
 </span>
 </div>
@@ -6962,6 +7290,7 @@ footer {
 <span class="meta">81 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nh3 g6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nh3 g6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nh3-g6" aria-label="Copy the PGN of 1. Nh3 g6">Copy PGN</button>
 </span>
 </div>
@@ -6981,6 +7310,7 @@ footer {
 <span class="meta">64 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nh3 a5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nh3 a5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nh3-a5" aria-label="Copy the PGN of 1. Nh3 a5">Copy PGN</button>
 </span>
 </div>
@@ -7000,6 +7330,7 @@ footer {
 <span class="meta">40 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nh3 a6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nh3 a6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nh3-a6" aria-label="Copy the PGN of 1. Nh3 a6">Copy PGN</button>
 </span>
 </div>
@@ -7019,6 +7350,7 @@ footer {
 <span class="meta">40 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nh3 e6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nh3 e6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nh3-e6" aria-label="Copy the PGN of 1. Nh3 e6">Copy PGN</button>
 </span>
 </div>
@@ -7038,6 +7370,7 @@ footer {
 <span class="meta">61 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nh3 h6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nh3 h6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nh3-h6" aria-label="Copy the PGN of 1. Nh3 h6">Copy PGN</button>
 </span>
 </div>
@@ -7057,6 +7390,7 @@ footer {
 <span class="meta">44 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nh3 b6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nh3 b6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nh3-b6" aria-label="Copy the PGN of 1. Nh3 b6">Copy PGN</button>
 </span>
 </div>
@@ -7076,6 +7410,7 @@ footer {
 <span class="meta">34 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nh3 d6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nh3 d6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nh3-d6" aria-label="Copy the PGN of 1. Nh3 d6">Copy PGN</button>
 </span>
 </div>
@@ -7095,6 +7430,7 @@ footer {
 <span class="meta">40 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nh3 h5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nh3 h5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nh3-h5" aria-label="Copy the PGN of 1. Nh3 h5">Copy PGN</button>
 </span>
 </div>
@@ -7114,6 +7450,7 @@ footer {
 <span class="meta">61 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nh3 Nh6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nh3 Nh6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nh3-Nh6" aria-label="Copy the PGN of 1. Nh3 Nh6">Copy PGN</button>
 </span>
 </div>
@@ -7133,6 +7470,7 @@ footer {
 <span class="meta">35 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nh3 Na6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nh3 Na6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nh3-Na6" aria-label="Copy the PGN of 1. Nh3 Na6">Copy PGN</button>
 </span>
 </div>
@@ -7152,6 +7490,7 @@ footer {
 <span class="meta">33 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nh3 b5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nh3 b5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nh3-b5" aria-label="Copy the PGN of 1. Nh3 b5">Copy PGN</button>
 </span>
 </div>
@@ -7171,6 +7510,7 @@ footer {
 <span class="meta">80 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nh3 f5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nh3 f5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nh3-f5" aria-label="Copy the PGN of 1. Nh3 f5">Copy PGN</button>
 </span>
 </div>
@@ -7190,6 +7530,7 @@ footer {
 <span class="meta">49 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nh3 f6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nh3 f6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nh3-f6" aria-label="Copy the PGN of 1. Nh3 f6">Copy PGN</button>
 </span>
 </div>
@@ -7209,6 +7550,7 @@ footer {
 <span class="meta">28 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Nh3 g5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Nh3 g5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Nh3-g5" aria-label="Copy the PGN of 1. Nh3 g5">Copy PGN</button>
 </span>
 </div>
@@ -7228,6 +7570,7 @@ footer {
 <span class="meta">32 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. f3 e5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. f3 e5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-f3-e5" aria-label="Copy the PGN of 1. f3 e5">Copy PGN</button>
 </span>
 </div>
@@ -7247,6 +7590,7 @@ footer {
 <span class="meta">25 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. f3 Nf6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. f3 Nf6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-f3-Nf6" aria-label="Copy the PGN of 1. f3 Nf6">Copy PGN</button>
 </span>
 </div>
@@ -7266,6 +7610,7 @@ footer {
 <span class="meta">84 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. f3 d5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. f3 d5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-f3-d5" aria-label="Copy the PGN of 1. f3 d5">Copy PGN</button>
 </span>
 </div>
@@ -7285,6 +7630,7 @@ footer {
 <span class="meta">70 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. f3 c5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. f3 c5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-f3-c5" aria-label="Copy the PGN of 1. f3 c5">Copy PGN</button>
 </span>
 </div>
@@ -7304,6 +7650,7 @@ footer {
 <span class="meta">68 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. f3 e6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. f3 e6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-f3-e6" aria-label="Copy the PGN of 1. f3 e6">Copy PGN</button>
 </span>
 </div>
@@ -7323,6 +7670,7 @@ footer {
 <span class="meta">49 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. f3 Nc6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. f3 Nc6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-f3-Nc6" aria-label="Copy the PGN of 1. f3 Nc6">Copy PGN</button>
 </span>
 </div>
@@ -7342,6 +7690,7 @@ footer {
 <span class="meta">17 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. f3 d6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. f3 d6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-f3-d6" aria-label="Copy the PGN of 1. f3 d6">Copy PGN</button>
 </span>
 </div>
@@ -7361,6 +7710,7 @@ footer {
 <span class="meta">27 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. f3 h6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. f3 h6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-f3-h6" aria-label="Copy the PGN of 1. f3 h6">Copy PGN</button>
 </span>
 </div>
@@ -7380,6 +7730,7 @@ footer {
 <span class="meta">40 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. f3 g6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. f3 g6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-f3-g6" aria-label="Copy the PGN of 1. f3 g6">Copy PGN</button>
 </span>
 </div>
@@ -7399,6 +7750,7 @@ footer {
 <span class="meta">16 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. f3 a6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. f3 a6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-f3-a6" aria-label="Copy the PGN of 1. f3 a6">Copy PGN</button>
 </span>
 </div>
@@ -7418,6 +7770,7 @@ footer {
 <span class="meta">36 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. f3 h5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. f3 h5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-f3-h5" aria-label="Copy the PGN of 1. f3 h5">Copy PGN</button>
 </span>
 </div>
@@ -7437,6 +7790,7 @@ footer {
 <span class="meta">31 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. f3 Nh6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. f3 Nh6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-f3-Nh6" aria-label="Copy the PGN of 1. f3 Nh6">Copy PGN</button>
 </span>
 </div>
@@ -7456,6 +7810,7 @@ footer {
 <span class="meta">44 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. f3 f5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. f3 f5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-f3-f5" aria-label="Copy the PGN of 1. f3 f5">Copy PGN</button>
 </span>
 </div>
@@ -7475,6 +7830,7 @@ footer {
 <span class="meta">43 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. f3 a5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. f3 a5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-f3-a5" aria-label="Copy the PGN of 1. f3 a5">Copy PGN</button>
 </span>
 </div>
@@ -7494,6 +7850,7 @@ footer {
 <span class="meta">43 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. f3 b5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. f3 b5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-f3-b5" aria-label="Copy the PGN of 1. f3 b5">Copy PGN</button>
 </span>
 </div>
@@ -7513,6 +7870,7 @@ footer {
 <span class="meta">45 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. f3 b6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. f3 b6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-f3-b6" aria-label="Copy the PGN of 1. f3 b6">Copy PGN</button>
 </span>
 </div>
@@ -7532,6 +7890,7 @@ footer {
 <span class="meta">43 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. f3 c6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. f3 c6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-f3-c6" aria-label="Copy the PGN of 1. f3 c6">Copy PGN</button>
 </span>
 </div>
@@ -7551,6 +7910,7 @@ footer {
 <span class="meta">109 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. f3 f6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. f3 f6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-f3-f6" aria-label="Copy the PGN of 1. f3 f6">Copy PGN</button>
 </span>
 </div>
@@ -7570,6 +7930,7 @@ footer {
 <span class="meta">51 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. f3 Na6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. f3 Na6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-f3-Na6" aria-label="Copy the PGN of 1. f3 Na6">Copy PGN</button>
 </span>
 </div>
@@ -7589,6 +7950,7 @@ footer {
 <span class="meta">75 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. f3 g5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. f3 g5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-f3-g5" aria-label="Copy the PGN of 1. f3 g5">Copy PGN</button>
 </span>
 </div>
@@ -7608,6 +7970,7 @@ footer {
 <span class="meta">72 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Na3 e5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Na3 e5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Na3-e5" aria-label="Copy the PGN of 1. Na3 e5">Copy PGN</button>
 </span>
 </div>
@@ -7627,6 +7990,7 @@ footer {
 <span class="meta">42 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Na3 d5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Na3 d5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Na3-d5" aria-label="Copy the PGN of 1. Na3 d5">Copy PGN</button>
 </span>
 </div>
@@ -7646,6 +8010,7 @@ footer {
 <span class="meta">32 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Na3 e6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Na3 e6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Na3-e6" aria-label="Copy the PGN of 1. Na3 e6">Copy PGN</button>
 </span>
 </div>
@@ -7665,6 +8030,7 @@ footer {
 <span class="meta">51 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Na3 Nf6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Na3 Nf6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Na3-Nf6" aria-label="Copy the PGN of 1. Na3 Nf6">Copy PGN</button>
 </span>
 </div>
@@ -7684,6 +8050,7 @@ footer {
 <span class="meta">52 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Na3 Nc6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Na3 Nc6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Na3-Nc6" aria-label="Copy the PGN of 1. Na3 Nc6">Copy PGN</button>
 </span>
 </div>
@@ -7703,6 +8070,7 @@ footer {
 <span class="meta">61 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Na3 b6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Na3 b6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Na3-b6" aria-label="Copy the PGN of 1. Na3 b6">Copy PGN</button>
 </span>
 </div>
@@ -7722,6 +8090,7 @@ footer {
 <span class="meta">61 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Na3 d6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Na3 d6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Na3-d6" aria-label="Copy the PGN of 1. Na3 d6">Copy PGN</button>
 </span>
 </div>
@@ -7741,6 +8110,7 @@ footer {
 <span class="meta">60 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Na3 h6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Na3 h6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Na3-h6" aria-label="Copy the PGN of 1. Na3 h6">Copy PGN</button>
 </span>
 </div>
@@ -7760,6 +8130,7 @@ footer {
 <span class="meta">40 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Na3 c6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Na3 c6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Na3-c6" aria-label="Copy the PGN of 1. Na3 c6">Copy PGN</button>
 </span>
 </div>
@@ -7779,6 +8150,7 @@ footer {
 <span class="meta">37 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Na3 g6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Na3 g6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Na3-g6" aria-label="Copy the PGN of 1. Na3 g6">Copy PGN</button>
 </span>
 </div>
@@ -7798,6 +8170,7 @@ footer {
 <span class="meta">58 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Na3 f5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Na3 f5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Na3-f5" aria-label="Copy the PGN of 1. Na3 f5">Copy PGN</button>
 </span>
 </div>
@@ -7817,6 +8190,7 @@ footer {
 <span class="meta">66 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Na3 c5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Na3 c5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Na3-c5" aria-label="Copy the PGN of 1. Na3 c5">Copy PGN</button>
 </span>
 </div>
@@ -7836,6 +8210,7 @@ footer {
 <span class="meta">59 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Na3 a5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Na3 a5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Na3-a5" aria-label="Copy the PGN of 1. Na3 a5">Copy PGN</button>
 </span>
 </div>
@@ -7855,6 +8230,7 @@ footer {
 <span class="meta">34 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Na3 a6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Na3 a6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Na3-a6" aria-label="Copy the PGN of 1. Na3 a6">Copy PGN</button>
 </span>
 </div>
@@ -7874,6 +8250,7 @@ footer {
 <span class="meta">54 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Na3 h5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Na3 h5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Na3-h5" aria-label="Copy the PGN of 1. Na3 h5">Copy PGN</button>
 </span>
 </div>
@@ -7893,6 +8270,7 @@ footer {
 <span class="meta">89 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Na3 f6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Na3 f6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Na3-f6" aria-label="Copy the PGN of 1. Na3 f6">Copy PGN</button>
 </span>
 </div>
@@ -7912,6 +8290,7 @@ footer {
 <span class="meta">42 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Na3 Na6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Na3 Na6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Na3-Na6" aria-label="Copy the PGN of 1. Na3 Na6">Copy PGN</button>
 </span>
 </div>
@@ -7931,6 +8310,7 @@ footer {
 <span class="meta">84 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Na3 Nh6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Na3 Nh6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Na3-Nh6" aria-label="Copy the PGN of 1. Na3 Nh6">Copy PGN</button>
 </span>
 </div>
@@ -7950,6 +8330,7 @@ footer {
 <span class="meta">63 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Na3 b5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Na3 b5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Na3-b5" aria-label="Copy the PGN of 1. Na3 b5">Copy PGN</button>
 </span>
 </div>
@@ -7969,6 +8350,7 @@ footer {
 <span class="meta">63 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. Na3 g5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. Na3 g5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-Na3-g5" aria-label="Copy the PGN of 1. Na3 g5">Copy PGN</button>
 </span>
 </div>
@@ -7988,6 +8370,7 @@ footer {
 <span class="meta">67 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. g4 d5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. g4 d5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-g4-d5" aria-label="Copy the PGN of 1. g4 d5">Copy PGN</button>
 </span>
 </div>
@@ -8007,6 +8390,7 @@ footer {
 <span class="meta">50 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. g4 e5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. g4 e5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-g4-e5" aria-label="Copy the PGN of 1. g4 e5">Copy PGN</button>
 </span>
 </div>
@@ -8026,6 +8410,7 @@ footer {
 <span class="meta">33 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. g4 Nc6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. g4 Nc6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-g4-Nc6" aria-label="Copy the PGN of 1. g4 Nc6">Copy PGN</button>
 </span>
 </div>
@@ -8045,6 +8430,7 @@ footer {
 <span class="meta">64 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. g4 c5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. g4 c5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-g4-c5" aria-label="Copy the PGN of 1. g4 c5">Copy PGN</button>
 </span>
 </div>
@@ -8064,6 +8450,7 @@ footer {
 <span class="meta">37 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. g4 d6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. g4 d6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-g4-d6" aria-label="Copy the PGN of 1. g4 d6">Copy PGN</button>
 </span>
 </div>
@@ -8083,6 +8470,7 @@ footer {
 <span class="meta">53 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. g4 a6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. g4 a6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-g4-a6" aria-label="Copy the PGN of 1. g4 a6">Copy PGN</button>
 </span>
 </div>
@@ -8102,6 +8490,7 @@ footer {
 <span class="meta">46 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. g4 e6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. g4 e6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-g4-e6" aria-label="Copy the PGN of 1. g4 e6">Copy PGN</button>
 </span>
 </div>
@@ -8121,6 +8510,7 @@ footer {
 <span class="meta">18 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. g4 h5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. g4 h5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-g4-h5" aria-label="Copy the PGN of 1. g4 h5">Copy PGN</button>
 </span>
 </div>
@@ -8140,6 +8530,7 @@ footer {
 <span class="meta">23 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. g4 c6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. g4 c6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-g4-c6" aria-label="Copy the PGN of 1. g4 c6">Copy PGN</button>
 </span>
 </div>
@@ -8159,6 +8550,7 @@ footer {
 <span class="meta">27 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. g4 g6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. g4 g6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-g4-g6" aria-label="Copy the PGN of 1. g4 g6">Copy PGN</button>
 </span>
 </div>
@@ -8178,6 +8570,7 @@ footer {
 <span class="meta">64 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. g4 h6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. g4 h6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-g4-h6" aria-label="Copy the PGN of 1. g4 h6">Copy PGN</button>
 </span>
 </div>
@@ -8197,6 +8590,7 @@ footer {
 <span class="meta">53 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. g4 Na6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. g4 Na6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-g4-Na6" aria-label="Copy the PGN of 1. g4 Na6">Copy PGN</button>
 </span>
 </div>
@@ -8216,6 +8610,7 @@ footer {
 <span class="meta">56 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. g4 a5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. g4 a5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-g4-a5" aria-label="Copy the PGN of 1. g4 a5">Copy PGN</button>
 </span>
 </div>
@@ -8235,6 +8630,7 @@ footer {
 <span class="meta">51 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. g4 f6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. g4 f6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-g4-f6" aria-label="Copy the PGN of 1. g4 f6">Copy PGN</button>
 </span>
 </div>
@@ -8254,6 +8650,7 @@ footer {
 <span class="meta">52 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. g4 b5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. g4 b5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-g4-b5" aria-label="Copy the PGN of 1. g4 b5">Copy PGN</button>
 </span>
 </div>
@@ -8273,6 +8670,7 @@ footer {
 <span class="meta">42 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. g4 b6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. g4 b6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-g4-b6" aria-label="Copy the PGN of 1. g4 b6">Copy PGN</button>
 </span>
 </div>
@@ -8292,6 +8690,7 @@ footer {
 <span class="meta">58 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. g4 g5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. g4 g5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-g4-g5" aria-label="Copy the PGN of 1. g4 g5">Copy PGN</button>
 </span>
 </div>
@@ -8311,6 +8710,7 @@ footer {
 <span class="meta">60 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. g4 Nf6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. g4 Nf6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-g4-Nf6" aria-label="Copy the PGN of 1. g4 Nf6">Copy PGN</button>
 </span>
 </div>
@@ -8330,6 +8730,7 @@ footer {
 <span class="meta">51 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. g4 Nh6">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. g4 Nh6">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-g4-Nh6" aria-label="Copy the PGN of 1. g4 Nh6">Copy PGN</button>
 </span>
 </div>
@@ -8349,6 +8750,7 @@ footer {
 <span class="meta">25 moves</span>
 <span class="game-actions">
 <button class="open-board" type="button" aria-label="Open the board for 1. g4 f5">Open board</button>
+<button class="open-shape" type="button" aria-label="Show the shape of 1. g4 f5">Shape</button>
 <button class="copy" type="button" data-pgn="pgn-g4-f5" aria-label="Copy the PGN of 1. g4 f5">Copy PGN</button>
 </span>
 </div>
@@ -8480,5 +8882,6 @@ footer {
 })();
 </script>
 <script src="viewer.js"></script>
+<script src="shape.js"></script>
 </body>
 </html>
