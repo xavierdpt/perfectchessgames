@@ -490,7 +490,10 @@ footer {
   background: var(--surface); border: 1px solid var(--line);
   border-radius: 8px; padding: 12px 14px; box-shadow: var(--shadow);
 }
-.op-game .op-game-text { min-width: 0; }
+/* The board keeps its eight files: a flex item may shrink, and the board's own overflow: hidden
+   would then crop its right-hand files. The text takes what is left, wrapping its buttons. */
+.op-game .mini-board { flex: 0 0 auto; }
+.op-game .op-game-text { flex: 1 1 auto; min-width: 0; }
 .op-game h3 {
   font-family: Balthazar, Georgia, "Times New Roman", serif;
   font-weight: 400; font-size: 19px; margin: 0 0 4px; line-height: 1.15;
@@ -657,7 +660,9 @@ footer {
 .op-row-none { padding: 18px; margin: 0; color: var(--ink-soft); font-size: 14px; }
 
 @media (max-width: 900px) {
-  .op { grid-template-columns: minmax(0, 1fr); }
+  /* One column: the board (eight squares and half a square of coordinates) shrinks with the
+     viewport rather than overflow it, the 64px being the page's gutters. */
+  .op { grid-template-columns: minmax(0, 1fr); --sq: min(42px, calc((100vw - 64px) / 8.5)); }
   .op-find { margin-inline-start: 0; width: 100%; }
   .op-find input, .op-hits { width: 100%; }
   .op-modal { padding: 10px; }
