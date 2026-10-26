@@ -9,8 +9,12 @@
  * joins, so the board is the start position with the moves of the path applied to it, the
  * same three special cases activity.js already handles.
  *
- * The address is the line itself — #e4-Nf6-e5, the same name the game files carry — so every
+ * The address is the line itself — #e4_Nf6_e5, the same name the game files carry — so every
  * position on the page can be linked to, and the back button walks back up the line.
+ *
+ * A node whose position has a note (notes.js, task-position-notes.md) shows it beside the board.
+ * Hovering one of its move links paints the line on the board; clicking it goes to the node its
+ * moves reach from here, when the tree has one.
  */
 (function () {
   'use strict';
@@ -26,8 +30,10 @@
     'repetition': ['Repetition', 'is-draw']
   };
 
-  var tree = null, games = [], names = [], catalogue = [];
+  var tree = null, games = [], names = [], catalogue = [], notes = [];
   var parts = {}, squares = [];
+  // What draw() painted, so that a link's preview can be taken off again, and the note shown.
+  var shown = { board: null, last: null, path: [], note: null };
 
   function id(name) { return document.getElementById(name); }
   function esc(text) {
@@ -139,12 +145,16 @@
       return '<span class="op-eval none" title="the engine has not scored this move yet">' +
              'unscored</span>';
     }
-    var scored = { score: node.s, mate: !!node.x };
+    // `e`: the score is only the quick estimate, the move having no depth-25 score yet. It is
+    // drawn all the same, with the dot in the corner of its cell.
+    var scored = { score: node.s, mate: !!node.x, estimate: !!node.e };
     var fromWhite = white ? node.s : -node.s;
     var label = node.x ? 'mate ' + Math.abs(node.s) + (fromWhite > 0 ? ' W' : ' B')
       : (fromWhite > 0 ? '+' : fromWhite < 0 ? '−' : '±') +
         (Math.abs(fromWhite) / 100).toFixed(2);
-    return '<span class="op-eval" title="' + esc(label) + ', from White’s point of view">' +
+    var tooltip = label + ', from White’s point of view' +
+      (node.e ? '; a quick estimate, not yet scored at depth 25' : '');
+    return '<span class="op-eval" title="' + esc(tooltip) + '">' +
            '<span class="vw-cell">' + window.PCG.cellContents(scored, white) + '</span>' +
            esc(label) + '</span>';
   }
@@ -169,17 +179,23 @@
 
   /* ---- the page ---- */
 
-  // The address joins the moves with a dash, the way a game file is named. Castling is the
-  // one SAN with dashes of its own, so it is written without them — O-O-O is OOO — which
-  // nothing else in the notation can be mistaken for.
+  // The address is the game's name: the moves joined by `_`, with `+` written `P` and `#`
+  // written `H`. The separator is `_` so that castling keeps its own dashes, and the suffixes
+  // are substituted rather than dropped so that two spellings of a move cannot become two
+  // addresses. SAN has no `P` and no `H`, so a token ending in either can only be a suffix.
   function address(path) {
-    return path.map(function (san) { return san.replace(/-/g, ''); }).join('-');
+    return path.map(function (san) {
+      return san.replace(/\+/g, 'P').replace(/#/g, 'H');
+    }).join('_');
   }
 
   function parse(text) {
     if (!text) { return []; }
-    return text.split('-').map(function (token) {
-      return token === 'OO' ? 'O-O' : token === 'OOO' ? 'O-O-O' : token;
+    return text.split('_').filter(Boolean).map(function (token) {
+      var last = token.charAt(token.length - 1);
+      return last === 'P' ? token.slice(0, -1) + '+'
+        : last === 'H' ? token.slice(0, -1) + '#'
+          : token;
     });
   }
 
@@ -235,8 +251,11 @@
       ' <button type="button" class="open-shape">Shape</button></div></div>';
   }
 
-  function card(child, path, ply) {
+  function card(child, path, ply, pick) {
     var line = path.concat([child.m]);
+    // The engine's own choice at the position these cards come from. One search answers it
+    // where a full set of bars is thirty, so it is usually the only thing known about a move.
+    var isPick = pick !== undefined && child.m === pick;
     var game = child.g === undefined ? null : games[child.g];
     var open = !!(child.c && child.c.length);
 
@@ -267,11 +286,13 @@
         '<button type="button" class="open-shape">Shape</button></div></div>'
       : '<div class="op-soon">coming soon<span>no game played from here yet</span></div>';
 
-    return '<div class="op-card' + (game ? ' has-game' : '') + (open ? ' is-open' : '') + '"' +
+    return '<div class="op-card' + (game ? ' has-game' : '') + (open ? ' is-open' : '') +
+      (isPick ? ' is-pick' : '') + '"' +
       ' data-line="' + esc(address(line)) + '"' +
       (game ? ' data-game="' + esc(game.i) + '" data-title="' + esc(game.t) + '"' : '') +
       (open ? ' tabindex="0" role="link"' : '') + '>' +
       '<div class="op-head"><span class="op-move">' + numbered(ply, child.m) + '</span>' +
+      (isPick ? '<span class="op-pick" title="the move the engine plays from here">engine</span>' : '') +
       evaluation(child, ply % 2 === 0) + '</div>' +
       (titles.length ? '<div class="op-titles">' + titles.join('') + '</div>' : '') +
       body + '</div>';
@@ -288,7 +309,8 @@
       return;
     }
     var played = children.filter(function (child) { return child.g !== undefined; }).length;
-    var scored = children.filter(function (child) { return child.s !== undefined; }).length;
+    // An estimate is not a score yet.
+    var scored = children.filter(function (child) { return child.s !== undefined && !child.e; }).length;
     var one = children.length === 1;
     parts.count.textContent = children.length + (one ? ' move' : ' moves') + ' from here';
     parts.note.textContent =
@@ -298,9 +320,10 @@
        : played + ' of them have a game behind them') +
       '; the engine has scored ' + (scored === children.length ? (one ? 'it' : 'them all')
        : scored === 0 ? 'none of them' : scored) +
-      '. Best first, as the engine ranks them.';
+      '. Best first, as the engine ranks them.' +
+      (node.k ? ' It plays ' + node.k + ' from here.' : '');
     parts.cards.innerHTML = children.map(function (child) {
-      return card(child, path, path.length);
+      return card(child, path, path.length, node.k);
     }).join('');
   }
 
@@ -316,10 +339,52 @@
     drawName(node, path);
     squares = window.PCG.board(parts.board, false);
     window.PCG.paint(squares, board, last ? { from: last.from, to: last.to } : {});
+    shown = { board: board, last: last, path: path, note: notes[node.r] || null };
     drawHere(node, path);
+    drawNote();
     drawMoves(node, path);
     parts.here.textContent = path.length ? title(path) : '';
     document.title = (path.length ? title(path) : 'Openings') + ' · Openings';
+  }
+
+  /* ---- the position's note ---- */
+
+  function drawNote() {
+    var note = shown.note && window.PCGNotes ? shown.note : null;
+    parts.pnote.hidden = !note;
+    parts.pnote.innerHTML = note ? window.PCGNotes.render(note) : '';
+  }
+
+  function strip(san) { return san.replace(/[+#]+$/, ''); }
+
+  // The board after a link's line, its last move marked; null paints the position back.
+  function previewLink(text) {
+    var line = text && shown.note && shown.note.l && shown.note.l[text];
+    if (!line) {
+      window.PCG.paint(squares, shown.board, shown.last ? { from: shown.last.from, to: shown.last.to } : {});
+      return;
+    }
+    var board = shown.board, last = null;
+    line.u.forEach(function (uci) {
+      last = window.PCGNotes.move(uci);
+      board = window.PCG.applyMove(board, last);
+    });
+    window.PCG.paint(squares, board, { from: last.from, to: last.to });
+  }
+
+  // The node a link's moves reach from here, as a path, or null when the tree stops short.
+  function linkTarget(text) {
+    var node = chain(shown.path)[shown.path.length], path = shown.path.slice();
+    var sans = text.split(' ');
+    for (var i = 0; i < sans.length; i++) {
+      var next = (node.c || []).filter(function (child) {
+        return strip(child.m) === strip(sans[i]);
+      })[0];
+      if (!next) { return null; }
+      node = next;
+      path.push(next.m);
+    }
+    return path;
   }
 
   /* ---- the list a count opens ----
@@ -465,6 +530,20 @@
       event.preventDefault();
       go(card_.dataset.line);
     });
+    parts.pnote.addEventListener('mouseover', function (event) {
+      var link = event.target.closest('.nt-link');
+      if (link) { previewLink(link.dataset.link); }
+    });
+    parts.pnote.addEventListener('mouseout', function (event) {
+      if (event.target.closest('.nt-link')) { previewLink(null); }
+    });
+    parts.pnote.addEventListener('click', function (event) {
+      var link = event.target.closest('.nt-link');
+      if (!link) { return; }
+      event.preventDefault();
+      var target = linkTarget(link.dataset.link);
+      if (target) { go(address(target)); }
+    });
     window.addEventListener('hashchange', function () { closeList(); draw(); });
     wireSearch();
   }
@@ -473,7 +552,7 @@
     parts = { trail: id('op-trail'), name: id('op-name'), board: id('op-board'),
               turn: id('op-turn'), played: id('op-played'), count: id('op-count'),
               note: id('op-note'), cards: id('op-cards'), here: id('bar-here'),
-              search: id('op-search'), hits: id('op-hits') };
+              search: id('op-search'), hits: id('op-hits'), pnote: id('op-pnote') };
     fetch('openings.json').then(function (response) {
       if (!response.ok) { throw new Error(response.status + ' ' + response.statusText); }
       return response.json();
@@ -481,6 +560,7 @@
       tree = document_.t;
       games = document_.g || [];
       names = document_.d || [];
+      notes = document_.N || [];
       catalogueOf(tree, []);
       wire();
       draw();

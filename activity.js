@@ -115,7 +115,13 @@ window.PCG = (function () {
    * the site: the balance in centipawns, or a countable stack of bands for a mate.
    */
 
+  // A score that is only the quick estimate gets the game viewer's dot in the corner. The
+  // activity files never carry one; the openings page's cards can.
   function cellContents(move, white) {
+    return bar(move, white) + (move.estimate ? '<div class="vw-estimate"></div>' : '');
+  }
+
+  function bar(move, white) {
     var fromWhite = white ? move.score : -move.score;
     if (move.mate) {
       var count = Math.min(20, Math.max(1, Math.abs(move.score)));
@@ -213,7 +219,7 @@ window.PCG = (function () {
   // are positions the engine scored somewhere else and have no game to point at.
   function source(element, puzzle) {
     if (!puzzle || !puzzle.g) { element.textContent = ''; return; }
-    element.innerHTML = 'from <a href="index.html#' + puzzle.g + '">' + puzzle.g + '</a>, ' +
+    element.innerHTML = 'from <a href="openings.html#' + puzzle.g + '">' + puzzle.g + '</a>, ' +
                         'move ' + (Math.floor(puzzle.y / 2) + 1) + (puzzle.y % 2 ? '…' : '.');
   }
 

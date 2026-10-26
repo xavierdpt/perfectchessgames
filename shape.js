@@ -218,8 +218,10 @@
    */
 
   function fill(cell, move, white) {
-    var kind = move.mate ? 'mate' : 'cp';
-    if (cell.dataset.kind !== kind || move.mate) {
+    // An unscored cell has nothing to tween, so it is rebuilt like a mate rather than treated
+    // as a bar whose height happens to be missing.
+    var kind = move.score === null ? 'none' : move.mate ? 'mate' : 'cp';
+    if (cell.dataset.kind !== kind || kind !== 'cp') {
       cell.innerHTML = api().cellContents(move, white);
       cell.dataset.kind = kind;
     } else {

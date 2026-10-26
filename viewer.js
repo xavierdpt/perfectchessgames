@@ -9,6 +9,11 @@
  * Playing a move the game did not play leaves the line. There are no scores past that point,
  * so the board shows the position and stops there; the chosen move is marked in the minibar
  * beside the move the game actually played, which is the whole point of being able to try it.
+ *
+ * A position with a note (notes.js, task-position-notes.md) shows it under the status line. The
+ * game file says which position each ply is (`f`), so the note is found by position, whatever
+ * game reached it. Hovering one of its move links shows the line on the board; clicking it goes
+ * to that position when the game reaches it.
  */
 (function () {
   'use strict';
@@ -30,12 +35,21 @@
       var moves = parts.slice(1).map(function (token) {
         var flags = token.slice(6);
         var promo = flags.match(/[qrbn]/);
+        // `?` says the engine has not scored this move. It is in the list all the same: the
+        // list is what a click is looked up in and what the shape curve counts, and neither of
+        // those is about scores. A null score is drawn as a flat cell, never as a zero — zero
+        // is a real and interesting score.
+        var unscored = flags.indexOf('?') >= 0;
+        // `~` says the score is the quick estimate of a move with no depth-25 score yet. It is
+        // drawn as a score all the same, with a dot in the corner of its cell.
+        var estimate = flags.indexOf('~') >= 0;
         return {
           san: doc.d[d12(token.slice(0, 2))],
           from: d1(token[2]),
           to: d1(token[3]),
-          score: d12(token.slice(4, 6)) - 2048,
-          mate: flags.indexOf('!') >= 0,
+          score: unscored ? null : d12(token.slice(4, 6)) - 2048,
+          mate: !unscored && flags.indexOf('!') >= 0,
+          estimate: estimate,
           promo: promo ? promo[0] : null
         };
       });
@@ -79,6 +93,13 @@
   }
 
   function cellContents(move, whiteToMove) {
+    return bar(move, whiteToMove) + (move.estimate ? '<div class="vw-estimate"></div>' : '');
+  }
+
+  function bar(move, whiteToMove) {
+    if (move.score === null) {
+      return '<div class="vw-unscored"></div>';
+    }
     if (move.mate) {
       // Mate in N: N rectangles in the winner's colour, the grey behind them showing
       // through the gaps so they stay countable.
@@ -94,15 +115,20 @@
   }
 
   function scoreLabel(move) {
-    if (move.mate) return 'mate ' + move.score;
-    return 'cp ' + move.score;
+    if (move.score === null) return 'unscored';
+    var suffix = move.estimate ? ' (estimate)' : '';
+    if (move.mate) return 'mate ' + move.score + suffix;
+    return 'cp ' + move.score + suffix;
   }
 
   /* ---- the modal ---- */
 
   var root = null, squares = [], barsBox = null, rows = [], moveSpans = [];
-  var titleEl, plyEl, statusEl, movesEl, navButtons = {};
+  var titleEl, plyEl, statusEl, noteEl, movesEl, navButtons = {};
   var game = null, boards = [], ply = 0, origin = null, excursion = null;
+  // The positions of the game by ply (the file's `f`), the notes by position, and the board a
+  // hovered link shows in place of the position's.
+  var fens = [], notes = null, preview = null;
   var cache = {};
   var lastFocus = null;
 
@@ -127,6 +153,7 @@
               '<button type="button" data-go="end" title="Last position (End)">&#9654;|</button>' +
             '</div>' +
             '<div class="vw-status"></div>' +
+            '<div class="vw-note" hidden></div>' +
             '<div class="vw-moves"></div>' +
           '</div>' +
           '<div class="vw-right">' +
@@ -139,6 +166,7 @@
     titleEl = root.querySelector('.vw-title');
     plyEl = root.querySelector('.vw-ply');
     statusEl = root.querySelector('.vw-status');
+    noteEl = root.querySelector('.vw-note');
     movesEl = root.querySelector('.vw-moves');
     barsBox = root.querySelector('.vw-bars');
 
@@ -174,13 +202,33 @@
       if (row) goTo(Number(row.dataset.ply));
     });
     document.addEventListener('keydown', onKey);
+
+    noteEl.addEventListener('mouseover', function (event) {
+      var link = event.target.closest('.nt-link');
+      if (link) previewLink(link.dataset.link);
+    });
+    noteEl.addEventListener('mouseout', function (event) {
+      if (event.target.closest('.nt-link')) previewLink(null);
+    });
+    noteEl.addEventListener('click', function (event) {
+      var link = event.target.closest('.nt-link');
+      if (!link) return;
+      event.preventDefault();
+      var line = currentNote().l[link.dataset.link];
+      var target = fens.indexOf(line.f);
+      if (target >= 0) goTo(target);
+    });
   }
 
   /* ---- rendering ---- */
 
-  function currentBoard() { return excursion ? excursion.board : boards[ply]; }
+  function currentBoard() {
+    if (preview) return preview.board;
+    return excursion ? excursion.board : boards[ply];
+  }
 
   function lastMove() {
+    if (preview) return preview.move;
     if (excursion) return excursion.move;
     return ply > 0 ? game.positions[ply - 1].moves[game.positions[ply - 1].played] : null;
   }
@@ -295,7 +343,38 @@
     navButtons.next.disabled = navButtons.end.disabled = ply === total && !excursion;
   }
 
+  /* ---- the position's note ---- */
+
+  function currentNote() {
+    return !excursion && notes && fens[ply] ? notes[fens[ply]] : null;
+  }
+
+  function renderNote() {
+    var note = currentNote();
+    preview = null;
+    noteEl.hidden = !note;
+    noteEl.innerHTML = note ? window.PCGNotes.render(note) : '';
+  }
+
+  // The board after a link's line, its last move marked; null puts the position back.
+  function previewLink(text) {
+    var note = currentNote();
+    var line = text && note && note.l[text];
+    if (line) {
+      var board = boards[ply], move = null;
+      line.u.forEach(function (uci) {
+        move = window.PCGNotes.move(uci);
+        board = applyMove(board, move);
+      });
+      preview = { board: board, move: move };
+    } else {
+      preview = null;
+    }
+    renderBoard();
+  }
+
   function render() {
+    renderNote();
     renderBoard();
     renderHighlight();
     highlightMoves();
@@ -368,9 +447,16 @@
         }
       });
       titleEl.textContent = doc.t;
+      fens = doc.f || [];
       renderBars();
       renderMoves();
       goTo(0);
+      if (window.PCGNotes) {
+        window.PCGNotes.load().then(function (loaded) {
+          notes = loaded;
+          if (!root.hidden) render();
+        });
+      }
       root.querySelector('.vw-close').focus();
     }).catch(function (error) {
       statusEl.textContent = 'Could not load this game: ' + error.message;
