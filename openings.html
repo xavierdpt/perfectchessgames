@@ -397,9 +397,11 @@ footer {
   .ac { grid-template-columns: minmax(0, 1fr); --sq: min(44px, 10vw); --bar: 110px; }
 }
 /* The position's note (PN-9): notes.js writes it with the viewer's classes, which are made for
-   the dark board modal; on this page it is a card like the game's, in the page's own colours. */
+   the dark board modal; on this page it is a card like the game's, in the page's own colours.
+   It heads the wide column rather than sitting under the board, whose column is eight squares
+   wide: a note of several paragraphs there ran far below the board its links play on. */
 .op-pnote.vw-note {
-  margin-top: 14px; max-height: none;
+  margin: 0 0 22px; max-height: none;
   background: var(--surface); border: 1px solid var(--line); border-radius: 8px;
   box-shadow: var(--shadow); color: var(--ink); font-size: 14px; padding: 12px 16px;
 }
@@ -470,6 +472,11 @@ footer {
   gap: 26px; align-items: start; margin-bottom: 40px;
 }
 .op-here { display: flex; flex-direction: column; gap: 12px; }
+/* The board stays in view while the note and the cards beside it scroll, since hovering a
+   link in the note plays it on the board; only where the column fits the window's height. */
+@media (min-width: 901px) and (min-height: 760px) {
+  .op-here { position: sticky; top: 16px; }
+}
 .op-name {
   font-family: Balthazar, Georgia, "Times New Roman", serif;
   font-size: 26px; line-height: 1.15; margin: 0;
@@ -697,9 +704,9 @@ footer {
 <div class="vw-board" id="op-board"></div>
 <div class="op-turn" id="op-turn"></div>
 <div id="op-played"></div>
-<div class="vw-note op-pnote" id="op-pnote" hidden></div>
 </div>
 <div class="op-moves">
+<div class="vw-note op-pnote" id="op-pnote" hidden></div>
 <h2 id="op-count">Loading…</h2>
 <p class="note" id="op-note"></p>
 <div class="op-cards" id="op-cards"></div>
